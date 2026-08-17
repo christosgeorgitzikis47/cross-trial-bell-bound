@@ -1,0 +1,276 @@
+{
+  "source": "https://random.colorado.edu",
+  "api": "CURBy Twine Spool 1.0.0",
+  "pulses": [
+    {
+      "round": 28296,
+      "url": "https://random.colorado.edu/api/curbyq/round/28296/data",
+      "file": "curby_round_28296.bin",
+      "bytes": 9002564,
+      "sha256": "f29896b99b13c8b4d0612d6ea56ed3189ec924ab5125c40564adfff97cbea747",
+      "downloaded_utc": "2026-08-04T19:33:05.598917+00:00",
+      "stages": {
+        "request": {
+          "index": 84641,
+          "timestamp": "2025-08-22T19:14:40.826Z"
+        },
+        "precommit": {
+          "index": 84642,
+          "timestamp": "2025-08-22T19:26:51.486Z"
+        },
+        "randomness": {
+          "index": 84643,
+          "timestamp": "2025-08-22T19:27:38.760Z"
+        }
+      },
+      "nTrialsNeeded": 3993651,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 28295,
+      "url": "https://random.colorado.edu/api/curbyq/round/28295/data",
+      "file": "curby_round_28295.bin",
+      "bytes": 9002084,
+      "sha256": "a8c8b850ea0601feafbd6078ce67595a106a96954c0c75becb56fc1a3f11dfff",
+      "downloaded_utc": "2026-08-04T19:33:14.468323+00:00",
+      "stages": {
+        "request": {
+          "index": 84638,
+          "timestamp": "2025-08-22T19:01:40.124Z"
+        },
+        "precommit": {
+          "index": 84639,
+          "timestamp": "2025-08-22T19:12:59.481Z"
+        },
+        "randomness": {
+          "index": 84640,
+          "timestamp": "2025-08-22T19:13:38.833Z"
+        }
+      },
+      "nTrialsNeeded": 3993651,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 28294,
+      "url": "https://random.colorado.edu/api/curbyq/round/28294/data",
+      "file": "curby_round_28294.bin",
+      "bytes": 8996240,
+      "sha256": "9e6fb8e2396640a8241d4bb1bec63535cc635258e142cbfa383799c028fc0936",
+      "downloaded_utc": "2026-08-04T19:33:23.591651+00:00",
+      "stages": {
+        "request": {
+          "index": 84635,
+          "timestamp": "2025-08-22T18:49:10.826Z"
+        },
+        "precommit": {
+          "index": 84636,
+          "timestamp": "2025-08-22T18:59:57.817Z"
+        },
+        "randomness": {
+          "index": 84637,
+          "timestamp": "2025-08-22T19:00:38.167Z"
+        }
+      },
+      "nTrialsNeeded": 3993651,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 28293,
+      "url": "https://random.colorado.edu/api/curbyq/round/28293/data",
+      "file": "curby_round_28293.bin",
+      "bytes": 9004252,
+      "sha256": "eb5872a8e8e6c9a9395826de0c854e61245914392c1afbe130877319be70af41",
+      "downloaded_utc": "2026-08-04T19:33:32.460764+00:00",
+      "stages": {
+        "request": {
+          "index": 84632,
+          "timestamp": "2025-08-22T18:36:39.761Z"
+        },
+        "precommit": {
+          "index": 84633,
+          "timestamp": "2025-08-22T18:47:21.179Z"
+        },
+        "randomness": {
+          "index": 84634,
+          "timestamp": "2025-08-22T18:48:08.764Z"
+        }
+      },
+      "nTrialsNeeded": 3993651,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 28297,
+      "url": "https://random.colorado.edu/api/curbyq/round/28297/data",
+      "file": "curby_round_28297.bin",
+      "bytes": 9003748,
+      "sha256": "7c24d1527360231e9889728144eba7bf8545b09eb566c2a61a190883ad38188f",
+      "downloaded_utc": "2026-08-04T19:35:31.067612+00:00",
+      "stages": {
+        "request": {
+          "index": 84644,
+          "timestamp": "2025-08-22T19:28:40.318Z"
+        },
+        "precommit": {
+          "index": 84645,
+          "timestamp": "2025-08-22T19:41:34.662Z"
+        },
+        "randomness": {
+          "index": 84646,
+          "timestamp": "2025-08-22T19:42:38.156Z"
+        }
+      },
+      "nTrialsNeeded": 3993651,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 1000,
+      "url": "https://random.colorado.edu/api/curbyq/round/1000/data",
+      "file": "curby_round_1000.bin",
+      "bytes": 9187180,
+      "sha256": "d285e56ee369681167149822364eb9f88bc2f2af796221dceeef936782a761e6",
+      "downloaded_utc": "2026-08-07T20:33:47.653568+00:00",
+      "stages": {
+        "request": {
+          "index": 2997,
+          "timestamp": "2023-10-31T09:38:10.087Z"
+        },
+        "precommit": {
+          "index": 2998,
+          "timestamp": "2023-10-31T09:40:58.498Z"
+        },
+        "randomness": {
+          "index": 2999,
+          "timestamp": "2023-10-31T09:41:38.305Z"
+        }
+      },
+      "nTrialsNeeded": 2600159,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 15000,
+      "url": "https://random.colorado.edu/api/curbyq/round/15000/data",
+      "file": "curby_round_15000.bin",
+      "bytes": 9130928,
+      "sha256": "7949d5594e4b93ebcc5e69f8c01d70c51080feac2a2a74a7d8512f18851c6587",
+      "downloaded_utc": "2026-08-07T20:33:56.259079+00:00",
+      "stages": {
+        "request": {
+          "index": 44944,
+          "timestamp": "2024-03-07T03:30:40.245Z"
+        },
+        "precommit": {
+          "index": 44945,
+          "timestamp": "2024-03-07T03:36:31.179Z"
+        },
+        "randomness": {
+          "index": 44946,
+          "timestamp": "2024-03-07T03:37:38.739Z"
+        }
+      },
+      "nTrialsNeeded": 2389700,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 22000,
+      "url": "https://random.colorado.edu/api/curbyq/round/22000/data",
+      "file": "curby_round_22000.bin",
+      "bytes": 9086720,
+      "sha256": "5274c5b0c6acd01dbe3db4f786cda0e8b9f0978b56851cdf86b66e1b36817a11",
+      "downloaded_utc": "2026-08-07T20:34:04.757709+00:00",
+      "stages": {
+        "request": {
+          "index": 65906,
+          "timestamp": "2024-07-17T00:18:41.621Z"
+        },
+        "precommit": {
+          "index": 65907,
+          "timestamp": "2024-07-17T00:26:44.929Z"
+        },
+        "randomness": {
+          "index": 65908,
+          "timestamp": "2024-07-17T00:27:38.830Z"
+        }
+      },
+      "nTrialsNeeded": 3745942,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 23000,
+      "url": "https://random.colorado.edu/api/curbyq/round/23000/data",
+      "file": "curby_round_23000.bin",
+      "bytes": 9010560,
+      "sha256": "bcb3437738ce4a97da5a64e5c179689cbd296bb059f3bf4d9e0390fb99f35e29",
+      "downloaded_utc": "2026-08-07T20:34:13.238309+00:00",
+      "stages": {
+        "request": {
+          "index": 68892,
+          "timestamp": "2025-05-13T10:56:39.741Z"
+        },
+        "precommit": {
+          "index": 68893,
+          "timestamp": "2025-05-13T11:05:10.233Z"
+        },
+        "randomness": {
+          "index": 68894,
+          "timestamp": "2025-05-13T11:06:08.593Z"
+        }
+      },
+      "nTrialsNeeded": 1963636,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    },
+    {
+      "round": 26000,
+      "url": "https://random.colorado.edu/api/curbyq/round/26000/data",
+      "file": "curby_round_26000.bin",
+      "bytes": 8971712,
+      "sha256": "41d0acccc800172ba07cf132671084a9cfae88bda1a1b8826777fc0aa2baf8aa",
+      "downloaded_utc": "2026-08-07T20:34:21.985701+00:00",
+      "stages": {
+        "request": {
+          "index": 77787,
+          "timestamp": "2025-06-28T07:29:39.559Z"
+        },
+        "precommit": {
+          "index": 77788,
+          "timestamp": "2025-06-28T07:39:38.298Z"
+        },
+        "randomness": {
+          "index": 77789,
+          "timestamp": "2025-06-28T07:40:37.222Z"
+        }
+      },
+      "nTrialsNeeded": 2371056,
+      "stoppingCriteria": 15000000,
+      "nBitsOut": 512,
+      "seedLength": 249224,
+      "isQuantum": false
+    }
+  ]
+}

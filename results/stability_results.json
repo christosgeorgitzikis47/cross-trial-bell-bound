@@ -1,0 +1,137 @@
+[
+  {
+    "round": 28293,
+    "n": 15000000,
+    "rateA": 0.006913066666666667,
+    "rateB": 0.006921733333333333,
+    "OA vs SB": {
+      "max_sigma": 8.490192259510964,
+      "max_sigma_lag": 28,
+      "n_above_null_max": 1,
+      "null_max_bits": 4.060359817970597e-07,
+      "max_mi_bits": 5.946180776030566e-07
+    },
+    "OB vs SA": {
+      "max_sigma": 5.180552226632537,
+      "max_sigma_lag": 14,
+      "n_above_null_max": 0,
+      "null_max_bits": 5.655749488487629e-07,
+      "max_mi_bits": 4.2287738275674275e-07
+    },
+    "J": {
+      "J0": 2218,
+      "z0": 14.351854094871353,
+      "max_z_nonzero": -133.433758871313,
+      "max_z_nonzero_k": -28,
+      "n_positive_J_nonzero": 0
+    }
+  },
+  {
+    "round": 28294,
+    "n": 15000000,
+    "rateA": 0.0068704,
+    "rateB": 0.006845866666666666,
+    "OA vs SB": {
+      "max_sigma": 3.5347689809699654,
+      "max_sigma_lag": 21,
+      "n_above_null_max": 0,
+      "null_max_bits": 3.507943940404118e-07,
+      "max_mi_bits": 2.530904389865058e-07
+    },
+    "OB vs SA": {
+      "max_sigma": 3.0417551477480536,
+      "max_sigma_lag": -50,
+      "n_above_null_max": 0,
+      "null_max_bits": 5.649602525776044e-07,
+      "max_mi_bits": 2.6904432661324884e-07
+    },
+    "J": {
+      "J0": 1870,
+      "z0": 12.130587496265163,
+      "max_z_nonzero": -133.6235941713157,
+      "max_z_nonzero_k": -10000,
+      "n_positive_J_nonzero": 0
+    }
+  },
+  {
+    "round": 28295,
+    "n": 15000000,
+    "rateA": 0.006964333333333334,
+    "rateB": 0.0068960666666666665,
+    "OA vs SB": {
+      "max_sigma": 2.178134636914898,
+      "max_sigma_lag": 13,
+      "n_above_null_max": 0,
+      "null_max_bits": 4.5500377578510607e-07,
+      "max_mi_bits": 1.8358421554059024e-07
+    },
+    "OB vs SA": {
+      "max_sigma": 5.706440419600227,
+      "max_sigma_lag": -36,
+      "n_above_null_max": 1,
+      "null_max_bits": 4.087727725874302e-07,
+      "max_mi_bits": 4.409148917657629e-07
+    },
+    "J": {
+      "J0": 2050,
+      "z0": 13.263122662896318,
+      "max_z_nonzero": -133.67074384166165,
+      "max_z_nonzero_k": 44,
+      "n_positive_J_nonzero": 0
+    }
+  },
+  {
+    "round": 28296,
+    "n": 15000000,
+    "rateA": 0.006922333333333333,
+    "rateB": 0.006882266666666667,
+    "OA vs SB": {
+      "max_sigma": 2.5902261957231634,
+      "max_sigma_lag": 41,
+      "n_above_null_max": 0,
+      "null_max_bits": 6.887321725581279e-07,
+      "max_mi_bits": 2.212276903847723e-07
+    },
+    "OB vs SA": {
+      "max_sigma": 6.472354002034064,
+      "max_sigma_lag": 49,
+      "n_above_null_max": 0,
+      "null_max_bits": 4.931270503148795e-07,
+      "max_mi_bits": 4.791202721995009e-07
+    },
+    "J": {
+      "J0": 2184,
+      "z0": 14.20099252646384,
+      "max_z_nonzero": -133.54619879668763,
+      "max_z_nonzero_k": -32,
+      "n_positive_J_nonzero": 0
+    }
+  },
+  {
+    "round": 28297,
+    "n": 15000000,
+    "rateA": 0.006928333333333333,
+    "rateB": 0.006870866666666667,
+    "OA vs SB": {
+      "max_sigma": 4.243830817856508,
+      "max_sigma_lag": -6,
+      "n_above_null_max": 0,
+      "null_max_bits": 4.0680400405592766e-07,
+      "max_mi_bits": 3.161070647316548e-07
+    },
+    "OB vs SA": {
+      "max_sigma": 5.521347438743581,
+      "max_sigma_lag": 44,
+      "n_above_null_max": 0,
+      "null_max_bits": 3.845316336757368e-07,
+      "max_mi_bits": 3.6661426982345917e-07
+    },
+    "J": {
+      "J0": 1816,
+      "z0": 11.723695148017436,
+      "max_z_nonzero": -133.1987160776028,
+      "max_z_nonzero_k": 3,
+      "n_positive_J_nonzero": 0
+    }
+  }
+]

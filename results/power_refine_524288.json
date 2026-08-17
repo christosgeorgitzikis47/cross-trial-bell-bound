@@ -1,0 +1,473 @@
+{
+  "threshold": 3.0181765292654745,
+  "curves": {
+    "περιοδική P=12": {
+      "rows": [
+        {
+          "noise": 0.02,
+          "h2_noise": 0.14144054254182067,
+          "score_natural": 0.6876220703125,
+          "gain": 66618.12831540307,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.05,
+          "h2_noise": 0.28639695711595625,
+          "score_natural": 0.74591064453125,
+          "gain": 61433.01297998178,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.1,
+          "h2_noise": 0.4689955935892812,
+          "score_natural": 0.81927490234375,
+          "gain": 42448.631259615475,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.15,
+          "h2_noise": 0.6098403047164004,
+          "score_natural": 0.8770751953125,
+          "gain": 27847.590551632282,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.2,
+          "h2_noise": 0.7219280948873623,
+          "score_natural": 0.9224853515625,
+          "gain": 16993.2774791033,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.25,
+          "h2_noise": 0.8112781244591328,
+          "score_natural": 0.9578857421875,
+          "gain": 7076.386735889129,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.3,
+          "h2_noise": 0.8812908992306927,
+          "score_natural": 0.9797821044921875,
+          "gain": 3094.3561438102042,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.35,
+          "h2_noise": 0.934068055375491,
+          "score_natural": 0.9919586181640625,
+          "gain": 1262.3561438102042,
+          "detected": true,
+          "winner": "stride a=3357"
+        },
+        {
+          "noise": 0.4,
+          "h2_noise": 0.9709505944546686,
+          "score_natural": 0.9998592554561719,
+          "gain": 1214.1898651678348,
+          "detected": true,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.45,
+          "h2_noise": 0.9927744539878083,
+          "score_natural": 0.9999409906387944,
+          "gain": 10.754126004234422,
+          "detected": true,
+          "winner": "stride a=426075"
+        },
+        {
+          "noise": 0.46,
+          "h2_noise": 0.9953784388202257,
+          "score_natural": 0.9999397441023703,
+          "gain": 9.682440702570602,
+          "detected": true,
+          "winner": "stride a=426075"
+        },
+        {
+          "noise": 0.47,
+          "h2_noise": 0.9974015885677396,
+          "score_natural": 0.9999412990768048,
+          "gain": 1.778978946909774,
+          "detected": false,
+          "winner": "stride a=426075"
+        },
+        {
+          "noise": 0.48,
+          "h2_noise": 0.9988455359952018,
+          "score_natural": 0.9999412801359945,
+          "gain": 0.0,
+          "detected": false,
+          "winner": "identity"
+        },
+        {
+          "noise": 0.49,
+          "h2_noise": 0.9997114417528099,
+          "score_natural": 0.99994129491598,
+          "gain": 2.626341301947832e-05,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.495,
+          "h2_noise": 0.9999278640456615,
+          "score_natural": 0.9999412863096577,
+          "gain": 0.0,
+          "detected": false,
+          "winner": "identity"
+        },
+        {
+          "noise": 0.498,
+          "h2_noise": 0.9999884584088952,
+          "score_natural": 0.999941306466797,
+          "gain": 0.051700159325264394,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.499,
+          "h2_noise": 0.9999971146079947,
+          "score_natural": 0.9999412881995475,
+          "gain": 0.0,
+          "detected": false,
+          "winner": "identity"
+        }
+      ],
+      "last_detected": {
+        "noise": 0.46,
+        "h2_noise": 0.9953784388202257,
+        "score_natural": 0.9999397441023703,
+        "gain": 9.682440702570602,
+        "detected": true,
+        "winner": "stride a=426075"
+      },
+      "first_undetected": {
+        "noise": 0.47,
+        "h2_noise": 0.9974015885677396,
+        "score_natural": 0.9999412990768048,
+        "gain": 1.778978946909774,
+        "detected": false,
+        "winner": "stride a=426075"
+      }
+    },
+    "Thue-Morse": {
+      "rows": [
+        {
+          "noise": 0.02,
+          "h2_noise": 0.14144054254182067,
+          "score_natural": 0.255859375,
+          "gain": 314070.3561438102,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.05,
+          "h2_noise": 0.28639695711595625,
+          "score_natural": 0.43603515625,
+          "gain": 288630.3561438102,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.1,
+          "h2_noise": 0.4689955935892812,
+          "score_natural": 0.630859375,
+          "gain": 193495.3471124458,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.15,
+          "h2_noise": 0.6098403047164004,
+          "score_natural": 0.75958251953125,
+          "gain": 126007.17439366749,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.2,
+          "h2_noise": 0.7219280948873623,
+          "score_natural": 0.8563232421875,
+          "gain": 75287.48446849373,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.25,
+          "h2_noise": 0.8112781244591328,
+          "score_natural": 0.9222412109375,
+          "gain": 40726.737575998355,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.3,
+          "h2_noise": 0.8812908992306927,
+          "score_natural": 0.9679107666015625,
+          "gain": 16783.484468493727,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.35,
+          "h2_noise": 0.934068055375491,
+          "score_natural": 0.99224853515625,
+          "gain": 4022.7810679537943,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.4,
+          "h2_noise": 0.9709505944546686,
+          "score_natural": 0.9997115480316219,
+          "gain": 176.60375202988507,
+          "detected": true,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.45,
+          "h2_noise": 0.9927744539878083,
+          "score_natural": 0.9999350175583904,
+          "gain": 6.7103457498014905,
+          "detected": true,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.46,
+          "h2_noise": 0.9953784388202257,
+          "score_natural": 0.9999369093639701,
+          "gain": 1.4596699852845632,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.47,
+          "h2_noise": 0.9974015885677396,
+          "score_natural": 0.9999398883297961,
+          "gain": 0.005344090110156685,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.48,
+          "h2_noise": 0.9988455359952018,
+          "score_natural": 0.999941172674039,
+          "gain": 0.0,
+          "detected": false,
+          "winner": "identity"
+        },
+        {
+          "noise": 0.49,
+          "h2_noise": 0.9997114417528099,
+          "score_natural": 0.9999396759520301,
+          "gain": 0.0,
+          "detected": false,
+          "winner": "identity"
+        },
+        {
+          "noise": 0.495,
+          "h2_noise": 0.9999278640456615,
+          "score_natural": 0.9999411609163114,
+          "gain": 0.7229408555431291,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.498,
+          "h2_noise": 0.9999884584088952,
+          "score_natural": 0.9999413268578287,
+          "gain": 0.8921953431563452,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.499,
+          "h2_noise": 0.9999971146079947,
+          "score_natural": 0.999940695285511,
+          "gain": 0.6238394157262519,
+          "detected": false,
+          "winner": "bitreverse"
+        }
+      ],
+      "last_detected": {
+        "noise": 0.45,
+        "h2_noise": 0.9927744539878083,
+        "score_natural": 0.9999350175583904,
+        "gain": 6.7103457498014905,
+        "detected": true,
+        "winner": "bitreverse"
+      },
+      "first_undetected": {
+        "noise": 0.46,
+        "h2_noise": 0.9953784388202257,
+        "score_natural": 0.9999369093639701,
+        "gain": 1.4596699852845632,
+        "detected": false,
+        "winner": "bitreverse"
+      }
+    },
+    "Markov 1ης τάξης": {
+      "rows": [
+        {
+          "noise": 0.02,
+          "h2_noise": 0.14144054254182067,
+          "score_natural": 0.17417933084890147,
+          "gain": 366398.22313170135,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.05,
+          "h2_noise": 0.28639695711595625,
+          "score_natural": 0.322921436577969,
+          "gain": 354943.10617655364,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.1,
+          "h2_noise": 0.4689955935892812,
+          "score_natural": 0.4969522082583329,
+          "gain": 263694.20837225317,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.15,
+          "h2_noise": 0.6098403047164004,
+          "score_natural": 0.6319528276759152,
+          "gain": 192921.72749317117,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.2,
+          "h2_noise": 0.7219280948873623,
+          "score_natural": 0.7317426277908258,
+          "gain": 140603.6899735332,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.25,
+          "h2_noise": 0.8112781244591328,
+          "score_natural": 0.818289886637077,
+          "gain": 95228.03606935154,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.3,
+          "h2_noise": 0.8812908992306927,
+          "score_natural": 0.8877038310670153,
+          "gain": 58834.08641578513,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.35,
+          "h2_noise": 0.934068055375491,
+          "score_natural": 0.9368722452164405,
+          "gain": 33056.69816532859,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.4,
+          "h2_noise": 0.9709505944546686,
+          "score_natural": 0.9726486758602356,
+          "gain": 14299.30086029484,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.45,
+          "h2_noise": 0.9927744539878083,
+          "score_natural": 0.9929236043926081,
+          "gain": 3669.009511700773,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.46,
+          "h2_noise": 0.9953784388202257,
+          "score_natural": 0.9954223892980418,
+          "gain": 2359.166985544318,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.47,
+          "h2_noise": 0.9974015885677396,
+          "score_natural": 0.9974335909773262,
+          "gain": 1305.0571246934123,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.48,
+          "h2_noise": 0.9988455359952018,
+          "score_natural": 0.9988152248701446,
+          "gain": 580.3093129636254,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.49,
+          "h2_noise": 0.9997114417528099,
+          "score_natural": 0.9996629794597909,
+          "gain": 135.9892800358939,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.495,
+          "h2_noise": 0.9999278640456615,
+          "score_natural": 0.9998715336439385,
+          "gain": 26.46969125274336,
+          "detected": true,
+          "winner": "stride a=41467"
+        },
+        {
+          "noise": 0.498,
+          "h2_noise": 0.9999884584088952,
+          "score_natural": 0.999927461955982,
+          "gain": 0.9435191310476512,
+          "detected": false,
+          "winner": "bitreverse"
+        },
+        {
+          "noise": 0.499,
+          "h2_noise": 0.9999971146079947,
+          "score_natural": 0.9999385003895794,
+          "gain": 0.8512288328493014,
+          "detected": false,
+          "winner": "bitreverse"
+        }
+      ],
+      "last_detected": {
+        "noise": 0.495,
+        "h2_noise": 0.9999278640456615,
+        "score_natural": 0.9998715336439385,
+        "gain": 26.46969125274336,
+        "detected": true,
+        "winner": "stride a=41467"
+      },
+      "first_undetected": {
+        "noise": 0.498,
+        "h2_noise": 0.9999884584088952,
+        "score_natural": 0.999927461955982,
+        "gain": 0.9435191310476512,
+        "detected": false,
+        "winner": "bitreverse"
+      }
+    }
+  }
+}

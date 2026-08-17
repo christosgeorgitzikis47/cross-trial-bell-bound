@@ -1,0 +1,8 @@
+# Analysis (everything under code/ except collect_ibm.py)
+numpy>=1.24        # tested with 2.5.1
+scipy>=1.10        # tested with 1.18.0
+matplotlib>=3.7    # tested with 3.11.1, only needed for the figure scripts
+
+# Optional — only for code/collect_ibm.py (IBM Quantum hardware null test).
+# Not needed to reproduce any CURBy result.
+# qiskit-ibm-runtime>=0.30   # tested with 0.48.0

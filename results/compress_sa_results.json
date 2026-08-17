@@ -1,0 +1,20 @@
+{
+  "n": 2000000,
+  "rate1": 0.5004965,
+  "base_score": 1.0,
+  "gain": 0.0,
+  "threshold": 0.0,
+  "null": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "winner": "identity",
+  "n_perms": 833,
+  "bitrev_present": false
+}

@@ -1,0 +1,28 @@
+# --- raw CURBy data: public and large, never committed ---
+*.bin
+curby_28297.npz
+curby_trials.npz
+dedomena_curby/
+raw_ibm_marrakesh_*.npy
+*.npy.gz
+
+# --- credentials ---
+apikey.json
+*.pem
+*.key
+.env
+.env.*
+secrets.json
+
+# --- python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- os ---
+.DS_Store
+
+# LaTeX build intermediates
+paper/_build/
+endorsement_email_shalm.txt
