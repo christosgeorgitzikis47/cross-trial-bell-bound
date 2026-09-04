@@ -179,13 +179,48 @@ Beyond these, three mechanisms would produce the signature we search for:
    of the environment's history rather than of its instantaneous state.
 
 3. *Temporally extended boundary conditions.* Retrocausal accounts [5,6,7] fix
-   the hidden variable using a future boundary condition. These are normally
-   posed within a single trial, the relevant future being the setting of the same
-   measurement. If instead the boundary condition has finite temporal support —
-   if the constraint from the future is smeared over a window rather than
-   localised at one measurement — the dependence extends to neighbouring trials.
-   τ is then the width of that support, and the future-only kernels of §2.2 are
-   its natural form.
+   the hidden variable using a future boundary condition, and it matters what
+   that condition is a condition *on*. In the terminology of [6] the settings
+   are inputs to the model and the outcomes are outputs; such models are better
+   called future-input dependent, and what they give up is λ-independence — the
+   requirement that the distribution of λ be independent of the settings a and
+   b that lie in its future. The future-dependence is therefore on the
+   *setting*, a parameter fixed from outside the model. The outcome is not a
+   second future condition; it is the thing the model is built to explain. What
+   the scan of §3 measures is exactly the first quantity: δ(k) is the
+   dependence of an outcome at trial *i* on the *setting* at trial *i+k*.
+   Outcome–outcome dependence is a different object, bounded separately in
+   §6.5, and is not what a future-input dependent account calls for.
+
+   Such accounts are normally posed within a single trial, the relevant future
+   input being the setting of the same measurement, and the condition is then
+   imposed on an instantaneous hypersurface. That last step is the fragile one.
+   In the two-boundary field models the weight from which probabilities are
+   built is a flux integral of the field's four-current over a *closed*
+   hypersurface in spacetime [20], and restricting that surface to two parallel
+   instants is presented as a special case to be relaxed rather than as a
+   requirement [21]. A duration enters those models explicitly: the predictions
+   depend on the interval t₀ between the two boundaries, they depart from
+   standard quantum mechanics if either boundary constrains the energy — a
+   conserved quantity — to a precision near ħ/t₀, and two measurements cannot
+   be placed in a well-defined order at a separation shorter than the time a
+   measurement itself takes [20].
+
+   Our own reading of this, offered as an observation and not as anyone's
+   stated position, is that the durationless instant is the part that does not
+   survive. A future condition posed physically is carried by something that
+   persists over an interval, so the "moment of measurement" acquires a finite
+   extent, and a constraint of finite extent reaches neighbouring trials. τ is
+   that extent, in units of trials, and the future-only kernels of §2.2 are its
+   natural form.
+
+   The formalisation of this picture remains open. We know of no model that
+   derives a cross-trial kernel W(k) from a two-boundary or future-input
+   dependent starting point, and we do not supply one. The bound does not
+   require it: the only property of the kernel that enters the exclusion is
+   Q(τ) = Σ_k W(k)² (§2.2, §6.3), so whatever form the formalisation takes, its
+   coupling is bounded by the tables of §6.3 as soon as its W is evaluated on
+   the same lag grid.
 
 A fourth possibility is mundane and worth stating, because the test excludes it
 too: correlated drift between the setting generators and the detector state
@@ -1132,3 +1167,7 @@ answering an unsolicited enquiry from an independent researcher.
 [17] J. Handsteiner et al., *Phys. Rev. Lett.* **118**, 060401 (2017).
 [18] D. Rauch et al., *Phys. Rev. Lett.* **121**, 080403 (2018).
 [19] J. Barrett, R. Colbeck, A. Kent, *Phys. Rev. Lett.* **110**, 010503 (2013).
+[20] K. B. Wharton, "A novel interpretation of the Klein-Gordon equation",
+     *Found. Phys.* **40**, 313 (2010), arXiv:0706.4075.
+[21] K. B. Wharton, "Time-symmetric boundary conditions and quantum
+     foundations", *Symmetry* **2**, 272 (2010).

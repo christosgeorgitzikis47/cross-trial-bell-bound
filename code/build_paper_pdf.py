@@ -109,6 +109,7 @@ INLINE_EXACT = [
     ("σ_T = √(Σ W(k)² σ_δ(k)²)",
      r"$\sigma_T = \sqrt{\textstyle\sum_k W(k)^2\sigma_\delta(k)^2}$"),
     ("G = 2n ln2 · I", r"$G = 2n\ln 2\cdot I$"),
+    ("ħ/t₀", r"$\hbar/t_0$"),
     ("Q(τ) = Σ_k W(k)²", r"$Q(\tau)=\sum_k W(k)^2$"),
     ("Q = Σ W(k)²", r"$Q=\sum_k W(k)^2$"),
     ("(m₁−m₂)(r₁−r₂)/2n", r"$(m_1-m_2)(r_1-r_2)/2n$"),
