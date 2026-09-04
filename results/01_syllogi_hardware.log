@@ -1,7 +1,0 @@
-qiskit_runtime_service._discover_account:WARNING:2026-08-03 22:36:40,919: Loading account with the given token. A saved account will not be used.
-Επεξεργαστής: ibm_marrakesh
-Job ID: d9oerkna5u8s73e2ldmg  (μπορεί να περιμένει σε ουρά)
-  run 1/1: 16384 shots, ρυθμός 1 = 0.4979
-
-Αποθηκεύτηκε: raw_ibm_marrakesh_16384.npy   (16384 bits)
-Επόμενο: python3 analyse_raw.py raw_ibm_marrakesh_16384.npy

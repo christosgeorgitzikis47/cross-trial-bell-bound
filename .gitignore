@@ -26,3 +26,28 @@ venv/
 # LaTeX build intermediates
 paper/_build/
 endorsement_email_shalm.txt
+
+# --- files of the unrelated IBM Quantum / DJ-scratch project ---
+# Removed from version control in "Remove files from unrelated IBM Quantum
+# project"; kept on disk locally, ignored here so they stay untracked.
+code/collect_ibm.py
+code/analyse_raw.py
+code/scratch_test.py
+code/data_gen.py
+code/power.py
+code/scaling.py
+code/null_matched.py
+code/drift_check.py
+code/power_curve.py
+code/power_refine.py
+code/compress_sa.py
+results/0[0-9]_*
+results/10_*
+results/power_curve_524288.json
+results/power_refine_524288.json
+results/raw_ibm_marrakesh_524288_jobs.json
+results/compress_sa_*
+
+# --- superseded Greek-language plot scripts (figures_en.py replaces them) ---
+code/meros3_plot.py
+code/meros5_plot.py
