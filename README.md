@@ -1,79 +1,67 @@
-# cross-trial-bell-bound
+# Bounding cross-trial temporal coupling in a loophole-free Bell test
 
-An empirical bound on **cross-trial dependence** in a loophole-free Bell test:
-does the setting choice of one trial leave any trace in the outcome of a
-*different* trial? Public data: ten CURBy beacon rounds of 15,000,000 trials
-each, spanning twenty-two months of the archive.
+Does the setting chosen at one Bell trial leave any trace in the outcome of a
+*different* trial? This repository measures how large such a coupling could be
+without having been seen, using ten public rounds of the CURBy randomness
+beacon.
 
 Standard quantum mechanics predicts a strong correlation at lag 0 and exactly
-nothing at any other lag. Retrocausal and superdeterministic models that
-relax *measurement independence* generically predict a small non-zero signal
-that spreads over neighbouring trials. This repository measures how large such
-a signal could be without having been seen.
+nothing at any other lag. Models that relax measurement independence, including
+retrocausal ones, generically predict a small signal spread over neighbouring
+trials. The result here is null, and its value is that the region is now
+mapped rather than assumed empty.
 
-## Paper
+## The result
 
-**Bounding cross-trial temporal coupling in a loophole-free Bell test** —
-[`paper/georgitzikis_2026_cross_trial_bell_bound.pdf`](paper/georgitzikis_2026_cross_trial_bell_bound.pdf) (LaTeX source bundle for arXiv in
-[`paper/arxiv/`](paper/arxiv/); the arXiv identifier will be added here once
-the posting is announced).
+Scanning every lag |k| ≤ 10,000 between one party's outcome and the other
+party's setting, the mutual information is below **1.13 × 10⁻⁶ bits per
+trial**, at family-wise α = 0.05 over 40,002 hypotheses. That is 1/362 of the
+same-trial outcome–setting information the same analysis measures.
 
-**Christos Georgitzikis** · Independent Researcher ·
-<georgitzikis@me.com> ·
-[ORCID 0009-0009-5764-0600](https://orcid.org/0009-0009-5764-0600)
+In model parameters, for a coupling kernel of width τ trials with the
+same-trial term k = 0 excluded, the excluded coupling strength ε falls from
+**7.6 × 10⁻²** at τ = 1 to **4.4 × 10⁻⁴** at τ = 10,000 for a single pulse, and
+to **1.9 × 10⁻²** and **1.2 × 10⁻⁴** when all ten pulses are combined by
+inverse-variance weights. Here ε = 1 is the strength of the ordinary lag-0
+quantum correlation. Four kernel families were tested (symmetric, future-only,
+past-only, one-sided exponential) at 26 widths each: 208 tests on the single
+pulse and 208 on the joint estimate, zero detections in either.
 
-## Result
-
-- **Settings → outcomes.** Mutual information I(O_A(i); S_B(i+k)) < **1.13 × 10⁻⁶**
-  bits/trial for every |k| ≤ 10,000; 0/20,001 lags above threshold (largest
-  observed 7.11 × 10⁻⁷ at k = −9,992, p = 1.2 × 10⁻⁴ against a Bonferroni
-  threshold of 1.25 × 10⁻⁶).
-- **Outcomes → outcomes.** I(O_A(i); O_B(i+k)) < **1.066 × 10⁻⁶** bits/trial for
-  every 0 < |k| ≤ 10,000 — below **1/13,384** of the Bell correlation the same
-  analysis measures at k = 0 (1.4267 × 10⁻², G = 296,670), which is the positive
-  control.
-- **Exclusion map.** For the model p(i) = p₀(S_own(i)) + α·ε·Σ_{k≠0} W(k)·S_other(i+k)
-  — p(i) being the observable click probability, not a hidden variable, and the
-  same-trial term k = 0 excluded from every kernel — the coupling
-  is bounded by **ε < 7.6 × 10⁻²** at τ = 1 trial and **ε < 4.4 × 10⁻⁴** at
-  τ = 10,000 (O_A vs S_B), at family-wise α = 0.05, where ε = 1 is the strength
-  of the ordinary lag-0 quantum correlation. It was measured
-  for symmetric, future-only (retrocausal), past-only and one-sided exponential
-  kernels; the worst case over all four and both channels is 1.62 × 10⁻¹.
-  Within that tested class (4 families × 26 widths) the sensitivity follows an
-  approximately universal 1/√Q scaling with Q = Σ W(k)² — an empirical
-  regularity, not a theorem; the rigorous exclusion is for the four families.
-- **All ten pulses combined.** Each pulse analysed on its own terms and joined
-  by inverse-variance weights: **ε < 1.9 × 10⁻²** at τ = 1 and
-  **ε < 1.2 × 10⁻⁴** at τ = 10,000 — a mean factor 3.6 over the single pulse.
-  The ten per-pulse couplings are statistically homogeneous (χ²(9) test) and
-  the pulses are uncorrelated (max |r| = 0.018 over 90 pulse pairs), so the
-  weights are justified by measurement.
-- **Null side-checks, all ten pulses.** No single-party memory
-  (0/400,000 tests), no dependence on the parity of adjacent setting pairs
-  (0/400,020), no outcome–outcome structure at nonzero lag (0/200,000), and
-  no setting–setting correlation between the wings (0/400,020).
-
-Every bound is verified by injecting a signal of known (ε, τ) into the real
-data and recovering it, and every threshold is checked against an empirical
-null built from shuffled settings.
+Independently, the outcome–outcome mutual information at nonzero lag is below
+**1/13,384** of the Bell correlation at k = 0. Every bound is verified by
+injecting a signal of known (ε, τ) into the real data and recovering it.
 
 ![Exclusion map](figures/fig3_exclusion_map.png)
 
+## The paper
+
+[`paper/georgitzikis_2026_cross_trial_bell_bound.pdf`](paper/georgitzikis_2026_cross_trial_bell_bound.pdf)
+— 26 pages, 4 figures. The LaTeX source bundle prepared for arXiv is in
+[`paper/arxiv/`](paper/arxiv/); the arXiv identifier will be added here once
+the posting is announced.
+
+Christos Georgitzikis, Independent Researcher.
+[ORCID 0009-0009-5764-0600](https://orcid.org/0009-0009-5764-0600)
+
 ## Data
 
-The raw data is the CURBy quantum randomness beacon (NIST / University of
-Colorado Boulder), which publishes the full record of every Bell trial:
+The CURBy quantum randomness beacon (NIST and University of Colorado Boulder)
+publishes the full record of every Bell trial at <https://random.colorado.edu>.
 
-- <https://random.colorado.edu>
-- Rounds used: **28297** (primary map, 2025-08-22) plus 1000, 15000, 22000,
-  23000, 26000 and 28293–28296 — ten in all, 2023-10-31 to 2025-08-22; each
-  cut at the stopping criterion of 15,000,000 trials.
-- The `.bin` rounds are ~9 MB each and are **not** included in this repository.
-  `results/curby_manifest.json` records the exact URLs, byte counts and SHA-256
-  of every round downloaded, so the input can be verified bit for bit.
+Ten rounds are analysed: 1000, 15000, 22000, 23000, 26000, 28293, 28294, 28295,
+28296 and 28297, spanning 2023-10-31 to 2025-08-22, twenty-two months of the
+archive. Each is cut at the protocol stopping criterion of 15,000,000 trials.
+Round 28297 carries the single-pulse map; all ten carry the joint bound.
+
+The raw `.bin` rounds are about 9 MB each and are not committed here.
+[`results/curby_manifest.json`](results/curby_manifest.json) records the URL,
+byte count and SHA-256 of every round downloaded, so the input can be verified
+bit for bit.
 
 ## Reproducing
+
+Tested with Python 3.14.6, NumPy 2.5.1, SciPy 1.18.0 and Matplotlib 3.11.1.
+NumPy and SciPy are required; Matplotlib only for the figure scripts.
 
 ```bash
 pip install -r requirements.txt
@@ -85,74 +73,96 @@ python3 katevasma.py --rounds 28297
 # 2. unpack it into SA / SB / OA / OB arrays
 python3 load_curby.py curby_round_28297.bin --out curby_28297.npz
 
-# 3. main analyses (each reads curby_28297.npz from the same directory)
-python3 full_scan.py                 # ±10,000 lag scan, settings vs outcomes
-python3 meros1_alpha.py              # calibrate α (the ε = 1 convention)
+# 3. single-pulse analysis (each reads curby_28297.npz from this directory)
+python3 full_scan.py                 # +/-10,000 lag scan, settings vs outcomes
+python3 j_curve.py curby_28297.npz   # Eberhard J(k) and the shift-sign self-test
+python3 lag_test.py curby_28297.npz  # sampled scan with an empirical null
+python3 lag_dense.py curby_28297.npz # dense scan near k = 0, deadtime check
+python3 meros1_alpha.py              # calibrate alpha, the epsilon = 1 convention
 python3 meros2_injection.py          # injection test of the analytic relation
 python3 meros3_map.py                # matched filter, symmetric exclusion map
-python3 meros3_verify.py             # inject at ε_excl, ε_excl/2, 2·ε_excl
-python3 meros4_outcome_outcome.py    # outcome–outcome scan + k = 0 control
-python3 meros5_asym.py               # asymmetric kernels (future / past / exp)
-python3 meros5_verify.py             # injection test for the asymmetric filters
+python3 meros3_verify.py             # inject at the bound, half it, twice it
+python3 meros4_outcome_outcome.py    # outcome-outcome scan and k = 0 control
+python3 meros5_asym.py               # the four kernels
+python3 meros5_verify.py             # injection test for the one-sided filters
 
-# 4. audit (numbers quoted in §3, §6.3 and §7 of the paper)
-python3 meros6_p0.py                 # p₀ as a marginal; exact vs expanded MI
-python3 meros6_kernelQ.py            # ε ∝ 1/√Q and the Q → ε_excl table
-python3 meros6_systematic.py         # where the 3–7% systematic comes from
-python3 meros6_alpha10.py            # α for each of the ten pulses
+# 4. audit of quantities quoted in the paper
+python3 meros6_p0.py                 # p0 as a marginal; exact vs expanded MI
+python3 meros6_kernelQ.py            # the 1/sqrt(Q) regularity and its table
+python3 meros6_systematic.py         # origin of the 3-7% systematic
+python3 meros6_alpha10.py            # alpha for each of the ten pulses
+python3 meros11_optimality.py        # Gaussianity of delta-hat, kernel mismatch
 
 # 5. ten-pulse extensions (need the other nine rounds in dedomena_curby/)
-python3 meros7_power.py              # the ε = 0 and ε_excl/2 power levels
-python3 meros8_settings.py           # setting correlations, phantom signal
+python3 meros7_power.py              # the remaining two injection levels
+python3 meros8_settings.py           # setting correlations, the phantom signal
 python3 meros9_joint.py              # inverse-variance joint bound
 python3 meros10_settings10.py        # phantom check across all ten
-python3 meros11_optimality.py        # Gaussianity of δ̂, kernel mismatch
 python3 meros12_selfmemory.py        # single-party memory scan
 python3 meros13_parity.py            # setting-pair parity scan
-python3 meros14_oo10.py              # outcome–outcome scan, all ten
-python3 meros15_homogeneity.py       # ε homogeneity; matched-threshold cost
-python3 meros16_crosspulse.py        # cross-pulse correlation of δ̂(k)
+python3 meros14_oo10.py              # outcome-outcome scan, all ten
+python3 meros15_homogeneity.py       # epsilon homogeneity across pulses
+python3 meros16_crosspulse.py        # cross-pulse correlation, pulse independence
+python3 stability10.py               # J across all ten pulses, the 0-of-1,060 count
 
-# 6. figures (Figures 1–4 of the paper, English, PDF + PNG)
-python3 figures_en.py
+# 6. figures
+python3 figures_en.py                # Figures 1-4, vector PDF and PNG
 ```
 
-Runtime: the lag scans are FFT-based and take seconds; the empirical nulls
-(400–2,000 shuffles) take a few minutes each on a laptop. Every script writes
-a `.json` with full numbers and a `.txt` transcript — the ones in `results/`
-are exactly what the paper quotes.
+Building the PDF and its checks run from the repository root, not from `code/`,
+and need pandoc and pdflatex:
+
+```bash
+python3 code/build_paper_pdf.py      # paper_en.md -> the PDF
+python3 code/check_refs.py           # every internal cross-reference resolves
+python3 code/check_tables.py         # no table header orphaned from its table
+```
+
+Runtime on a laptop. A single lag scan is FFT-based and takes seconds, but
+every script that calibrates against an empirical null is dominated by its
+shuffles: `full_scan.py` uses 2,000 and takes about 12 minutes, the
+single-pulse matched-filter scripts use 400 and take 7 to 8 minutes each, and
+`meros9_joint.py` repeats that across ten pulses and takes about 70 minutes.
+It is the longest step by far. A full rerun downstream of the raw data is
+roughly two to three hours.
+
+Every script writes a `.json` with the full numbers and a `.txt` transcript of
+its console output, into the directory it is run from. The copies committed in
+`results/` are exactly what the paper quotes, so a rerun can be compared
+against them file by file.
 
 ## Layout
 
 ```
-paper/      paper_en.md (source), georgitzikis_2026_cross_trial_bell_bound.pdf,
-            arxiv/ (submission bundle)
-code/       all analysis scripts, flat; scripts import each other by name
-results/    .json / .txt / .log output of every run, plus .npz curve dumps
-figures/    fig1–fig4 of the paper (.pdf vector + .png)
+paper/      the paper: markdown source, built PDF, arXiv submission bundle
+code/       every analysis script, flat; they import each other by bare name
+results/    the .json, .txt and .npz output of every run quoted in the paper
+figures/    Figures 1-4, vector .pdf and .png
 ```
 
-Script names are transliterated Greek (`meros` = part, `xartis` = map,
-`katevasma` = download, `epalitheusi` = verification); the docstring at the
-top of each file explains what it does and, more importantly, what it refuses
-to assume.
+Every script in `code/` belongs to this analysis; nothing unrelated is kept
+here. Appendix A of the paper maps each one to the numbers it produces.
 
-| script | what it does |
-|---|---|
-| `katevasma.py`, `epalitheusi.py`, `xartografisi.py` | download, verify and map CURBy rounds |
-| `load_curby.py`, `compress_sa.py` | unpack the beacon format; settings-entropy check |
-| `full_scan.py`, `lag_test.py`, `lag_dense.py`, `lag_limit.py` | lag scans and their thresholds |
-| `j_curve.py`, `stability.py`, `stability10.py` | Bell parameter per round; stability across 10 rounds |
-| `meros1_alpha.py` … `meros5_plot.py` | calibration, injection, exclusion maps, asymmetric kernels |
-| `meros6_p0.py`, `meros6_systematic.py`, `meros6_kernelQ.py`, `meros6_alpha10.py` | audit: p₀ as a marginal, the σ_T systematic, ε ∝ 1/√Q, α across ten pulses |
-| `meros7_power.py` … `meros11_optimality.py` | power curve, phantom signal, joint bound, optimality checks |
-| `meros12_selfmemory.py`, `meros13_parity.py`, `meros14_oo10.py`, `meros15_homogeneity.py`, `meros16_crosspulse.py` | ten-pulse null scans: own-setting memory, pair parity, outcome–outcome, ε homogeneity, pulse independence |
-| `build_paper_pdf.py`, `check_refs.py`, `check_tables.py` | build the PDF from markdown; verify cross-references and table layout |
-| `figures_en.py` | Figures 1–4 of the paper (English, vector PDF + PNG) |
-| `diagnostiko_syssomatosis.py`, `null_matched.py`, `drift_check.py`, `scratch_test.py` | null diagnostics and matched-bias controls |
-| `data_gen.py`, `power.py`, `power_curve.py`, `power_refine.py`, `scaling.py` | simulator data and power curves |
-| `collect_ibm.py`, `analyse_raw.py` | independent IBM Quantum hardware null test (optional) |
+Script names are transliterated Greek: `meros` is part, `katevasma` is
+download, `epalitheusi` is verification, `xartografisi` is mapping. The
+docstring at the top of each file states what it computes and what it refuses
+to assume. Those docstrings and the console output are in Greek; the paper,
+this README and the figures are in English.
 
-## Licence
+## Citing
 
-MIT — see [LICENSE](LICENSE).
+Until the arXiv posting is announced, cite the repository and version:
+
+```
+C. Georgitzikis, "Bounding cross-trial temporal coupling in a loophole-free
+Bell test", version 12 (2026).
+https://github.com/christosgeorgitzikis47/cross-trial-bell-bound
+```
+
+## License
+
+The code in `code/` is MIT; see [LICENSE](LICENSE).
+
+The paper in `paper/`, and the figures reproduced in it, are licensed
+CC BY 4.0: <https://creativecommons.org/licenses/by/4.0/>. Reuse them
+freely, with attribution.
