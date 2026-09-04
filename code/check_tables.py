@@ -9,7 +9,7 @@
 (η κεφαλίδα) εμφανίζονται και ΠΡΙΝ από τη λεζάντα στην ίδια σελίδα, υπάρχει
 ορφανή κεφαλίδα.
 
-Χρήση:  python3 code/check_tables.py paper/paper_en.pdf
+Χρήση:  python3 code/check_tables.py paper/georgitzikis_2026_cross_trial_bell_bound.pdf
 """
 import re, subprocess, sys, os
 
@@ -53,5 +53,5 @@ def check(pdf):
 
 
 if __name__ == "__main__":
-    paths = sys.argv[1:] or ["paper/paper_en.pdf"]
+    paths = sys.argv[1:] or ["paper/georgitzikis_2026_cross_trial_bell_bound.pdf"]
     sys.exit(min(1, sum(check(p) for p in paths)))

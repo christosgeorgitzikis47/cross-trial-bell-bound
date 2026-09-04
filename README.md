@@ -14,7 +14,7 @@ a signal could be without having been seen.
 ## Paper
 
 **Bounding cross-trial temporal coupling in a loophole-free Bell test** —
-[`paper/paper_en.pdf`](paper/paper_en.pdf) (LaTeX source bundle for arXiv in
+[`paper/georgitzikis_2026_cross_trial_bell_bound.pdf`](paper/georgitzikis_2026_cross_trial_bell_bound.pdf) (LaTeX source bundle for arXiv in
 [`paper/arxiv/`](paper/arxiv/); the arXiv identifier will be added here once
 the posting is announced).
 
@@ -125,7 +125,8 @@ are exactly what the paper quotes.
 ## Layout
 
 ```
-paper/      paper_en.md (source), paper_en.pdf, arxiv/ (submission bundle)
+paper/      paper_en.md (source), georgitzikis_2026_cross_trial_bell_bound.pdf,
+            arxiv/ (submission bundle)
 code/       all analysis scripts, flat; scripts import each other by name
 results/    .json / .txt / .log output of every run, plus .npz curve dumps
 figures/    fig1–fig4 of the paper (.pdf vector + .png)

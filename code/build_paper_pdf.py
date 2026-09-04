@@ -1,5 +1,6 @@
 r"""
-paper/paper_en.md  ->  paper/paper_en.pdf   (arXiv-style preprint)
+paper/paper_en.md  ->  paper/georgitzikis_2026_cross_trial_bell_bound.pdf
+                       (arXiv-style preprint)
 
 ΤΙ ΚΑΝΕΙ
     1. Προεπεξεργασία του markdown: κάθε σύμβολο unicode γίνεται ΠΡΑΓΜΑΤΙΚΑ
@@ -510,7 +511,8 @@ def main():
         if r.returncode != 0:
             print(r.stdout[-4000:])
             sys.exit("pdflatex απέτυχε στο πέρασμα %d" % (i + 1))
-    out = os.path.join(ROOT, "paper", "paper_en.pdf")
+    out = os.path.join(ROOT, "paper",
+                       "georgitzikis_2026_cross_trial_bell_bound.pdf")
     shutil.copy(os.path.join(BUILD, "paper_en.pdf"), out)
     log = open(os.path.join(BUILD, "paper_en.log"), errors="ignore").read()
     m = re.search(r"Output written on .*?\((\d+) pages", log, re.S)
