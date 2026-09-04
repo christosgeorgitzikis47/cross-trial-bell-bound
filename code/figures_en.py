@@ -133,7 +133,7 @@ def fig3():
     taus = np.array(m5["taus"]); z_thr = m5["z_thr"]
     A = m5["pairs"]["OA vs SB"]; B = m5["pairs"]["OB vs SA"]
     col = {"sym": BLUE, "future": RED, "past": GREEN, "exp_future": PURPLE}
-    lab = {"sym": r"symmetric  $e^{-k^2/2\tau^2}$",
+    lab = {"sym": r"symmetric  $e^{-k^2/2\tau^2},\ k \neq 0$",
            "future": r"future-only  $k>0$",
            "past": r"past-only  $k<0$",
            "exp_future": r"exponential future  $e^{-k/\tau},\ k>0$"}

@@ -26,19 +26,22 @@ at family-wise α = 0.05 (Bonferroni, 40,002 hypotheses) — smaller by a factor
 of 362 than the same-trial outcome–setting mutual information measured on the
 same data. Expressed in model parameters, for a coupling kernel of temporal
 width τ we exclude coupling strength ε above ε_excl(τ), which falls from
-4.3 × 10⁻² at τ = 1 trial to 4.4 × 10⁻⁴ at τ = 10⁴ trials for a single pulse,
-and to 1.3 × 10⁻² and 1.2 × 10⁻⁴ when all ten pulses are combined by weight. The
+7.6 × 10⁻² at τ = 1 trial to 4.4 × 10⁻⁴ at τ = 10⁴ trials for a single pulse,
+and to 1.9 × 10⁻² and 1.2 × 10⁻⁴ when all ten pulses are combined by weight. The
 bound holds for
 symmetric, future-only, past-only, and one-sided exponential kernels: 208 tests
 on the single pulse and 208 more on the joint estimate, zero detections in
-either. It depends on the kernel only through Q = Σ W(k)², so any
-pre-specified, smoothly varying one-signed shape is covered once parametrised
-by Q. Independently, the
+either. For pre-specified kernels within the tested class, the observed
+sensitivity follows an approximately universal 1/√Q scaling, with
+Q = Σ W(k)²; the rigorous exclusion is stated for the four explicit families.
+Independently, the
 outcome–outcome mutual information at nonzero lag is bounded below 1/13,384 of
 the Bell correlation at k = 0.
 
-The result is null. Its value is that the region is now mapped rather than
-assumed empty.
+The absence of cross-trial memory that device-independent randomness and
+DI-QKD assume is thereby checked empirically on an operating beacon, at the
+stated sensitivity. The result is null. Its value is that the region is now
+mapped rather than assumed empty.
 
 ---
 
@@ -69,8 +72,8 @@ Since the outcome is generated from λ, I(O(i) ; S(i+k)) ≤ I(λ(i) ; S(i+k)); 
 small observed value does not force a small hidden one. The converse fails, and
 we do not claim it. The bound constrains models by their observable consequences,
 which is the only handle an experiment has, and is sufficient for the purpose:
-measurement dependence that leaves the outcome distribution untouched cannot be
-used to reproduce a Bell violation locally.
+measurement dependence that produces no observable signature in the measured
+outcome statistics is not constrained by this analysis.
 
 The retrocausal models cited above are almost exclusively *within-trial*:
 the outcome depends on the setting of the same measurement, chosen slightly
@@ -239,43 +242,57 @@ part.
 
 ### 2.2 Kernels
 
-Four kernels are considered. The quantity
+Four kernels are considered. In every one of them the lag k = 0 is excluded:
+W_τ(0) = 0 by definition. The k = 0 term would be the dependence of an outcome on
+the setting of the *same* trial — the no-signalling condition, a different
+physical question from cross-trial coupling, already tested separately in the
+"Cross-pair I at k = 0" row of Table 3 (§5). A model class named cross-trial
+must not contain the within-trial term, and the matched filter of §6.3 must not
+integrate over it. Every kernel, Q, and filter in this paper is therefore
+evaluated over 0 < |k| ≤ 10,000.^[An earlier version of this analysis included
+k = 0 in the symmetric kernel. Removing it changes the symmetric bounds at
+small τ only — by a factor of 1.7 at τ = 1, 3–7% at τ = 10, about 1% at
+τ = 100 and below 0.5% for τ ≥ 1,000 — and leaves the one-sided kernels, which never contained k = 0,
+unchanged.]
 
-> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window |k| ≤ 10,000
+The quantity
+
+> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window 0 < |k| ≤ 10,000
 
 is the only property of the kernel that enters the final bound (§6.3), so it is
 tabulated here alongside each shape:
 
 | Kernel | W(k) | Q(τ)/Q_sym, τ ≥ 10 | at τ = 1 |
 |---|---|---|---|
-| symmetric | exp(−k²/2τ²), all k | 1 | 1 |
-| future-only | exp(−k²/2τ²) for k > 0, else 0 | 0.499 | 0.218 |
-| past-only | exp(−k²/2τ²) for k < 0, else 0 | 0.499 | 0.218 |
-| exponential future | exp(−k/τ) for k > 0, else 0 | 0.280 | 0.088 |
+| symmetric | exp(−k²/2τ²), all k ≠ 0 | 1 | 1 |
+| future-only | exp(−k²/2τ²) for k > 0, else 0 | 0.500 | 0.500 |
+| past-only | exp(−k²/2τ²) for k < 0, else 0 | 0.500 | 0.500 |
+| exponential future | exp(−k/τ) for k > 0, else 0 | 0.282 | 0.203 |
 
 : The four kernel shapes and their Q relative to the symmetric kernel.
 
-The third column is asymptotic and is reached from above τ ≈ 10 (at τ = 10 the
-ratios are 0.472 and 0.255); the fourth shows how far a one-sided kernel falls
-short of half the symmetric Q when its support is a single trial. Q is computed
-exactly as a finite sum over the scan window, never asymptotically. One detail
-of the discrete lag grid: since k = 0 is excluded, the one-sided kernels peak at
-k = ±1, where W is exp(−1/2τ²) or exp(−1/τ) rather than exactly 1 — 0.61 and
-0.37 at τ = 1, within 1% of 1 for τ ≥ 10. The analysis uses these W as written. At
-small τ the quoted one-sided ε is therefore expressed in units of this
-sub-unity peak; restated in strictly peak-normalised units the excluded
-coupling would be *smaller* by the same factor, so the tables err on the
-conservative side.
+With k = 0 absent from all four, the one-sided Gaussians carry exactly half the
+symmetric Q at every τ. The exponential ratio is asymptotic and is reached from
+above τ ≈ 10 (0.270 at τ = 10, 0.281 at τ = 100). Q is computed exactly as a
+finite sum over the scan window, never asymptotically; the symmetric kernel
+has Q = 0.773 at τ = 1 and 2.545 at τ = 2. One detail of the discrete lag grid:
+since k = 0 is excluded, every kernel peaks at k = ±1, where W is exp(−1/2τ²) or
+exp(−1/τ) rather than exactly 1 — 0.61 and 0.37 at τ = 1, within 1% of 1 for
+τ ≥ 10. The analysis uses these W as written. At small τ the quoted ε is
+therefore expressed in units of this sub-unity peak; restated in strictly
+peak-normalised units the excluded coupling would be *smaller* by the same
+factor, so the tables err on the conservative side.
 
 The one-sided kernels matter because retrocausal models are future-input
 dependent [6] and therefore asymmetric; a symmetric-only analysis would leave
 the natural case untested. The sign convention is k > 0 ≡ future: the setting at
 trial i+k influences the outcome at trial i.
 
-A property of the one-sided kernels deserves note. Since k = 0 belongs to
-neither, the one-sided filters never touch the single lag that carries genuine
-quantum correlation and known systematics (detector deadtime). The one-sided
-bounds are therefore *cleaner* than the symmetric one, not merely weaker.
+A consequence of excluding k = 0 deserves note. None of the four filters
+touches the single lag that carries genuine quantum correlation and known
+systematics; the nearest lags, k = ±1, are where detector deadtime would
+appear, and Table 3 shows it does not at this sample size. What the filters
+integrate is cross-trial structure only.
 
 ---
 
@@ -330,8 +347,9 @@ since ε_excl ∝ 1/α, a device sensitive to its settings yields a tight bound 
 coupling of known (ε, τ) was injected into the real data — real settings
 retained, so that the true setting autocorrelation is preserved — and the
 resulting I(k) compared against prediction. Across τ = 1, 10, 100, 1000 and
-three ε each, mean ratios were 1.001 (δ amplitude), 1.007 (δ width), and 1.017
-(I width against the predicted τ/√2). An ε = 0 control was run before each τ and
+three ε each, mean ratios were 1.012 (δ amplitude), 1.002 (δ width), and 1.005
+(I width against the predicted τ/√2), the fits taken over k ≠ 0 since the
+kernel has no k = 0 term (§2.2). An ε = 0 control was run before each τ and
 produced a flat curve in every case. Injected probabilities are clipped to
 [0,1]; a point is declared invalid if more than 0.1% of trials clip, and the ε
 of each injection is chosen automatically to stay below that limit. The observed
@@ -387,7 +405,16 @@ This is not a constant of the dataset. For the ten pulses analysed here:
 is constant to 0.3%; the acquisition interval is not.
 
 The bound grows by a factor of 4.6 in twenty-two months at constant record
-count, for reasons the metadata does not explain. **The τ axis is therefore reported in trials throughout. The
+count, for reasons the metadata does not explain. The published description
+of the instrument [3] states a nominal rate — "about 250,000 trials every
+second", with 15 million trials acquired in ≈60 s — for the same protocol
+configuration analysed here (the 15,000,000-trial stopping criterion). At
+that nominal rate one trial is ≈4 µs, τ = 1 is ≈4 µs and τ = 10,000 is
+≈40 ms, and the request → precommit interval is dominated by overhead rather
+than acquisition, which would also account for its growth across the archive.
+The nominal figure is quoted alongside the metadata bound, not in place of
+it: it is the only per-trial timing the records themselves support, and the
+nominal rate is not verifiable from the records. **The τ axis is therefore reported in trials throughout. The
 conversion above applies to round 28297 only, is an upper bound rather than a
 measurement, and must not be transferred to other rounds.**
 
@@ -407,9 +434,10 @@ in §6.2.
 | Same-pair I at k = 0 | large | 4.091 × 10⁻⁴ bits, G = 8,508 → **92.2σ (√G)** |
 | Cross-pair I at k = 0 | zero (no-signalling) | 2.14 × 10⁻⁸ bits (0.67σ) and 2.09 × 10⁻¹¹ bits (0.02σ) |
 | Shift sign | injected k = +3 recovered at k = +3 | +134.2 (J/σ_J) at k = +3, on synthetic data |
-| Detector deadtime | visible at \|k\| = 1, absent beyond | **2.7σ (√G) at k = −1, O_B vs S_B — observed but not significant** |
+| Detector deadtime | visible at \|k\| = 1, absent beyond | **2.7σ (√G) at k = −1 in O_B vs S_B — observed but not significant** |
 | Mirror filter | one-sided filters distinguish direction | correct filter +10, mirrored 1.56 |
 | Setting independence | zero at every lag | max 4.83σ over 20,001 lags, 0 above threshold (§5.1) |
+| Pulse independence | δ̂(k) uncorrelated between pulses | max \|r\| = 0.018 over 90 pulse pairs (2.6σ), 0 above 3σ (§6.4) |
 
 : Validation checks passed before any result was accepted.
 
@@ -523,7 +551,7 @@ not a feature.
 Against the joint bound the phantom is correspondingly small. Taking the worst
 single pulse against the joint bound gives a ratio of 0.039; propagating the
 phantom into the joint estimate with the same inverse-variance weights as the
-data gives 0.018. **The fake signal is at least 57 times below the joint bound
+data gives 0.015. **The fake signal is at least 65 times below the joint bound
 at every point of the map.** Setting independence, to the precision the data
 allow, is not an assumption here but a measurement — in every pulse used.
 
@@ -565,6 +593,13 @@ sensitivity, so the stated numbers are conservative.]
 
 This is 1/362 of the same-trial value. Bonferroni does not assume independence;
 neighbouring lags are correlated, which renders the correction conservative.
+Family-wise control is the appropriate criterion here, and not a false-discovery
+rate such as Benjamini–Hochberg: an FDR procedure controls the expected
+fraction of false positives *among the discoveries*, which with zero
+discoveries constrains nothing, whereas an upper bound is by definition a
+statement about the family-wise probability of any false detection. The
+positive correlation of neighbouring lags makes Bonferroni conservative for
+that purpose, as already noted.
 The full scan is shown in **Figure 1**.
 
 ![Figure 1](../figures/fig1_mi_vs_lag.png)
@@ -639,7 +674,7 @@ Bob's. Here σ_T is the standard deviation of T under the null. σ_T is obtained
 ways and **the larger of the two is used**: analytically, σ_T = √(Σ W(k)² σ_δ(k)²)
 from the binomial error of each 2×2 table, and empirically, from 400 shuffles of
 the setting sequence per pair. The empirical and analytic values agree to within
-1.7% on average per kernel (0.94–1.06 per individual τ). Two assumptions were
+1.8% on average per kernel (0.94–1.06 per individual τ). Two assumptions were
 verified rather than assumed: the δ̂(k) are uncorrelated across k (|r| ≤ 0.014 at
 Δk = 1, 2, 3, 5, 10, against a standard error of 0.007), and the null is centred
 (mean z under shuffling ≤ 0.05 in magnitude).
@@ -654,7 +689,7 @@ Kolmogorov–Smirnov p of 0.535 for O_A vs S_B, and mean +0.0062, standard
 deviation 1.0000, p = 0.223 for O_B vs S_A. The tails, which are what a 4.85σ
 threshold actually depends on, match too: 922 and 884 lags beyond 2σ against 910
 expected, 49 and 65 beyond 3σ against 54, none beyond 4σ against 1.3 expected.
-Where the shape is *not* known — the case the Q-parametrisation below addresses —
+Where the shape is *not* known — the case the 1/√Q regularity below bears on —
 optimality is lost and the filter is merely valid: the threshold and the bound
 remain correct, but some other filter could be more sensitive.
 
@@ -673,11 +708,11 @@ i.e. 1, 2, 3, 5, 7, 10, 15, 22, 30, 32, 46, 68, 100, 147, 215, 300, 316, 464,
 
 | τ (trials) | symmetric | future-only | past-only | exp. future |
 |---|---|---|---|---|
-| 1 | 4.264 × 10⁻² | 9.954 × 10⁻² | 1.017 × 10⁻¹ | 1.502 × 10⁻¹ |
-| 10 | 1.434 × 10⁻² | 1.949 × 10⁻² | 2.368 × 10⁻² | 2.580 × 10⁻² |
-| 100 | 4.231 × 10⁻³ | 6.207 × 10⁻³ | 5.674 × 10⁻³ | 8.014 × 10⁻³ |
-| 1,000 | 1.488 × 10⁻³ | 2.023 × 10⁻³ | 1.933 × 10⁻³ | 2.613 × 10⁻³ |
-| 10,000 | 4.378 × 10⁻⁴ | 6.407 × 10⁻⁴ | 6.420 × 10⁻⁴ | 8.230 × 10⁻⁴ |
+| 1 | 7.559 × 10⁻² | 9.954 × 10⁻² | 1.017 × 10⁻¹ | 1.502 × 10⁻¹ |
+| 10 | 1.533 × 10⁻² | 1.949 × 10⁻² | 2.368 × 10⁻² | 2.580 × 10⁻² |
+| 100 | 4.277 × 10⁻³ | 6.207 × 10⁻³ | 5.674 × 10⁻³ | 8.014 × 10⁻³ |
+| 1,000 | 1.493 × 10⁻³ | 2.023 × 10⁻³ | 1.933 × 10⁻³ | 2.613 × 10⁻³ |
+| 10,000 | 4.373 × 10⁻⁴ | 6.407 × 10⁻⁴ | 6.420 × 10⁻⁴ | 8.230 × 10⁻⁴ |
 
 : Excluded coupling strength ε_excl(τ) for the four kernels, O_A vs S_B.
 
@@ -694,10 +729,13 @@ gives the upper-bound conversion of §4.1 and applies to this round only. Vector
 version: `figures/fig3_exclusion_map.pdf`.
 
 The one-sided bounds relax by the geometrically expected factor: predicted
-√(1/0.499) = 1.415 against measured 1.38–1.44 for the one-sided Gaussians, and
-predicted 1.89 against measured 1.81–1.93 for the exponential (medians over
-τ ≥ 3; at τ = 1 the ratios are larger, because there Q/Q_sym is 0.218 rather
-than 0.499). These are factors of order unity, not orders of magnitude. The
+√2 = 1.414 against a measured median of 1.38 (range 1.18–1.56) for the
+one-sided Gaussians, and predicted √(1/0.282) = 1.88 against a median of 1.85
+(1.66–1.99) for the exponential, over both pairs and τ ≥ 3. With k = 0 absent
+from every kernel the expected factor is the same at all τ; the scatter about
+it is the random data term |ε̂|, which is largest at small τ, where each filter
+rests on a handful of lags. These are factors of order unity, not orders of
+magnitude. The
 worst value anywhere on the map is 1.62 × 10⁻¹ — even at its weakest point, the
 analysis excludes coupling above one sixth of ordinary quantum mechanics.
 
@@ -707,32 +745,38 @@ Q(τ) = Σ_k W(k)², and ε_excl ∝ 1/√Q. This was verified numerically on th
 threshold term of the bound, z_thr σ_T/(αQ), which is the part that carries the
 kernel dependence: its product with √Q has a standard deviation of 3.5% across
 all 208 points, most of which is the difference between the two pairs
-(α_A ≠ α_B), with within-kernel scatter below 2%. The full product ε_excl·√Q
+(α_A ≠ α_B), with within-kernel scatter of about 2%. The full product ε_excl·√Q
 scatters more (8%), because it also contains the random data term |ε̂| of each
 kernel; the constant below is taken from the full product, so that scatter is
-included in c. The bound therefore applies to any pre-specified, smoothly
-varying one-signed kernel shape, read off by its Q:
+included in c. The tested class is explicit: four families × 26 widths, 104
+shapes, each measured in both channels. For pre-specified kernels within the
+tested class, the observed sensitivity follows an approximately universal
+1/√Q scaling; the rigorous exclusion is stated for the four explicit
+families. The table below records that empirical regularity, tabulated by Q,
+and is offered as a reading aid — not as a theorem, and not as an exclusion
+of shapes that were not tested:
 
 | Q | ε_excl | example shape |
 |---|---|---|
-| 3 | 4.06 × 10⁻² | narrow kernel over ~3 lags |
-| 10 | 2.22 × 10⁻² | Gaussian τ ≈ 5.6, exponential τ ≈ 20 |
-| 100 | 7.03 × 10⁻³ | Gaussian τ ≈ 56, square over 100 lags |
-| 1,000 | 2.22 × 10⁻³ | Gaussian τ ≈ 564, exponential τ ≈ 2,000 |
-| 10,000 | 7.03 × 10⁻⁴ | Gaussian τ ≈ 5,642 |
+| 3 | 4.07 × 10⁻² | narrow kernel over ~3 lags |
+| 10 | 2.23 × 10⁻² | Gaussian τ ≈ 5.6, exponential τ ≈ 20 |
+| 100 | 7.05 × 10⁻³ | Gaussian τ ≈ 56, square over 100 lags |
+| 1,000 | 2.23 × 10⁻³ | Gaussian τ ≈ 564, exponential τ ≈ 2,000 |
+| 10,000 | 7.05 × 10⁻⁴ | Gaussian τ ≈ 5,642 |
 
-: The bound read off by the kernel's Q alone, for any pre-specified smooth
-one-signed shape.
+: The empirical 1/√Q regularity of the bound within the tested class,
+tabulated by Q. An empirical regularity, not a theorem; the rigorous
+exclusion is the one stated for the four explicit families.
 
-with ε_excl(Q) = c/√Q, c = 0.0703 taken as the maximum of ε·√Q over the 168
-points with τ ≥ 10 (mean 0.0597), so that the table never promises a tighter
+with ε_excl(Q) = c/√Q, c = 0.0705 taken as the maximum of ε·√Q over the 168
+points with τ ≥ 10 (mean 0.0598), so that the table never promises a tighter
 bound than was measured; checked against all four measured kernels at τ = 10,
 100, 1,000 and 10,000, the formula is looser than the measurement by factors of
 1.03 to 1.32. Three conditions apply: W normalised to max W = 1; summation
 within |k| ≤ 10,000; and a kernel specified in advance whose weight varies
 smoothly over its support. The last condition is not decorative. The data term
 |ε̂| of each kernel is a random draw of the noise with standard deviation
-0.011/√Q, of which c covers 1.6 standard deviations — ample for kernels that
+0.011/√Q, of which c covers about 1.3 standard deviations on average — ample for kernels that
 average over many lags the way the four tested families do, but a kernel
 concentrated on a few isolated lags can align with individual fluctuations of
 δ̂(k) and exceed the tabulated value: an indicator kernel placed on the three
@@ -740,9 +784,11 @@ largest same-sign δ̂ of this dataset would need 6.8 × 10⁻², 1.7 times the
 Q = 3 entry. Such concentrated kernels — and everything with Q < 3 — should be
 read against the measured δ̂(k) directly rather than from the table.
 
-This addresses the arbitrariness of the Gaussian choice: it is not that four
-shapes were tested, but that the whole family of smooth one-signed shapes is
-covered once parametrised by Q.
+This addresses the arbitrariness of the Gaussian choice only in part. Within
+the tested class the sensitivity is set by Q and not by the details of the
+shape, which is why the Gaussian was not a special choice; but a kernel
+outside the tested class is not thereby excluded, and no claim is made for
+it.
 
 The map was verified by injection at four levels — ε = 0, ε_excl/2, ε_excl and
 2ε_excl — with ten repetitions per point, at two values of τ for each of the
@@ -771,10 +817,10 @@ range of τ_filter gives, as a fraction of the matched value:
 
 | τ_filter / τ_true | 0.1 | 1/3 | 0.5 | 0.825 | 1 | 1.21 | 2 | 3 | 10 |
 |---|---|---|---|---|---|---|---|---|---|
-| τ_true = 30 | 0.434 | 0.779 | 0.898 | 0.990 | 1 | 0.993 | 0.904 | 0.785 | 0.442 |
-| τ_true = 300 | 0.436 | 0.795 | 0.910 | 0.995 | 1 | 0.987 | 0.881 | 0.757 | 0.423 |
-| τ_true = 3,000 | 0.436 | 0.769 | 0.887 | 0.989 | 1 | 0.992 | 0.903 | 0.822 | 0.734 |
-| closed form | 0.445 | 0.775 | 0.894 | 0.991 | 1 | 0.991 | 0.894 | 0.775 | 0.445 |
+| τ_true = 30 | 0.425 | 0.777 | 0.897 | 0.990 | 1 | 0.993 | 0.904 | 0.784 | 0.440 |
+| τ_true = 300 | 0.434 | 0.794 | 0.909 | 0.995 | 1 | 0.987 | 0.882 | 0.758 | 0.425 |
+| τ_true = 3,000 | 0.433 | 0.769 | 0.887 | 0.989 | 1 | 0.992 | 0.903 | 0.822 | 0.734 |
+| closed form | 0.444 | 0.774 | 0.894 | 0.991 | 1 | 0.991 | 0.894 | 0.774 | 0.445 |
 
 : Loss of significance when the filter width does not match the signal width,
 measured over five injections at 4ε_excl and compared with the closed form
@@ -825,17 +871,17 @@ contributes less: sensitivity sets the weight, not trial count.
 
 | τ (trials) | symmetric | future-only | past-only | exp. future | gain over §6.3 |
 |---|---|---|---|---|---|
-| 1 | 1.316 × 10⁻² | 2.655 × 10⁻² | 2.564 × 10⁻² | 4.345 × 10⁻² | 3.2–3.8 |
-| 10 | 3.548 × 10⁻³ | 5.898 × 10⁻³ | 5.783 × 10⁻³ | 8.380 × 10⁻³ | 3.1–4.1 |
-| 100 | 1.132 × 10⁻³ | 1.625 × 10⁻³ | 1.653 × 10⁻³ | 2.339 × 10⁻³ | 3.4–3.8 |
-| 1,000 | 3.530 × 10⁻⁴ | 4.976 × 10⁻⁴ | 4.940 × 10⁻⁴ | 7.077 × 10⁻⁴ | 3.8–4.3 |
-| 10,000 | 1.233 × 10⁻⁴ | 2.089 × 10⁻⁴ | 2.188 × 10⁻⁴ | 2.770 × 10⁻⁴ | 3.0–3.6 |
+| 1 | 1.945 × 10⁻² | 2.655 × 10⁻² | 2.564 × 10⁻² | 4.345 × 10⁻² | 3.4–3.8 |
+| 10 | 3.564 × 10⁻³ | 5.898 × 10⁻³ | 5.783 × 10⁻³ | 8.380 × 10⁻³ | 3.1–4.4 |
+| 100 | 1.145 × 10⁻³ | 1.625 × 10⁻³ | 1.653 × 10⁻³ | 2.339 × 10⁻³ | 3.4–3.8 |
+| 1,000 | 3.523 × 10⁻⁴ | 4.976 × 10⁻⁴ | 4.940 × 10⁻⁴ | 7.077 × 10⁻⁴ | 3.8–4.3 |
+| 10,000 | 1.234 × 10⁻⁴ | 2.089 × 10⁻⁴ | 2.188 × 10⁻⁴ | 2.770 × 10⁻⁴ | 3.0–3.6 |
 
 : Joint exclusion from all ten pulses, O_A vs S_B, with the improvement over the
 single-pulse map of §6.3.
 
 **Zero detections in 208 joint tests**, maximum |z_joint| = 2.10. The mean
-improvement over the single-pulse map is a factor **3.59** (range 2.77 to 4.60),
+improvement over the single-pulse map is a factor **3.62** (range 2.77 to 5.10),
 which exceeds the naive √10 = 3.16 for the reason given in Limitation 1: round 28297 has
 the third-smallest α of the ten, within 2% of the smallest, so the comparison is
 against one of the least sensitive pulses. The gain column is computed against
@@ -846,14 +892,34 @@ instead reproduces it to within the ±3.5% noise of the empirical σ_T. The wors
 
 As a by-product this run re-estimates the 28297 map independently, with a
 different shuffle seed; it reproduces the published values of §6.3 with a mean
-ratio of 1.006 and a range of 0.95 to 1.08, consistent with the ±3.5% estimation
+ratio of 1.005 and a range of 0.95 to 1.08, consistent with the ±3.5% estimation
 noise on the empirical σ_T discussed above.
+
+**Independence of the pulses.** Inverse-variance weighting is optimal, and
+σ_joint is correct, only if the ten estimates are uncorrelated. Five of the
+pulses (28293–28297) were acquired consecutively within 65 minutes, so this
+cannot be assumed. Since T_p is a linear functional of the δ̂(k) of pulse p,
+any covariance between pulses would have to appear as a correlation between
+the δ̂(k) of one pulse and the δ̂(k) of another across lags. This was measured
+directly: for each of the 45 pairs of pulses and each channel, the Pearson
+correlation of the standardised δ̂(k)/σ_δ(k) of one pulse with that of the
+other over the 20,000 lags k ≠ 0, whose standard error under independence is
+1/√20,000 = 0.0071. The largest |r| among the 90 values is
+0.018 (2.6σ, pulses 23000 and 28293, which are three months apart); among the
+twenty values from the five consecutive pulses the largest is 0.015 (2.1σ,
+pulses 28294 and 28295), and the mean is −0.002. The standard deviation of r
+across pairs is 0.0072 and 0.0077 in the two channels, against 0.0071
+expected, and no pair exceeds 3σ. The pulses are uncorrelated at the level
+the data can resolve, and the diagonal covariance assumed by the weights is
+measured rather than assumed. Had a substantial correlation appeared, the
+combination would have required generalised least squares with the full
+covariance matrix; it does not.
 
 The combination also assumes a coupling common to the ten pulses — not a
 triviality across twenty-two months of drifting hardware. The assumption was
 tested rather than left implicit: for each kernel and τ, the heterogeneity
 statistic Q_het = Σ_p (ε̂_p − ε̂_joint)²/σ_p² follows χ²(9) if one ε underlies
-all ten pulses. Over the 208 points of the map its mean is 7.8 against the
+all ten pulses. Over the 208 points of the map its mean is 8.0 against the
 expected 9.0 — mildly under-dispersed, the signature of the conservative
 σ_T = max(empirical, analytic) — and the largest value, 28.5, has a
 family-corrected p of 0.17 across the 208 strongly correlated points. The ten
@@ -940,6 +1006,22 @@ anywhere in the window. This closes the quadratic-adjacent case only;
 functionals of three or more settings, and of non-adjacent pairs, remain
 untested (Limitation 7).
 
+**Relevance to device-independent protocols.** Device-independent randomness
+generation and device-independent quantum key distribution rest on the
+assumption that the devices carry no exploitable memory between trials —
+that the statistics of trial i are not conditioned on the settings of other
+trials. That assumption is exactly the memory loophole [10], and it is the
+reason such protocols are analysed with adversarially valid, memory-tolerant
+statistics [11–13] rather than with the i.i.d. estimates that would otherwise
+suffice. The results of this paper — 0 of 400,000 single-party memory tests
+(§6.6), 0 of 200,010 setting-correlation tests (§5.1), and the bound of
+1.13 × 10⁻⁶ bits per trial on the information any outcome carries about any
+other trial's setting (§6.1) — constitute a direct empirical check of that
+assumption on an operating beacon, and the check is independent of any
+interpretation of the model class of §2. It does not establish the security
+of the protocol: what is verified is one assumption, at the stated
+sensitivity, on these records.
+
 ---
 
 ## 7. Limitations
@@ -957,8 +1039,9 @@ untested (Limitation 7).
    give a bound 0.60× to 1.02× the stated value. That restriction is therefore
    conservative to within 2% rather than merely unquantified, and it is why the
    joint improvement exceeds √10.
-2. Oscillatory kernels are not covered. The Q-parametrisation applies to kernels
-   of one sign; an oscillatory kernel has a different optimal filter shape
+2. Oscillatory kernels are not covered. The 1/√Q regularity of §6.3 is
+   empirical and established only within the tested class of one-signed
+   kernels; an oscillatory kernel has a different optimal filter shape
    entirely.
 3. The injection places the coupling in one channel. A model acting coherently in
    both was not tested.
@@ -982,8 +1065,10 @@ untested (Limitation 7).
 Across ten pulses of a loophole-free Bell test spanning twenty-two months, no
 correlation was found between measurement outcomes and settings chosen at any
 other trial, for lags up to ±10,000 and across four kernel shapes including the
-future-directed ones natural to retrocausal models — and, through the
-Q-parametrisation, across every smooth one-signed kernel shape. Combining the ten pulses by weight, the excluded coupling
+future-directed ones natural to retrocausal models. For pre-specified kernels
+within the tested class, the observed sensitivity follows an approximately
+universal 1/√Q scaling; the rigorous exclusion is stated for the four
+explicit families. Combining the ten pulses by weight, the excluded coupling
 falls to 1.2 × 10⁻⁴ at τ = 10⁴ trials for a symmetric kernel, and the weakest
 point of the entire joint map — the narrowest kernel, τ = 1 — still excludes
 ε above 4.34 × 10⁻². The same instrument registers the ordinary same-trial
@@ -994,9 +1079,9 @@ nonzero lag, in any of the ten pulses (§6.6) — and for the simplest joint
 functional of the settings, the parity of adjacent pairs (§6.7).
 
 What would a nonzero ε have implied, and what does its absence buy? Within the
-model class, a kernel that excludes k = 0 never touches the same-trial
-statistic, so cross-trial coupling of any strength cannot by itself fake the
-observed Bell violation — Figure 2 shows this directly. Its operational cost
+model class every kernel excludes k = 0 (§2.2) and so never touches the
+same-trial statistic; cross-trial coupling of any strength cannot by itself
+fake the observed Bell violation — Figure 2 shows this directly. Its operational cost
 lies elsewhere: in the assumption, made whenever such records certify
 randomness, that trials do not leak information about one another. That
 leakage is what the bound prices — less than 1.13 × 10⁻⁶ bits per trial about
@@ -1009,7 +1094,10 @@ grant.
 
 This does not refute retrocausal models; the class they occupy is within-trial
 and is not addressed here. What it does is convert an untested assumption into a
-measured constraint. The region is now mapped.
+measured constraint — including the no-memory assumption on which
+device-independent randomness and DI-QKD rest, verified here on an operating
+beacon at the stated sensitivity, without a claim of security. The region is
+now mapped.
 
 ---
 
@@ -1041,6 +1129,7 @@ measured constraint. The region is now mapped.
 | `code/meros13_parity.py` | §6.7: setting-pair parity scan, all ten pulses |
 | `code/meros14_oo10.py` | §6.5: the ten-pulse outcome–outcome scan |
 | `code/meros15_homogeneity.py` | §6.4: ε-homogeneity test; §6.3: matched-threshold factors |
+| `code/meros16_crosspulse.py` | §6.4: cross-pulse correlation of δ̂(k), the pulse-independence row of Table 3 |
 | `code/check_refs.py` | verifies every internal cross-reference resolves |
 | `code/figures_en.py` | Figures 1–3 |
 
@@ -1061,7 +1150,8 @@ python3 code/meros7_power.py ; python3 code/meros8_settings.py
 python3 code/meros9_joint.py ; python3 code/meros10_settings10.py
 python3 code/meros11_optimality.py ; python3 code/meros12_selfmemory.py
 python3 code/meros13_parity.py ; python3 code/meros14_oo10.py
-python3 code/meros15_homogeneity.py ; python3 code/figures_en.py
+python3 code/meros15_homogeneity.py ; python3 code/meros16_crosspulse.py
+python3 code/figures_en.py
 ```
 
 Random seeds are fixed in the scripts: 4711 (exclusion map shuffles), 808 and

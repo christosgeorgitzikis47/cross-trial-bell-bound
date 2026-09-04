@@ -447,7 +447,7 @@ def main():
     body = re.sub(r"^## (\d)\. (.+)$", r"\\section{\2}", body, flags=re.M)
     body = re.sub(r"^### (\d)\.(\d) (.+)$", r"\\subsection{\3}", body, flags=re.M)
     body = re.sub(r"^## Appendix A .*?$",
-                  r"\\appendix\n\\section{Which script produces which number}",
+                  r"\\clearpage\n\\appendix\n\\section{Which script produces which number}",
                   body, flags=re.M)
     body = re.sub(r"^## Appendix B .*?$", r"\\section{Reproduction}",
                   body, flags=re.M)
@@ -486,8 +486,8 @@ def main():
     open(meta, "w", encoding="utf-8").write(
         "---\ntitle: |\n  " + title + "\nauthor: |\n"
         "  Christos Georgitzikis\\\n  \\normalsize Independent Researcher\n"
-        + ("date: |\n  17 August 2026\\\n  \\normalsize\\textit{"
-           + ver + "}\n" if ver else "date: 17 August 2026\n")
+        + ("date: |\n  4 September 2026\\\n  \\normalsize\\textit{"
+           + ver + "}\n" if ver else "date: 4 September 2026\n")
         + "abstract: |\n  " + abstract.replace("\n", "\n  ") + "\n"
         "---\n")
 

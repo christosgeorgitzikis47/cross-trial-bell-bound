@@ -32,19 +32,23 @@ the posting is announced).
   every 0 < |k| ≤ 10,000 — below **1/13,384** of the Bell correlation the same
   analysis measures at k = 0 (1.4267 × 10⁻², G = 296,670), which is the positive
   control.
-- **Exclusion map.** For the model p(i) = p₀(S_own(i)) + α·ε·Σₖ W(k)·S_other(i+k)
-  — p(i) being the observable click probability, not a hidden variable — the coupling
-  is bounded by **ε < 4.3 × 10⁻²** at τ = 1 trial and **ε < 4.4 × 10⁻⁴** at
+- **Exclusion map.** For the model p(i) = p₀(S_own(i)) + α·ε·Σ_{k≠0} W(k)·S_other(i+k)
+  — p(i) being the observable click probability, not a hidden variable, and the
+  same-trial term k = 0 excluded from every kernel — the coupling
+  is bounded by **ε < 7.6 × 10⁻²** at τ = 1 trial and **ε < 4.4 × 10⁻⁴** at
   τ = 10,000 (O_A vs S_B), at family-wise α = 0.05, where ε = 1 is the strength
-  of the ordinary lag-0 quantum correlation. The bound depends on the kernel
-  only through Q = Σ W(k)², so any pre-specified, smoothly varying one-signed
-  shape is covered. It was measured
+  of the ordinary lag-0 quantum correlation. It was measured
   for symmetric, future-only (retrocausal), past-only and one-sided exponential
   kernels; the worst case over all four and both channels is 1.62 × 10⁻¹.
+  Within that tested class (4 families × 26 widths) the sensitivity follows an
+  approximately universal 1/√Q scaling with Q = Σ W(k)² — an empirical
+  regularity, not a theorem; the rigorous exclusion is for the four families.
 - **All ten pulses combined.** Each pulse analysed on its own terms and joined
-  by inverse-variance weights: **ε < 1.3 × 10⁻²** at τ = 1 and
+  by inverse-variance weights: **ε < 1.9 × 10⁻²** at τ = 1 and
   **ε < 1.2 × 10⁻⁴** at τ = 10,000 — a mean factor 3.6 over the single pulse.
-  The ten per-pulse couplings are statistically homogeneous (χ²(9) test).
+  The ten per-pulse couplings are statistically homogeneous (χ²(9) test) and
+  the pulses are uncorrelated (max |r| = 0.018 over 90 pulse pairs), so the
+  weights are justified by measurement.
 - **Null side-checks, all ten pulses.** No single-party memory
   (0/400,000 tests), no dependence on the parity of adjacent setting pairs
   (0/400,020), no outcome–outcome structure at nonzero lag (0/200,000), and
@@ -107,6 +111,7 @@ python3 meros12_selfmemory.py        # single-party memory scan
 python3 meros13_parity.py            # setting-pair parity scan
 python3 meros14_oo10.py              # outcome–outcome scan, all ten
 python3 meros15_homogeneity.py       # ε homogeneity; matched-threshold cost
+python3 meros16_crosspulse.py        # cross-pulse correlation of δ̂(k)
 
 # 6. figures (Figures 1–4 of the paper, English, PDF + PNG)
 python3 figures_en.py
@@ -140,7 +145,7 @@ to assume.
 | `meros1_alpha.py` … `meros5_plot.py` | calibration, injection, exclusion maps, asymmetric kernels |
 | `meros6_p0.py`, `meros6_systematic.py`, `meros6_kernelQ.py`, `meros6_alpha10.py` | audit: p₀ as a marginal, the σ_T systematic, ε ∝ 1/√Q, α across ten pulses |
 | `meros7_power.py` … `meros11_optimality.py` | power curve, phantom signal, joint bound, optimality checks |
-| `meros12_selfmemory.py`, `meros13_parity.py`, `meros14_oo10.py`, `meros15_homogeneity.py` | ten-pulse null scans: own-setting memory, pair parity, outcome–outcome, ε homogeneity |
+| `meros12_selfmemory.py`, `meros13_parity.py`, `meros14_oo10.py`, `meros15_homogeneity.py`, `meros16_crosspulse.py` | ten-pulse null scans: own-setting memory, pair parity, outcome–outcome, ε homogeneity, pulse independence |
 | `build_paper_pdf.py`, `check_refs.py`, `check_tables.py` | build the PDF from markdown; verify cross-references and table layout |
 | `figures_en.py` | Figures 1–4 of the paper (English, vector PDF + PNG) |
 | `diagnostiko_syssomatosis.py`, `null_matched.py`, `drift_check.py`, `scratch_test.py` | null diagnostics and matched-bias controls |

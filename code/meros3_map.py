@@ -17,7 +17,10 @@
     -> ε̂(τ) = T/(α·Q),  σ_ε(τ) = σ_T/(α·Q)
     -> ΑΝΩ ΟΡΙΟ:  ε_excl(τ) = |ε̂| + z_thr·σ_ε
 
-Q(τ) = Σ_{|k|<=10000} W_τ(k)² υπολογίζεται ΑΚΡΙΒΩΣ (πεπερασμένο άθροισμα),
+Το k = 0 ΕΞΑΙΡΕΙΤΑΙ από το W (αναθεώρηση 2026-09-04): είναι η ρύθμιση του
+ίδιου trial — no-signalling, όχι cross-trial — και φράσσεται χωριστά.
+
+Q(τ) = Σ_{0<|k|<=10000} W_τ(k)² υπολογίζεται ΑΚΡΙΒΩΣ (πεπερασμένο άθροισμα),
 όχι με την ασυμπτωτική τ√π. Για τ > ~3000 το παράθυρο κόβει τις ουρές και
 το Q υπολείπεται του τ√π -> ΚΑΜΨΗ στην καμπύλη. Δεν λειαίνεται.
 
@@ -50,6 +53,7 @@ def sigma_delta(A1, B1, nk):
 def kernel_Q(taus, K):
     """Q(τ) = Σ_{|k|<=K} exp(-k²/τ²)  (= Σ W_τ², ΑΚΡΙΒΩΣ, με το κόψιμο)."""
     k = np.arange(-K, K + 1, dtype=np.float64)
+    k = k[k != 0]                       # το k = 0 δεν ανήκει στο μοντέλο
     Q = np.array([np.exp(-k ** 2 / t ** 2).sum() for t in taus])
     Qasym = np.array([t * math.sqrt(math.pi) for t in taus])
     return Q, Qasym
@@ -59,7 +63,8 @@ def filters(taus, K):
     """Πίνακας βαρών W_τ(k) (n_τ × n_lag) — για τα μεγάλα τ είναι πυκνός
     αλλά μικρός (20 × 20001)."""
     k = np.arange(-K, K + 1, dtype=np.float64)
-    return np.stack([np.exp(-k ** 2 / (2 * t ** 2)) for t in taus])
+    return np.stack([np.where(k != 0, np.exp(-k ** 2 / (2 * t ** 2)), 0.0)
+                     for t in taus])
 
 
 def apply_T(Wmat, delta):

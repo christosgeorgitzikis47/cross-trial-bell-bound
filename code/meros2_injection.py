@@ -5,7 +5,7 @@
 
 ΤΙ ΕΝΙΕΤΑΙ
     S(i)  = +1 αν SB(i)=2,  -1 αν SB(i)=1      (πραγματικές ρυθμίσεις Bob)
-    F(i)  = Σ_k W_τ(k)·S(i+k),   W_τ(k)=exp(-k²/2τ²)
+    F(i)  = Σ_k W_τ(k)·S(i+k),   W_τ(k)=exp(-k²/2τ²), k ≠ 0
     λ(i)  = λ0(SA(i)) + α·ε·F(i)
     OA*   ~ Bernoulli(λ)
 
@@ -55,6 +55,7 @@ def build_F(S, tau):
     half = max(1, int(math.ceil(5 * tau)))
     k = np.arange(-half, half + 1, dtype=np.float64)
     W = np.exp(-k ** 2 / (2.0 * tau ** 2))
+    W[half] = 0.0                       # k = 0 εκτός μοντέλου (2026-09-04)
     n = len(S)
     L = next_fast_len(n + 2 * half + 1)
     Sf = rfft(S.astype(np.float64), L)
@@ -74,6 +75,7 @@ def check_F(S, F, tau, half, rng, n_check=5):
     idx = rng.integers(half + 1, n - half - 1, n_check)
     k = np.arange(-half, half + 1)
     W = np.exp(-k ** 2 / (2.0 * tau ** 2))
+    W[half] = 0.0
     worst = 0.0
     for i in idx:
         direct = float(np.dot(W, S[i - half:i + half + 1]))
@@ -154,15 +156,18 @@ def run_point(eps, tau, F, lam0, SB1, alpha, C, K, ks_pred, rng, n):
     MIc = MI - baseline
 
     # προβλέψεις
-    d_pred = alpha * eps * np.exp(-ks.astype(float) ** 2 / (2 * tau ** 2))
-    I_pred = C * eps ** 2 * np.exp(-ks.astype(float) ** 2 / tau ** 2)
+    nz = ks != 0                                   # k = 0 εκτός μοντέλου
+    d_pred = alpha * eps * np.exp(-ks.astype(float) ** 2 / (2 * tau ** 2)) * nz
+    I_pred = C * eps ** 2 * np.exp(-ks.astype(float) ** 2 / tau ** 2) * nz
 
     res = dict(eps=eps, tau=tau, n_clip_low=n_lo, n_clip_high=n_hi,
                frac_clipped=frac_clip, valid=bool(frac_clip <= CLIP_LIMIT),
                fft_round_error=ferr, click_rate=float(O.mean()),
                baseline_mi=baseline,
-               delta_meas_0=float(delta[K]), delta_pred_0=float(d_pred[K]),
-               mi_meas_0=float(MIc[K]), mi_pred_0=float(I_pred[K]))
+               # κορυφή του πυρήνα: k = +1 (το k = 0 έχει W = 0)
+               delta_meas_1=float(delta[K + 1]), delta_pred_1=float(d_pred[K + 1]),
+               mi_meas_1=float(MIc[K + 1]), mi_pred_1=float(I_pred[K + 1]),
+               delta_meas_0=float(delta[K]), mi_meas_0=float(MIc[K]))
 
     if eps == 0.0:
         # έλεγχος επιπεδότητας: καμία καμπάνα δεν επιτρέπεται
@@ -173,7 +178,7 @@ def run_point(eps, tau, F, lam0, SB1, alpha, C, K, ks_pred, rng, n):
         res["null_mi_max"] = float(MIc.max())
         res["null_delta_sd"] = float(delta.std(ddof=1))
         # πλάτος καμπάνας που θα ΕΠΡΕΠΕ να μη βρεθεί:
-        A, s, dA, ds = gauss_fit(ks, MIc, max(tau, 1.0), MIc.max())
+        A, s, dA, ds = gauss_fit(ks[nz], MIc[nz], max(tau, 1.0), MIc.max())
         res["null_fit_amp"] = A
         res["null_fit_sigma"] = s
         # σύγκριση κέντρου με ουρές
@@ -189,9 +194,11 @@ def run_point(eps, tau, F, lam0, SB1, alpha, C, K, ks_pred, rng, n):
         return res, ks, MIc, delta, I_pred, d_pred
 
     # ---- προσαρμογή γκαουσιανής στο δ(k): αναμενόμενο σ = τ
-    Ad, sd_, eAd, esd = gauss_fit(ks, delta, tau, alpha * eps)
+    # (μόνο στα k ≠ 0: το k = 0 δεν ανήκει στο μοντέλο)
+    Ad, sd_, eAd, esd = gauss_fit(ks[nz], delta[nz], tau, alpha * eps)
     # ---- και στο I(k): αναμενόμενο σ = τ/√2
-    Ai, si_, eAi, esi = gauss_fit(ks, MIc, tau / math.sqrt(2), C * eps ** 2)
+    Ai, si_, eAi, esi = gauss_fit(ks[nz], MIc[nz], tau / math.sqrt(2),
+                                  C * eps ** 2)
     res.update(
         fit_delta_amp=Ad, fit_delta_sigma=sd_,
         fit_delta_amp_err=eAd, fit_delta_sigma_err=esd,
@@ -203,8 +210,8 @@ def run_point(eps, tau, F, lam0, SB1, alpha, C, K, ks_pred, rng, n):
         ratio_mi_amp=Ai / (C * eps ** 2) if eps else math.nan,
         ratio_delta_sigma=sd_ / tau,
         ratio_mi_sigma=si_ / (tau / math.sqrt(2)),
-        ratio_mi0=res["mi_meas_0"] / res["mi_pred_0"] if res["mi_pred_0"] else math.nan,
-        ratio_delta0=res["delta_meas_0"] / res["delta_pred_0"] if res["delta_pred_0"] else math.nan,
+        ratio_mi1=res["mi_meas_1"] / res["mi_pred_1"] if res["mi_pred_1"] else math.nan,
+        ratio_delta1=res["delta_meas_1"] / res["delta_pred_1"] if res["delta_pred_1"] else math.nan,
     )
     return res, ks, MIc, delta, I_pred, d_pred
 
@@ -303,12 +310,13 @@ def main():
             print(f"    clipped: {res['frac_clipped']*100:.4f}% "
                   f"({res['n_clip_low']:,} κάτω, {res['n_clip_high']:,} πάνω)"
                   f"   [όριο {CLIP_LIMIT*100:.1f}%]")
-            print(f"    δ(0):  μετρ {res['delta_meas_0']:.4e}  "
-                  f"προβλ {res['delta_pred_0']:.4e}  "
-                  f"λόγος {res['ratio_delta0']:.3f}")
-            print(f"    I(0):  μετρ {res['mi_meas_0']:.4e}  "
-                  f"προβλ {res['mi_pred_0']:.4e}  "
-                  f"λόγος {res['ratio_mi0']:.3f}")
+            print(f"    δ(+1): μετρ {res['delta_meas_1']:.4e}  "
+                  f"προβλ {res['delta_pred_1']:.4e}  "
+                  f"λόγος {res['ratio_delta1']:.3f}   "
+                  f"[δ(0) = {res['delta_meas_0']:+.2e}, εκτός μοντέλου]")
+            print(f"    I(+1): μετρ {res['mi_meas_1']:.4e}  "
+                  f"προβλ {res['mi_pred_1']:.4e}  "
+                  f"λόγος {res['ratio_mi1']:.3f}")
             print(f"    fit δ(k): A = {res['fit_delta_amp']:.4e} "
                   f"(λόγος {res['ratio_delta_amp']:.3f})   "
                   f"σ = {res['fit_delta_sigma']:.3f} ± {res['fit_delta_sigma_err']:.3f}"
@@ -331,13 +339,13 @@ def main():
     print("=" * 78)
     print("ΣΥΝΟΨΗ — ΜΟΝΟ ΕΓΚΥΡΑ ΣΗΜΕΙΑ (clipping <= 0,1%)")
     print("=" * 78)
-    print(f"{'τ':>7} {'ε':>10} {'clip%':>7} {'I(0) λόγος':>11} "
+    print(f"{'τ':>7} {'ε':>10} {'clip%':>7} {'I(+1) λόγος':>11} "
           f"{'σ_δ/τ':>8} {'σ_I/(τ/√2)':>11} {'έγκυρο':>7}")
     for r in all_res["points"]:
         if r["eps"] == 0.0:
             continue
         print(f"{r['tau']:>7g} {r['eps']:>10.4g} {r['frac_clipped']*100:>7.4f} "
-              f"{r['ratio_mi0']:>11.3f} {r['ratio_delta_sigma']:>8.3f} "
+              f"{r['ratio_mi1']:>11.3f} {r['ratio_delta_sigma']:>8.3f} "
               f"{r['ratio_mi_sigma']:>11.3f} {'ναι' if r['valid'] else 'ΟΧΙ':>7}")
     print(f"\nΑποθηκεύτηκε: {a.out}.json + {a.out}_curves.npz")
 
