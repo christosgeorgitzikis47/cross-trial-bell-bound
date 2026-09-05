@@ -51,3 +51,9 @@ results/compress_sa_*
 # --- superseded Greek-language plot scripts (figures_en.py replaces them) ---
 code/meros3_plot.py
 code/meros5_plot.py
+
+# --- superseded results, removed from version control in "Remove three result
+# files that no number in the paper comes from"; kept on disk locally. ---
+results/meros2_pilot.json
+results/meros2_pilot_curves.npz
+results/lag_limit_28297.txt
