@@ -1135,14 +1135,19 @@ the 2.5% per channel that Bonferroni promises.
    give a bound 0.60× to 1.02× the stated value. That restriction is therefore
    conservative to within 2% rather than merely unquantified, and it is why the
    joint improvement exceeds √10.
-2. Oscillatory kernels are not covered by the map of §6.3, whose 1/√Q
-   regularity is empirical and established only within the tested class of
-   one-signed kernels; an oscillatory kernel has a different optimal filter
-   shape entirely. They are covered separately, and by a different statistic,
-   in §6.8: a Lomb–Scargle scan of all ten pulses finds no frequency above
-   threshold and bounds an oscillatory coupling of unit peak at
-   ε < 5.5 × 10⁻⁴. What remains untested is the intermediate case of a kernel
-   that is neither one-signed nor a single sinusoid.
+2. Oscillatory kernels are covered only in part. The map of §6.3 does not
+   reach them at all: its 1/√Q regularity is empirical and established only
+   within the tested class of one-signed kernels, and an oscillatory kernel
+   has a different optimal filter shape entirely. §6.8 covers the *purely
+   sinusoidal* case, where all the power sits at one frequency, and bounds
+   such a coupling of unit peak at ε < 5.5 × 10⁻⁴ across all ten pulses. It
+   does *not* fully cover a modulated or damped oscillation — a decaying
+   sinusoid, or one whose amplitude varies over its support — because an
+   envelope spreads the power over a band of frequencies, so no single
+   periodogram bin carries the whole signal and the sensitivity degrades by
+   roughly the number of bins the power is spread across. Between the two
+   lies the same gap as before: a kernel that is neither one-signed nor a
+   single sinusoid is constrained by neither statistic at full sensitivity.
 3. The injection places the coupling in one channel. A model acting coherently in
    both was not tested.
 4. Lags |k| > 10,000 and widths τ > 10,000 were not examined; the window already

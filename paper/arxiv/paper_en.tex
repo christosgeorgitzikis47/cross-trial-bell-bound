@@ -1837,15 +1837,21 @@ the 2.5\% per channel that Bonferroni promises.
   2\% rather than merely unquantified, and it is why the joint
   improvement exceeds \(\sqrt{10}\).
 \item
-  Oscillatory kernels are not covered by the map of \S6.3, whose
-  1/\(\sqrt{Q}\) regularity is empirical and established only within the
-  tested class of one-signed kernels; an oscillatory kernel has a
-  different optimal filter shape entirely. They are covered separately,
-  and by a different statistic, in \S6.8: a Lomb--Scargle scan of all
-  ten pulses finds no frequency above threshold and bounds an
-  oscillatory coupling of unit peak at \(\varepsilon\) \textless{}
-  \(5.5 \times 10^{-4}\). What remains untested is the intermediate case
-  of a kernel that is neither one-signed nor a single sinusoid.
+  Oscillatory kernels are covered only in part. The map of \S6.3 does
+  not reach them at all: its 1/\(\sqrt{Q}\) regularity is empirical and
+  established only within the tested class of one-signed kernels, and an
+  oscillatory kernel has a different optimal filter shape entirely.
+  \S6.8 covers the \emph{purely sinusoidal} case, where all the power
+  sits at one frequency, and bounds such a coupling of unit peak at
+  \(\varepsilon\) \textless{} \(5.5 \times 10^{-4}\) across all ten
+  pulses. It does \emph{not} fully cover a modulated or damped
+  oscillation --- a decaying sinusoid, or one whose amplitude varies
+  over its support --- because an envelope spreads the power over a band
+  of frequencies, so no single periodogram bin carries the whole signal
+  and the sensitivity degrades by roughly the number of bins the power
+  is spread across. Between the two lies the same gap as before: a
+  kernel that is neither one-signed nor a single sinusoid is constrained
+  by neither statistic at full sensitivity.
 \item
   The injection places the coupling in one channel. A model acting
   coherently in both was not tested.
