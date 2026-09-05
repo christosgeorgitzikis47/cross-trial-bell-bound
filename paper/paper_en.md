@@ -11,32 +11,35 @@ Bell's theorem admits one loophole that no experiment can close in principle:
 measurement independence. Retrocausal and time-symmetric models exploit this
 opening, but the class of models in which the click probability at one trial
 depends on measurement settings at *other* trials has been formalised
-theoretically but never given an experimental bound. We define this class
-explicitly, derive its observable signature, and bound it using public raw
-records from the CURBy device-independent
-randomness beacon — ten pulses of 1.5 × 10⁷ trials each, spanning twenty-two
-months. Each pulse is analysed separately and the ten are combined by
-inverse-variance weights, never spliced.
+theoretically but never given an experimental bound. We bound it on public raw
+records from the CURBy device-independent randomness beacon — ten pulses of
+1.5 × 10⁷ trials each, spanning twenty-two months, analysed separately and
+never spliced.
 
-Scanning every lag |k| ≤ 10,000 we find
+The result that depends on no model is a bound in bits. Scanning every lag
+|k| ≤ 10,000 between one party's outcome and the other party's setting,
 
 I(O ; S at lag k) < 1.13 × 10⁻⁶ bits per trial,
 
-at family-wise α = 0.05 (Bonferroni, 40,002 hypotheses) — smaller by a factor
-of 362 than the same-trial outcome–setting mutual information measured on the
-same data. Expressed in model parameters, for a coupling kernel of temporal
-width τ we exclude coupling strength ε above ε_excl(τ), which falls from
-7.6 × 10⁻² at τ = 1 trial to 4.4 × 10⁻⁴ at τ = 10⁴ trials for a single pulse,
-and to 1.9 × 10⁻² and 1.2 × 10⁻⁴ when all ten pulses are combined by weight. The
-bound holds for
-symmetric, future-only, past-only, and one-sided exponential kernels: 208 tests
-on the single pulse and 208 more on the joint estimate, zero detections in
-either. For pre-specified kernels within the tested class, the observed
-sensitivity follows an approximately universal 1/√Q scaling, with
-Q = Σ W(k)²; the rigorous exclusion is stated for the four explicit families.
-Independently, the
-outcome–outcome mutual information at nonzero lag is bounded below 1/13,384 of
-the Bell correlation at k = 0.
+at family-wise α = 0.05 (Bonferroni, 40,002 hypotheses). This is 1/362 of the
+same-trial outcome–setting information measured on the same records, and the
+outcome–outcome information at nonzero lag is bounded below 1/13,384 of the
+Bell correlation at k = 0. As a guessing advantage, no outcome lets an
+adversary predict any other trial's setting with a bias above 1.25 × 10⁻³.
+
+Translated into the parameters of an explicit model — a click probability
+shifted by a kernel-weighted sum of other trials' settings, with kernel width
+τ and coupling strength ε — the same data exclude ε above 7.6 × 10⁻² at τ = 1
+trial and 4.4 × 10⁻⁴ at τ = 10⁴ trials on a single pulse, for symmetric,
+future-only, past-only and one-sided exponential kernels: 208 tests, zero
+detections. This map is model-dependent by construction; it is the bound
+above re-expressed in the units of one model class, and within the tested
+class the sensitivity follows an approximately universal 1/√Q scaling with
+Q = Σ W(k)², the rigorous exclusion being stated for the four explicit
+families. Combining the ten pulses by inverse-variance weights, with the
+pulses shown to be uncorrelated, the excluded coupling falls to 1.9 × 10⁻² and
+1.2 × 10⁻⁴ at the same two widths: the strongest statement these data
+support, quoted alongside the single-pulse map rather than in its place.
 
 The absence of cross-trial memory that device-independent randomness and
 DI-QKD assume is thereby checked empirically on an operating beacon, at the
@@ -438,6 +441,7 @@ in §6.2.
 | Mirror filter | one-sided filters distinguish direction | correct filter +10, mirrored 1.56 |
 | Setting independence | zero at every lag | max 4.83σ over 20,001 lags, 0 above threshold (§5.1) |
 | Pulse independence | δ̂(k) uncorrelated between pulses | max \|r\| = 0.018 over 90 pulse pairs (2.6σ), 0 above 3σ (§6.4) |
+| Oscillatory coupling | no periodic structure in δ̂(k) | 0 of 200,000 frequencies above threshold, ten pulses (§6.8) |
 
 : Validation checks passed before any result was accepted.
 
@@ -655,6 +659,13 @@ the full scanned range on a symmetric-log axis, showing that the behaviour at
 exactly one lag. Vector version: `figures/fig2_j_curve.pdf`.
 
 ### 6.3 Exclusion map
+
+The map of this section is not a second result. It is the bound of §6.1
+translated into the units of the model class of §2: the same measured
+click-rate differences δ̂(k), weighted by an assumed kernel and converted to a
+coupling strength through the measured α. Whatever one thinks of the kernels,
+the bits of §6.1 stand on their own; what the map adds is a reading of those
+bits in the language a model would use.
 
 **The statistic.** Let δ̂(k) be the estimator of δ(k) from the data: half the
 measured difference in click rate between the two settings at lag k, computed
@@ -1022,6 +1033,91 @@ interpretation of the model class of §2. It does not establish the security
 of the protocol: what is verified is one assumption, at the stated
 sensitivity, on these records.
 
+**In cryptographic units.** The bits of §6.1 convert directly into a guessing
+advantage. Consider an adversary who tries to predict the setting S_B(i+k), a
+uniformly random bit, from Alice's outcome O_A(i) at some lag k. For a uniform
+binary S the advantage of the optimal guess equals the total-variation
+distance between the two conditional outcome distributions, and Pinsker's
+inequality applied to the joint distribution gives
+
+|2P(Ŝ = S) − 1| ≤ √(2 ln2 · I(O ; S)),
+
+with I in bits. With I < 1.13 × 10⁻⁶ bits at every lag, the bias is below
+1.25 × 10⁻³, and the guessing probability satisfies
+P(Ŝ = S) < 0.5 + bias/2 = 0.50063, at the family-wise confidence of §6.1.
+The constant was checked rather than copied: the binary form above is the
+tight one for a uniform bit, an exact inversion of the binary entropy through
+Fano's inequality, H(S|O) ≤ h(P_err), gives 1.2516 × 10⁻³ as well, agreeing
+with the Pinsker form to seven digits, and the inequality was verified
+numerically over a grid of binary channels. This is the quantity a leakage
+lemma would take as input; we do not carry the argument through to a
+min-entropy statement, and the bound is stated per lag, not jointly over
+lags.
+
+### 6.8 Oscillatory kernels: a frequency scan
+
+All four kernel families of §2.2 are one-signed, and an oscillatory coupling is
+nearly orthogonal to every one of them: it would pass the matched filters of
+§6.3 unseen. It is also the shape with the most mundane possible origin —
+mains pickup, a modulation of the pump, any periodic drive in the apparatus —
+which makes it worth testing rather than conceding.
+
+**The statistic.** A Lomb–Scargle periodogram of the standardised
+δ̂(k)/σ_δ(k) over the 20,000 lags k ≠ 0. Lomb–Scargle rather than a plain
+periodogram because the lag grid is uniform apart from the single missing
+point at k = 0, which it handles exactly instead of by interpolation. In the
+Scargle normalisation the power at each frequency is Exp(1) under Gaussian
+white noise, and both conditions were established in §6.3: the δ̂(k) are
+uncorrelated across k (|r| ≤ 0.014) and Gaussian (Kolmogorov–Smirnov
+p = 0.535 and 0.223). The frequency grid is f_j = j/20,001 cycles per lag for
+j = 1 … 10,000, so M = 10,000 independent frequencies per channel, and the
+Bonferroni threshold on Exp(1) is z = ln(m/0.05): z = 12.90 for the two
+channels of one pulse (m = 20,000) and z = 15.20 for the ten pulses
+(m = 200,000), the latter matching the family construction of §6.5, §6.6 and
+§6.7. Frequencies are reported in cycles per lag; the conversion to Hz is
+nominal, through the ~4 µs per trial of §4.1, and the metadata upper bound of
+51 µs per trial would divide every frequency by 12.7.
+
+**Round 28297.** In O_A vs S_B the largest power is 9.02, at a period of
+2.4 lags, against an expected null maximum of ln M + γ = 9.79: nothing. In
+O_B vs S_A the largest power is 13.38, at f = 0.00330 cycles per lag, a period
+of 303 lags — 825 Hz on the nominal conversion, 65 Hz on the metadata bound,
+neither of which is a mains harmonic. That value sits just above the
+single-pulse threshold, at 104% of it, and below the ten-pulse threshold. Its
+probability within one channel is 1 − (1 − e^{−P})^M = 0.015, so roughly 0.03
+across the two channels of the pulse: a one-in-thirty fluctuation, which is
+what a threshold set at α = 0.05 is built to admit. The mean power is 1.0000
+in both channels, exactly the Exp(1) expectation, and the frequency nearest
+50 Hz nominal carries power 1.20 and 0.78.
+
+**It does not repeat.** A periodic drive in the apparatus would appear in more
+than one record, and above all in the five pulses taken consecutively within
+65 minutes of one day. The other nine pulses were therefore scanned in full,
+both channels, and the 303-lag frequency examined in each. No channel of any
+of them has a maximum above even the single-pulse threshold — the largest
+anywhere is 12.22 — so **no frequency in the ten pulses reaches the ten-pulse
+threshold: 0 of 200,000**. At the 303-lag frequency itself the power across
+the other eighteen pulse-channels has mean 1.12 and maximum 3.86, an
+unremarkable Exp(1) sample; in the other channel of round 28297 it is 0.53.
+The excess is confined to one channel of one pulse and is consistent with
+noise. It is reported rather than dropped, and the ten-pulse scan is reported
+as what it is: a follow-up run after the single-pulse scan produced it, not an
+independent pre-specified test.
+
+**Sensitivity and control.** A sinusoid of amplitude A in white noise of
+width σ carries Lomb–Scargle power ≈ N A²/4σ², so the threshold corresponds
+to a coupling ε_thr = √(4 z/N) · σ_δ/α = 5.5 × 10⁻⁴ for an oscillatory kernel
+of unit peak — comparable to the ε_excl the one-signed kernels reach near
+τ ≈ 10³, and the number that now replaces the untested caveat of
+Limitation 2. The machinery was verified by injecting an oscillatory coupling
+at the outcome level, λ(i) = λ₀ + α ε Σ_{k ≠ 0} cos(2πf₀k + φ) S_B(i+k), with
+a fresh random phase each repetition: at 2ε_thr the peak is found, and found
+at f₀, in 5 of 5 repetitions at periods of 7, 137 and 5,000 lags, and at
+ε_thr in about half, as a confidence bound requires. The analytic threshold
+was also checked against 400 permutations of the lag ordering: their maxima
+have mean 9.81 and 95th percentile 12.06, and 2.2% exceed z = 12.90, against
+the 2.5% per channel that Bonferroni promises.
+
 ---
 
 ## 7. Limitations
@@ -1039,10 +1135,14 @@ sensitivity, on these records.
    give a bound 0.60× to 1.02× the stated value. That restriction is therefore
    conservative to within 2% rather than merely unquantified, and it is why the
    joint improvement exceeds √10.
-2. Oscillatory kernels are not covered. The 1/√Q regularity of §6.3 is
-   empirical and established only within the tested class of one-signed
-   kernels; an oscillatory kernel has a different optimal filter shape
-   entirely.
+2. Oscillatory kernels are not covered by the map of §6.3, whose 1/√Q
+   regularity is empirical and established only within the tested class of
+   one-signed kernels; an oscillatory kernel has a different optimal filter
+   shape entirely. They are covered separately, and by a different statistic,
+   in §6.8: a Lomb–Scargle scan of all ten pulses finds no frequency above
+   threshold and bounds an oscillatory coupling of unit peak at
+   ε < 5.5 × 10⁻⁴. What remains untested is the intermediate case of a kernel
+   that is neither one-signed nor a single sinusoid.
 3. The injection places the coupling in one channel. A model acting coherently in
    both was not tested.
 4. Lags |k| > 10,000 and widths τ > 10,000 were not examined; the window already
@@ -1064,19 +1164,30 @@ sensitivity, on these records.
 
 Across ten pulses of a loophole-free Bell test spanning twenty-two months, no
 correlation was found between measurement outcomes and settings chosen at any
-other trial, for lags up to ±10,000 and across four kernel shapes including the
-future-directed ones natural to retrocausal models. For pre-specified kernels
-within the tested class, the observed sensitivity follows an approximately
-universal 1/√Q scaling; the rigorous exclusion is stated for the four
-explicit families. Combining the ten pulses by weight, the excluded coupling
-falls to 1.2 × 10⁻⁴ at τ = 10⁴ trials for a symmetric kernel, and the weakest
-point of the entire joint map — the narrowest kernel, τ = 1 — still excludes
-ε above 4.34 × 10⁻². The same instrument registers the ordinary same-trial
-correlation at 362 times the model-independent bound and the Bell correlation at
-13,384 times it. It is not insensitive. The same holds within each wing
-separately — neither device shows any correlation with its own settings at
-nonzero lag, in any of the ten pulses (§6.6) — and for the simplest joint
-functional of the settings, the parity of adjacent pairs (§6.7).
+other trial. The statement to carry away is the model-independent one:
+I(O ; S at lag k) < 1.13 × 10⁻⁶ bits per trial for every lag up to ±10,000,
+at family-wise α = 0.05 — 1/362 of the same-trial correlation the same
+instrument registers — while the outcome–outcome information at nonzero lag
+stays below 1/13,384 of the Bell correlation, and no outcome lets any other
+trial's setting be guessed with a bias above 1.25 × 10⁻³ (§6.7). The
+instrument is not insensitive.
+
+Translated into the parameters of the model class of §2, the same data exclude
+ε above 7.6 × 10⁻² at τ = 1 and 4.4 × 10⁻⁴ at τ = 10⁴ on a single pulse,
+across four kernel shapes including the future-directed ones natural to
+retrocausal models. That map is the bits above re-expressed in model units,
+not a second result; within the tested class the sensitivity follows an
+approximately universal 1/√Q scaling, and the rigorous exclusion is stated
+for the four explicit families. Combining the ten pulses by weight, with the
+pulses shown to be uncorrelated, the excluded coupling falls to 1.9 × 10⁻² and
+1.2 × 10⁻⁴ at the same two widths, and the weakest point of the entire joint
+map — the narrowest kernel, τ = 1 — still excludes ε above 4.34 × 10⁻². The
+same holds within each wing separately — neither device shows any correlation
+with its own settings at nonzero lag, in any of the ten pulses (§6.6) — and
+for the simplest joint functional of the settings, the parity of adjacent
+pairs (§6.7). A frequency scan of all ten pulses adds the one shape the
+matched filters cannot see, an oscillatory kernel, and finds nothing above
+threshold in 200,000 frequencies (§6.8).
 
 What would a nonzero ε have implied, and what does its absence buy? Within the
 model class every kernel excludes k = 0 (§2.2) and so never touches the
@@ -1085,7 +1196,8 @@ fake the observed Bell violation — Figure 2 shows this directly. Its operation
 lies elsewhere: in the assumption, made whenever such records certify
 randomness, that trials do not leak information about one another. That
 leakage is what the bound prices — less than 1.13 × 10⁻⁶ bits per trial about
-any single setting up to ten thousand trials away. The bound cannot be
+any single setting up to ten thousand trials away, or a guessing bias below
+1.25 × 10⁻³. The bound cannot be
 converted into a bound on Hall's I(X,Y : Λ); the data-processing inequality
 runs the wrong way (§1). What is constrained is the operationally effective
 part of measurement dependence, not the hidden variable itself — the
@@ -1130,6 +1242,7 @@ now mapped.
 | `code/meros14_oo10.py` | §6.5: the ten-pulse outcome–outcome scan |
 | `code/meros15_homogeneity.py` | §6.4: ε-homogeneity test; §6.3: matched-threshold factors |
 | `code/meros16_crosspulse.py` | §6.4: cross-pulse correlation of δ̂(k), the pulse-independence row of Table 3 |
+| `code/meros17_periodogram.py` | §6.8: Lomb–Scargle periodogram of δ̂(k), its threshold, null and positive control |
 | `code/check_refs.py` | verifies every internal cross-reference resolves |
 | `code/figures_en.py` | Figures 1–3 |
 
@@ -1151,6 +1264,7 @@ python3 code/meros9_joint.py ; python3 code/meros10_settings10.py
 python3 code/meros11_optimality.py ; python3 code/meros12_selfmemory.py
 python3 code/meros13_parity.py ; python3 code/meros14_oo10.py
 python3 code/meros15_homogeneity.py ; python3 code/meros16_crosspulse.py
+python3 code/meros17_periodogram.py
 python3 code/figures_en.py
 ```
 

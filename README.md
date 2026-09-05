@@ -18,6 +18,9 @@ party's setting, the mutual information is below **1.13 × 10⁻⁶ bits per
 trial**, at family-wise α = 0.05 over 40,002 hypotheses. That is 1/362 of the
 same-trial outcome–setting information the same analysis measures.
 
+The map that follows is that bound re-expressed in the units of one model
+class, not a second result.
+
 In model parameters, for a coupling kernel of width τ trials with the
 same-trial term k = 0 excluded, the excluded coupling strength ε falls from
 **7.6 × 10⁻²** at τ = 1 to **4.4 × 10⁻⁴** at τ = 10,000 for a single pulse, and
@@ -28,8 +31,12 @@ past-only, one-sided exponential) at 26 widths each: 208 tests on the single
 pulse and 208 on the joint estimate, zero detections in either.
 
 Independently, the outcome–outcome mutual information at nonzero lag is below
-**1/13,384** of the Bell correlation at k = 0. Every bound is verified by
-injecting a signal of known (ε, τ) into the real data and recovering it.
+**1/13,384** of the Bell correlation at k = 0, and by Pinsker's inequality no
+outcome lets an adversary guess any other trial's setting with a bias above
+**1.25 × 10⁻³**. A Lomb–Scargle frequency scan of all ten pulses covers the
+one shape the matched filters cannot see, an oscillatory kernel, and finds
+nothing above threshold in 200,000 frequencies. Every bound is verified by
+injecting a signal of known strength into the real data and recovering it.
 
 ![Exclusion map](figures/fig3_exclusion_map.png)
 
@@ -103,6 +110,7 @@ python3 meros13_parity.py            # setting-pair parity scan
 python3 meros14_oo10.py              # outcome-outcome scan, all ten
 python3 meros15_homogeneity.py       # epsilon homogeneity across pulses
 python3 meros16_crosspulse.py        # cross-pulse correlation, pulse independence
+python3 meros17_periodogram.py       # frequency scan of delta-hat, oscillatory kernels
 python3 stability10.py               # J across all ten pulses, the 0-of-1,060 count
 
 # 6. figures

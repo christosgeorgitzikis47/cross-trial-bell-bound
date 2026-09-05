@@ -1,0 +1,415 @@
+{
+  "N": 20001,
+  "M": 10000,
+  "alpha_fw": 0.05,
+  "z_thr": 12.89921982609012,
+  "z_thr_ten": 15.201804919084164,
+  "us_per_trial_nominal": 4.0,
+  "us_per_trial_bound": 51.0,
+  "channels": {
+    "OA vs SB": {
+      "max_power": 9.019508963465535,
+      "at_freq": 0.41662916854157295,
+      "period_lags": 2.4002160086403457,
+      "hz_nominal": 104157.29213539323,
+      "above": false,
+      "above_ten": false,
+      "p_within_channel": 0.7019007034075132,
+      "n_above": 0,
+      "mean_power": 1.0000499070426212,
+      "power_at_50Hz_nominal": 1.2020490250968228,
+      "freq_50Hz": 0.000199990000499975,
+      "top5": [
+        {
+          "f": 0.41662916854157295,
+          "period": 2.4002160086403457,
+          "hz": 104157.29213539323,
+          "power": 9.019508963465535
+        },
+        {
+          "f": 0.21078946052697364,
+          "period": 4.744070208728653,
+          "hz": 52697.36513174341,
+          "power": 8.00288840559808
+        },
+        {
+          "f": 0.09414529273536323,
+          "period": 10.621879978757303,
+          "hz": 23536.32318384081,
+          "power": 7.27418606883996
+        },
+        {
+          "f": 0.439978001099945,
+          "period": 2.272840909090909,
+          "hz": 109994.50027498625,
+          "power": 7.111674255747561
+        },
+        {
+          "f": 0.24753762311884406,
+          "period": 4.039789941425974,
+          "hz": 61884.405779711014,
+          "power": 7.095952042312806
+        }
+      ]
+    },
+    "OB vs SA": {
+      "max_power": 13.380800540855533,
+      "at_freq": 0.0032998350082495873,
+      "period_lags": 303.04545454545456,
+      "hz_nominal": 824.9587520623968,
+      "above": true,
+      "above_ten": false,
+      "p_within_channel": 0.015326498225284424,
+      "n_above": 1,
+      "mean_power": 1.0000495014417528,
+      "power_at_50Hz_nominal": 0.7814697556281659,
+      "freq_50Hz": 0.000199990000499975,
+      "top5": [
+        {
+          "f": 0.0032998350082495873,
+          "period": 303.04545454545456,
+          "hz": 824.9587520623968,
+          "power": 13.380800540855533
+        },
+        {
+          "f": 0.31138443077846106,
+          "period": 3.2114643545279384,
+          "hz": 77846.10769461526,
+          "power": 9.034693434939323
+        },
+        {
+          "f": 0.13874306284685767,
+          "period": 7.207567567567567,
+          "hz": 34685.76571171442,
+          "power": 7.423249412920192
+        },
+        {
+          "f": 0.12779361031948402,
+          "period": 7.825117370892019,
+          "hz": 31948.402579871006,
+          "power": 7.172963151371099
+        },
+        {
+          "f": 0.014449277536123194,
+          "period": 69.2076124567474,
+          "hz": 3612.3193840307986,
+          "power": 7.172706680066437
+        }
+      ]
+    }
+  },
+  "ten_pulse": {
+    "rows": [
+      {
+        "round": 1000,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 1.8162529797951403,
+        "max_power": 8.027420555371366,
+        "at_freq": 0.0017499125043747813,
+        "period_lags": 571.4571428571429,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 1000,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 1.565514145270879,
+        "max_power": 8.86720906328796,
+        "at_freq": 0.11994400279986,
+        "period_lags": 8.337223843268028,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 15000,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 0.43083712671118485,
+        "max_power": 9.8799537987166,
+        "at_freq": 0.34918254087295636,
+        "period_lags": 2.863831615120275,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 15000,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.7930696390363087,
+        "max_power": 8.358609389591255,
+        "at_freq": 0.16109194540272986,
+        "period_lags": 6.207635009310987,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 22000,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 1.3596145506033122,
+        "max_power": 12.224964788305817,
+        "at_freq": 0.4591270436478176,
+        "period_lags": 2.178046390068605,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 22000,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.1362305980431954,
+        "max_power": 8.310031436556324,
+        "at_freq": 0.4341782910854457,
+        "period_lags": 2.303201289728236,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 23000,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 0.37461066221758216,
+        "max_power": 10.909728191847094,
+        "at_freq": 0.38038098095095246,
+        "period_lags": 2.628943217665615,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 23000,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.6836087976438499,
+        "max_power": 8.59423113319491,
+        "at_freq": 0.4415779211039448,
+        "period_lags": 2.2646059782608696,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 26000,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 0.6380893808247771,
+        "max_power": 9.214394686523665,
+        "at_freq": 0.24193790310484475,
+        "period_lags": 4.133292002479851,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 26000,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 1.5758718582208464,
+        "max_power": 8.670620285316238,
+        "at_freq": 0.13969301534923254,
+        "period_lags": 7.158554044380816,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28293,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 3.8574015879028436,
+        "max_power": 9.610507642592763,
+        "at_freq": 0.4761261936903155,
+        "period_lags": 2.1002835240995483,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28293,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.2875838862948489,
+        "max_power": 12.115912729041685,
+        "at_freq": 0.4715264236788161,
+        "period_lags": 2.1207719223836285,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28294,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 2.1551724331266744,
+        "max_power": 10.945506383752724,
+        "at_freq": 0.4602269886505675,
+        "period_lags": 2.172840847365562,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28294,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.26111301829558425,
+        "max_power": 10.223537737410602,
+        "at_freq": 0.087995600219989,
+        "period_lags": 11.364204545454545,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28295,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 1.411326224830098,
+        "max_power": 10.987753945393237,
+        "at_freq": 0.41552922353882304,
+        "period_lags": 2.406569606545542,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28295,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 0.8979111865190899,
+        "max_power": 9.67461291867789,
+        "at_freq": 0.1575921203939803,
+        "period_lags": 6.345494923857868,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28296,
+        "channel": "OA vs SB",
+        "power_at_peak_freq": 0.20998213375495733,
+        "max_power": 10.4160405975165,
+        "at_freq": 0.31653417329133543,
+        "period_lags": 3.1592165534670666,
+        "above_single": false,
+        "above_ten": false
+      },
+      {
+        "round": 28296,
+        "channel": "OB vs SA",
+        "power_at_peak_freq": 1.6636514036272005,
+        "max_power": 8.625230980353464,
+        "at_freq": 0.4490275486225689,
+        "period_lags": 2.227034851352856,
+        "above_single": false,
+        "above_ten": false
+      }
+    ],
+    "peak_freq": 0.0032998350082495873,
+    "power_at_peak_28297": {
+      "OA vs SB": 0.5308020783387095,
+      "OB vs SA": 13.380800540855533
+    },
+    "peak_channel": "OB vs SA",
+    "power_at_peak_mean": 1.117657867373243,
+    "power_at_peak_max": 3.8574015879028436,
+    "n_above_ten_total": 0
+  },
+  "null": {
+    "perms": 400,
+    "max_mean": 9.814760881622266,
+    "max_p95": 12.062017274716162,
+    "max_max": 16.130926265847876,
+    "frac_above_thr": 0.0225
+  },
+  "eps_threshold_oscillatory": 0.0005545445037685553,
+  "positive_control": [
+    {
+      "period": 7.0,
+      "f0": 0.14285714285714285,
+      "hz_nominal": 35714.28571428571,
+      "eps": 0.0005545445037685553,
+      "frac": 1.0,
+      "detected": 3,
+      "peak_at_f0": 4,
+      "reps": 5,
+      "mean_power_at_f0": 12.090218804903667,
+      "powers": [
+        16.42752423724588,
+        11.412527030501188,
+        6.0352876068221635,
+        11.230254886922703,
+        15.345500263026402
+      ]
+    },
+    {
+      "period": 7.0,
+      "f0": 0.14285714285714285,
+      "hz_nominal": 35714.28571428571,
+      "eps": 0.0011090890075371106,
+      "frac": 2.0,
+      "detected": 5,
+      "peak_at_f0": 5,
+      "reps": 5,
+      "mean_power_at_f0": 39.87451490426448,
+      "powers": [
+        31.470181105414742,
+        39.05002716568402,
+        37.764354223855996,
+        44.55572072877817,
+        46.53229129758946
+      ]
+    },
+    {
+      "period": 137.0,
+      "f0": 0.0072992700729927005,
+      "hz_nominal": 1824.817518248175,
+      "eps": 0.0005545445037685553,
+      "frac": 1.0,
+      "detected": 3,
+      "peak_at_f0": 4,
+      "reps": 5,
+      "mean_power_at_f0": 12.735792374114641,
+      "powers": [
+        2.618958557414546,
+        14.866508119344147,
+        15.210852712496413,
+        20.173027279592574,
+        10.80961520172553
+      ]
+    },
+    {
+      "period": 137.0,
+      "f0": 0.0072992700729927005,
+      "hz_nominal": 1824.817518248175,
+      "eps": 0.0011090890075371106,
+      "frac": 2.0,
+      "detected": 5,
+      "peak_at_f0": 5,
+      "reps": 5,
+      "mean_power_at_f0": 50.89019509019366,
+      "powers": [
+        62.33278941083095,
+        47.74299840873913,
+        46.613600770769175,
+        49.485878221152575,
+        48.275708639476456
+      ]
+    },
+    {
+      "period": 5000.0,
+      "f0": 0.0002,
+      "hz_nominal": 50.0,
+      "eps": 0.0005545445037685553,
+      "frac": 1.0,
+      "detected": 2,
+      "peak_at_f0": 3,
+      "reps": 5,
+      "mean_power_at_f0": 13.695125397498213,
+      "powers": [
+        16.26491819430062,
+        9.85580194170725,
+        11.30111395929898,
+        7.930912588266124,
+        23.12288030391809
+      ]
+    },
+    {
+      "period": 5000.0,
+      "f0": 0.0002,
+      "hz_nominal": 50.0,
+      "eps": 0.0011090890075371106,
+      "frac": 2.0,
+      "detected": 5,
+      "peak_at_f0": 5,
+      "reps": 5,
+      "mean_power_at_f0": 62.254181033824,
+      "powers": [
+        68.30912559400961,
+        71.04384154962653,
+        50.85918855950806,
+        57.375664111637434,
+        63.68308535433835
+      ]
+    }
+  ],
+  "clean": true,
+  "clean_single_pulse": false,
+  "control_ok": true
+}

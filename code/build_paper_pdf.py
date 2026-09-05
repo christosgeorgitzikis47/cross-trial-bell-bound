@@ -38,6 +38,10 @@ EQUATIONS = [
      r"p(i) \;=\; p_0\!\left(S_{\mathrm{own}}(i)\right) \;+\; "
      r"\alpha\,\varepsilon \sum_k W_\tau(k)\, S_{\mathrm{other}}(i+k)",
      "model"),
+    ("|2P(Ŝ = S) − 1| ≤ √(2 ln2 · I(O ; S)),",
+     r"\left|\,2P(\hat S = S) - 1\,\right| \;\le\; "
+     r"\sqrt{2\ln 2\; I(O ; S)}",
+     "pinsker"),
     ("**δ(k) = α · ε · W_τ(k)**",
      r"\delta(k) \;=\; \alpha\,\varepsilon\,W_\tau(k)", "delta"),
     ("**I(k) ≈ δ(k)² / (2 ln2 · p₀(1−p₀)) = C · ε² · W_τ(k)²,  "
@@ -99,6 +103,21 @@ BOXED = [
 
 # multi-symbol inline expressions that need a hand-written rendering
 INLINE_EXACT = [
+    ("λ(i) = λ₀ + α ε Σ_{k ≠ 0} cos(2πf₀k + φ) S_B(i+k)",
+     r"$\lambda(i) = \lambda_0 + \alpha\varepsilon \sum_{k \neq 0} "
+     r"\cos(2\pi f_0 k + \varphi)\, S_B(i+k)$"),
+    ("ε_thr = √(4 z/N) · σ_δ/α = 5.5 × 10⁻⁴",
+     r"$\varepsilon_{\mathrm{thr}} = \sqrt{4z/N}\,"
+     r"\sigma_\delta/\alpha = 5.5\times10^{-4}$"),
+    ("1 − (1 − e^{−P})^M = 0.015",
+     r"$1-(1-e^{-P})^M = 0.015$"),
+    ("≈ N A²/4σ²", r"$\approx N A^2/4\sigma^2$"),
+    ("f_j = j/20,001 cycles per lag", r"$f_j = j/20{,}001$ cycles per lag"),
+    ("ln M + γ = 9.79", r"$\ln M + \gamma = 9.79$"),
+    ("z = ln(m/0.05)", r"$z = \ln(m/0.05)$"),
+    ("P(Ŝ = S) < 0.5 + bias/2 = 0.50063",
+     r"$P(\hat S = S) < 0.5 + \mathrm{bias}/2 = 0.50063$"),
+    ("H(S|O) ≤ h(P_err)", r"$H(S|O) \le h(P_{\mathrm{err}})$"),
     ("> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window |k| ≤ 10,000",
      "\\begin{equation}\nQ(\\tau) \\;=\\; \\sum_{|k|\\le 10{,}000} "
      "W_\\tau(k)^2\n\\label{eq:Q}\n\\end{equation}"),
@@ -255,6 +274,7 @@ INLINE_EXACT = [
 
 GREEK = {"τ": r"\tau", "ε": r"\varepsilon", "ρ": r"\rho", "δ": r"\delta", "σ": r"\sigma",
          "α": r"\alpha", "λ": r"\lambda", "χ": r"\chi", "π": r"\pi",
+         "γ": r"\gamma", "φ": r"\varphi",
          "Σ": r"\Sigma", "Λ": r"\Lambda", "Δ": r"\Delta", "µ": r"\mu"}
 SUP = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6",
        "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-"}
@@ -492,8 +512,8 @@ def main():
     open(meta, "w", encoding="utf-8").write(
         "---\ntitle: |\n  " + title + "\nauthor: |\n"
         "  Christos Georgitzikis\\\n  \\normalsize Independent Researcher\n"
-        + ("date: |\n  4 September 2026\\\n  \\normalsize\\textit{"
-           + ver + "}\n" if ver else "date: 4 September 2026\n")
+        + ("date: |\n  5 September 2026\\\n  \\normalsize\\textit{"
+           + ver + "}\n" if ver else "date: 5 September 2026\n")
         + "abstract: |\n  " + abstract.replace("\n", "\n  ") + "\n"
         "---\n")
 
