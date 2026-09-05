@@ -104,7 +104,7 @@ def main():
     old_path = os.path.join(HERE, "stability_results.json")
     if os.path.exists(old_path):
         old = json.load(open(old_path))
-        print(f"Old 5: from {old_path} (already computed)")
+        print(f"Old 5: from {os.path.basename(old_path)} (already computed)")
     else:
         old = [analyse(r) for r in OLD_ROUNDS]
 

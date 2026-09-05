@@ -141,7 +141,7 @@ def main():
     n = len(SA)
     n_lags = 2 * a.K + 1
     n_tests = n_lags * 2
-    print(f"Pulse: {a.path}")
+    print(f"Pulse: {os.path.basename(a.path)}")
     print(f"Trials: {n:,}   lags: {n_lags:,} per pair   "
           f"TOTAL HYPOTHESES: {n_tests:,}\n")
 

@@ -972,6 +972,9 @@ contributes less: sensitivity sets the weight, not trial count.
 : Joint exclusion from all ten pulses, O_A vs S_B, with the improvement over the
 single-pulse map of §6.3.
 
+These joint bounds are the right panel of **Figure 3**, plotted against the
+single-pulse map of §6.3 on the left.
+
 **Zero detections in 208 joint tests**, maximum |z_joint| = 2.10. The mean
 improvement over the single-pulse map is a factor **3.62** (range 2.77 to 5.10),
 which exceeds the naive √10 = 3.16 for the reason given in Limitation 1: round 28297 has
@@ -1344,21 +1347,22 @@ now mapped.
 ## Appendix B — reproduction
 
 ```
-python3 code/katevasma.py --rounds 28297
-python3 code/load_curby.py curby_round_28297.bin --out curby_28297.npz
-python3 code/full_scan.py ; python3 code/meros1_alpha.py
-python3 code/meros2_injection.py ; python3 code/meros3_map.py
-python3 code/meros3_verify.py ; python3 code/meros4_outcome_outcome.py
-python3 code/meros5_asym.py ; python3 code/meros5_verify.py
-python3 code/meros6_p0.py ; python3 code/meros6_kernelQ.py
-python3 code/meros6_systematic.py ; python3 code/meros6_alpha10.py
-python3 code/meros7_power.py ; python3 code/meros8_settings.py
-python3 code/meros9_joint.py ; python3 code/meros10_settings10.py
-python3 code/meros11_optimality.py ; python3 code/meros12_selfmemory.py
-python3 code/meros13_parity.py ; python3 code/meros14_oo10.py
-python3 code/meros15_homogeneity.py ; python3 code/meros16_crosspulse.py
-python3 code/meros17_periodogram.py ; python3 code/meros18_covariance.py
-python3 code/figures_en.py
+cd code
+python3 katevasma.py --rounds 28297
+python3 load_curby.py curby_round_28297.bin --out curby_28297.npz
+python3 full_scan.py ; python3 meros1_alpha.py
+python3 meros2_injection.py ; python3 meros3_map.py
+python3 meros3_verify.py ; python3 meros4_outcome_outcome.py
+python3 meros5_asym.py ; python3 meros5_verify.py
+python3 meros6_p0.py ; python3 meros6_kernelQ.py
+python3 meros6_systematic.py ; python3 meros6_alpha10.py
+python3 meros7_power.py ; python3 meros8_settings.py
+python3 meros9_joint.py ; python3 meros10_settings10.py
+python3 meros11_optimality.py ; python3 meros12_selfmemory.py
+python3 meros13_parity.py ; python3 meros14_oo10.py
+python3 meros15_homogeneity.py ; python3 meros16_crosspulse.py
+python3 meros17_periodogram.py ; python3 meros18_covariance.py
+python3 figures_en.py
 ```
 
 Random seeds are fixed in the scripts: 4711 (exclusion map shuffles), 808 and
