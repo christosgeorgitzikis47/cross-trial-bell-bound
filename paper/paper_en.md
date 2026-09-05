@@ -721,10 +721,12 @@ is no temporal tail. See **Figure 2**.
 ![Figure 2](../figures/fig2_j_curve.png)
 
 **Figure 2.** Eberhard J in units of its Poisson error, as a function of the
-lag between settings and outcomes, round 28297. Left: |k| ≤ 50, linear. Right:
-the full scanned range on a symmetric-log axis, showing that the behaviour at
-|k| up to 10,000 is identical to that at |k| = 1. The violation is confined to
-exactly one lag. Vector version: `figures/fig2_j_curve.pdf`.
+lag between settings and outcomes, round 28297. Left: |k| ≤ 50, linear, every
+lag in that range measured, so the points are joined. Right: the full scanned
+range on a symmetric-log axis, showing that the behaviour at |k| up to 10,000
+is identical to that at |k| = 1; here the lags are sampled rather than
+exhaustive (§6.2), so the points are left unjoined. The violation is confined
+to exactly one lag. Vector version: `figures/fig2_j_curve.pdf`.
 
 ### 6.3 Exclusion map
 

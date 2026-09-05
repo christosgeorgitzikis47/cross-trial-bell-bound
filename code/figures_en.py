@@ -101,8 +101,15 @@ def fig2():
     for ax, full in ((axA, False), (axB, True)):
         m = np.ones_like(k, bool) if full else (np.abs(k) <= 50)
         ax.axhline(0, color=INK2, lw=0.8, ls=(0, (3, 3)))
-        ax.plot(k[m], z[m], "-", lw=0.9, color=BLUE, marker="o", ms=2.4,
-                mfc=BLUE, mec="none")
+        # left panel: every lag is present, so the points may be joined.
+        # right panel: the lags are sampled, not exhaustive, and a connecting
+        # line would imply J was measured in between. Markers only.
+        if full:
+            ax.plot(k[m], z[m], linestyle="none", color=BLUE, marker="o",
+                    ms=3.0, mfc=BLUE, mec="none")
+        else:
+            ax.plot(k[m], z[m], "-", lw=0.9, color=BLUE, marker="o", ms=2.4,
+                    mfc=BLUE, mec="none")
         ax.plot([0], [z[k == 0][0]], "o", ms=7, color=RED, zorder=6)
         ax.grid(True, color=GRID, lw=0.6)
         for sp in ("top", "right"):
