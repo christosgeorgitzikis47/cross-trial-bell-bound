@@ -11,7 +11,7 @@ Primary category:  quant-ph
 Cross-list (προαιρετικό):  physics.data-an
 
 Comments:
-28 pages, 4 figures. Analysis code, intermediate results and SHA-256
+29 pages, 4 figures. Analysis code, intermediate results and SHA-256
 manifests of the raw data at
 https://github.com/christosgeorgitzikis47/cross-trial-bell-bound
 

@@ -86,6 +86,12 @@ is influenced by settings at trials i ± k. Such models predict a directly
 observable signature: nonzero mutual information between an outcome and a
 setting separated in the trial sequence.
 
+In the standard taxonomy of loopholes [25] the assumption at issue here is
+neither locality nor detection but the freedom-of-choice assumption, and
+specifically its cross-trial part: not whether a setting is correlated with the
+hidden variable of its own trial, but whether it is correlated with the outcome
+of another.
+
 We are not aware of a direct experimental test of this class. The nearest
 neighbours are the memory loophole [10], where cross-trial dependence is
 admitted and handled by adversarially valid statistics rather than measured, and
@@ -96,6 +102,15 @@ bounded experimentally by Aktas et al. [16], and the spacetime-region bounds of
 the cosmic Bell tests [17,18] — are within-trial and in a different
 parametrisation, and are not directly comparable to ε. No published limit known
 to us constrains outcome–setting correlation as a function of trial separation.
+
+Santos [26] asks a related question about the same physical effect and answers
+the opposite half of it. He shows that memory effects in photon-pair
+experiments cannot produce a loophole large enough to rescue local hidden
+variables — a statement about what memory could *accomplish*. What follows is a
+measurement of how much of it is *there*. Neither implies the other: a device
+could carry cross-trial memory far too weak to fake a Bell violation and still
+leak more than a protocol assuming none would tolerate. It is that quantity,
+at every separation up to ten thousand trials, that is measured here.
 
 The nearest currency to ours is the one measured in bits. Barrett and Gisin
 [22] showed that if Bob's choices are completely free, every correlation
@@ -153,18 +168,25 @@ The scan range itself is not arbitrary either. Statistically it is almost free:
 a lag k is estimated from n − |k| trials, so at the edge of the window the
 sample is still 99.93% of the total and the loss of power is 0.03%; the sample
 would shrink by 10% only near |k| ≈ 1.5 × 10⁶, where the loss of power would
-still be just 5%. Physically the window spans ≤ 510 ms
-(§4.1), which covers the thermal, mechanical and electronic correlation times of
-a table-top optical apparatus; a mechanism slower than that would appear as drift
-common to whole pulses rather than as structure in k, and is addressed instead by
-§5.1 and by the ten-pulse comparison of §6.4.
+still be just 5%. In physical units the window is not a single number: at the
+instrument's nominal rate of about 250,000 trials per second (§4.1) it spans
+≈ 40 ms, and the metadata bound of 51 µs per trial puts it at ≤ 510 ms. Only
+the shorter end can be assumed, so the coverage claim is made against 40 ms:
+electronic and fast mechanical correlation times of a table-top optical
+apparatus fall inside it, and anything slower — thermal drift of an optical
+table, which lives on seconds to minutes — does not. Slower mechanisms are not
+thereby unconstrained; they would appear as drift common to whole pulses rather
+than as structure in k, and are addressed by the setting-correlation test of
+§5.1 and by the ten-pulse comparison of §6.4, which spans twenty-two months.
 
 Equation (1) is a linearisation, and holds while the perturbation is small
 against the baseline rate. Since the settings are independent and equiprobable,
 the injected term has standard deviation α ε √Q across trials, so the condition
-is α ε √Q ≪ p₀. At the weakest point of the whole exclusion map — the point
-where the excluded coupling is largest relative to Q — this evaluates to
-1.57 × 10⁻⁴ against p₀ = 6.93 × 10⁻³, i.e. 2.3%; everywhere else it is smaller.
+is α ε √Q ≪ p₀. The largest value of α ε √Q anywhere on the single-pulse map
+occurs for the past-only kernel at τ = 1 in the channel O_B vs S_A, where
+ε_excl = 1.382 × 10⁻¹ and Q = 0.386; with α_B = 1.8283 × 10⁻³ this is
+1.570 × 10⁻⁴, or 2.3% of that channel's p₀ = 6.87087 × 10⁻³. Everywhere else
+it is smaller.
 The model is therefore used only in the regime where its linear form is
 accurate.
 
@@ -278,7 +300,7 @@ unchanged.]
 
 The quantity
 
-> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window 0 < |k| ≤ 10,000
+> **Q(τ) = Σ_k W_τ(k)², summed over the scan window 0 < |k| ≤ 10,000**
 
 is the only property of the kernel that enters the final bound (§6.3), so it is
 tabulated here alongside each shape:
@@ -288,13 +310,15 @@ tabulated here alongside each shape:
 | symmetric | exp(−k²/2τ²), all k ≠ 0 | 1 | 1 |
 | future-only | exp(−k²/2τ²) for k > 0, else 0 | 0.500 | 0.500 |
 | past-only | exp(−k²/2τ²) for k < 0, else 0 | 0.500 | 0.500 |
-| exponential future | exp(−k/τ) for k > 0, else 0 | 0.282 | 0.203 |
+| exponential future | exp(−k/τ) for k > 0, else 0 | ≈ 0.28 | 0.203 |
 
 : The four kernel shapes and their Q relative to the symmetric kernel.
 
 With k = 0 absent from all four, the one-sided Gaussians carry exactly half the
-symmetric Q at every τ. The exponential ratio is asymptotic and is reached from
-above τ ≈ 10 (0.270 at τ = 10, 0.281 at τ = 100). Q is computed exactly as a
+symmetric Q at every τ, to machine precision. The exponential ratio is not a
+constant: for τ ≳ 10 it lies between 0.270 and 0.289 (0.270 at τ = 10, 0.281 at
+τ = 100, 0.282 at τ = 1,000, 0.289 at τ = 10⁴, where the window truncates the
+two kernels differently), which is why the column is given as ≈ 0.28. Q is computed exactly as a
 finite sum over the scan window, never asymptotically; the symmetric kernel
 has Q = 0.773 at τ = 1 and 2.545 at τ = 2. One detail of the discrete lag grid:
 since k = 0 is excluded, every kernel peaks at k = ±1, where W is exp(−1/2τ²) or
@@ -344,7 +368,13 @@ leading order; the alternative choices r₁, r₂, or √(r₁r₂) would give r
 **Calibration.** α is not a free parameter. It is fixed by the measured
 same-pair lag-0 dependence, which is ordinary quantum mechanics. On round 28297
 the two settings give click rates r₁ = 4.96662 × 10⁻³ and r₂ = 8.89072 × 10⁻³,
-hence δ(0) = 1.96206 × 10⁻³ ± 2.14 × 10⁻⁵ and α = 1.9621 × 10⁻³ ± 1.1%.
+hence δ(0) = 1.96206 × 10⁻³ ± 2.14 × 10⁻⁵ and α = 1.9621 × 10⁻³ ± 1.1%. The
+same construction on Bob's wing gives r₁ = 5.04249 × 10⁻³,
+r₂ = 8.69908 × 10⁻³ and α_B = 1.8283 × 10⁻³, with marginal click probabilities
+p₀ = 6.92833 × 10⁻³ for Alice and 6.87087 × 10⁻³ for Bob. Both are needed: the
+map is computed per channel, and every quantity quoted for O_B vs S_A — the
+dashed curves of Figure 3, the joint bounds of Table 7, and the worst point of
+the map — uses α_B, not α_A.
 
 The second-order approximation reproduces the exactly computed mutual
 information to 1.35% (4.036 × 10⁻⁴ against 4.091 × 10⁻⁴, the latter from the
@@ -1084,7 +1114,11 @@ that the statistics of trial i are not conditioned on the settings of other
 trials. That assumption is exactly the memory loophole [10], and it is the
 reason such protocols are analysed with adversarially valid, memory-tolerant
 statistics [11–13] rather than with the i.i.d. estimates that would otherwise
-suffice. The results of this paper — 0 of 400,000 single-party memory tests
+suffice. Dropping the assumption costs more than a looser bound: Weilenmann,
+Budroni and Navascués [27] show that in the non-i.i.d. regime whole classes of
+certification become impossible, membership tests for non-convex sets of
+correlations among them, so how well the assumption holds decides what can be
+certified at all. The results of this paper — 0 of 400,000 single-party memory tests
 (§6.6), 0 of 200,010 setting-correlation tests (§5.1), and the bound of
 1.13 × 10⁻⁶ bits per trial on the information any outcome carries about any
 other trial's setting (§6.1) — constitute a direct empirical check of that
@@ -1434,3 +1468,12 @@ answering an unsolicited enquiry from an independent researcher.
      V. Scarani, A. Ekert, "Effects of reduced measurement independence on
      Bell-based randomness expansion", *Phys. Rev. Lett.* **109**, 160404
      (2012), arXiv:1202.3571.
+
+[25] J.-Å. Larsson, "Loopholes in Bell inequality tests of local realism",
+     *J. Phys. A: Math. Theor.* **47**, 424003 (2014).
+
+[26] E. Santos, "On possible memory effects in tests of Bell inequalities",
+     arXiv:1603.04428 (2016).
+
+[27] M. Weilenmann, C. Budroni, M. Navascués, "Memory attacks in network
+     nonlocality and self-testing", *Quantum* **9**, 1735 (2025).

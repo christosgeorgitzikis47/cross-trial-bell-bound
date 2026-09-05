@@ -126,8 +126,8 @@ INLINE_EXACT = [
     ("P(Ŝ = S) < 0.5 + bias/2 = 0.50063",
      r"$P(\hat S = S) < 0.5 + \mathrm{bias}/2 = 0.50063$"),
     ("H(S|O) ≤ h(P_err)", r"$H(S|O) \le h(P_{\mathrm{err}})$"),
-    ("> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window |k| ≤ 10,000",
-     "\\begin{equation}\nQ(\\tau) \\;=\\; \\sum_{|k|\\le 10{,}000} "
+    ("> **Q(τ) = Σ_k W_τ(k)², summed over the scan window 0 < |k| ≤ 10,000**",
+     "\\begin{equation}\nQ(\\tau) \\;=\\; \\sum_{0<|k|\\le 10{,}000} "
      "W_\\tau(k)^2\n\\label{eq:Q}\n\\end{equation}"),
     ("> **T(τ) = Σ_k W_τ(k) · δ̂(k)**,  with **E[T] = α ε Q(τ)** under the model,\n"
      "> **ε̂ = T/(αQ)**, and **z = T/σ_T**",
@@ -357,6 +357,7 @@ def _convert_plain(t):
     t = re.sub(r"−([0-9][0-9,\.]*)", lambda m: "$-%s$" % m.group(1), t)
     # 6. operators
     for a, b in (("≤", r"$\le$"), ("≥", r"$\ge$"), ("≈", r"$\approx$"),
+                 ("≳", r"$\gtrsim$"), ("≲", r"$\lesssim$"),
                  ("≠", r"$\ne$"), ("≪", r"$\ll$"), ("≫", r"$\gg$"), ("≡", r"$\equiv$"), ("∝", r"$\propto$"),
                  ("∈", r"$\in$"), ("±", r"$\pm$"), ("×", r"$\times$"),
                  ("·", r"$\cdot$"), ("−", "$-$"), ("→", r"$\rightarrow$"),
