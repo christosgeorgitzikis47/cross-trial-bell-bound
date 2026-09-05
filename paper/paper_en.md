@@ -677,11 +677,16 @@ is discussed in §6.7.
 ![Figure 1](../figures/fig1_mi_vs_lag.png)
 
 **Figure 1.** Mutual information between one party's outcome at trial *i* and
-the other party's setting at trial i+k, for all 20,001 lags |k| ≤ 10,000, round
-28297. Both cross-pair channels are shown. The dashed line is the Bonferroni
-threshold at family-wise α = 0.05 over 40,002 hypotheses. The largest value in
-either channel reaches 63% of the threshold. Vector version:
-`figures/fig1_mi_vs_lag.pdf`.
+the other party's setting at trial i+k, over all 20,001 lags |k| ≤ 10,000,
+round 28297, for both cross-pair channels. Drawing every lag would let one
+pixel of width stand for about forty of them and show only their maximum, so
+the lags are binned in hundreds: the light line is the largest value in each
+bin, the dark line the median. The dashed red line is the Bonferroni threshold
+at family-wise α = 0.05 over 40,002 hypotheses, 1.13 × 10⁻⁶ bits per trial;
+the largest single lag in either channel reaches 63% of it. The strip above
+each panel carries the same-trial value of that same wing on its own scale,
+which is what the factor of 362 means. The right-hand panel is the histogram
+of all 20,001 values of √G against the χ²(1) curve the threshold assumes.
 
 ### 6.2 The J(k) curve
 
@@ -720,13 +725,15 @@ is no temporal tail. See **Figure 2**.
 
 ![Figure 2](../figures/fig2_j_curve.png)
 
-**Figure 2.** Eberhard J in units of its Poisson error, as a function of the
-lag between settings and outcomes, round 28297. Left: |k| ≤ 50, linear, every
-lag in that range measured, so the points are joined. Right: the full scanned
-range on a symmetric-log axis, showing that the behaviour at |k| up to 10,000
-is identical to that at |k| = 1; here the lags are sampled rather than
-exhaustive (§6.2), so the points are left unjoined. The violation is confined
-to exactly one lag. Vector version: `figures/fig2_j_curve.pdf`.
+**Figure 2.** Eberhard J in units of its Poisson error, against the lag
+between settings and outcomes, round 28297. The y axis is broken: the narrow
+strip carries the decoupled baseline near −135σ, which is a property of the
+statistic rather than a result, and the main axes carry the region where the
+question lies. Left: |k| ≤ 50, every lag in that range measured, so the points
+are joined; k = 0 is drawn separately, since joining it would put a 147σ
+vertical through the break. Right: |k| > 50 on a symmetric-log axis, where the
+lags are sampled rather than exhaustive (§6.2), so the points are left
+unjoined. The violation is confined to exactly one lag.
 
 ### 6.3 Exclusion map
 
@@ -802,12 +809,14 @@ i.e. 1, 2, 3, 5, 7, 10, 15, 22, 30, 32, 46, 68, 100, 147, 215, 300, 316, 464,
 
 ![Figure 3](../figures/fig3_exclusion_map.png)
 
-**Figure 3.** Upper bound on the coupling strength ε as a function of kernel
-width τ, for all four kernel shapes and both cross-pair channels, round 28297.
-The shaded region is excluded at family-wise α = 0.05. The bend above
-τ ≈ 3,000 is the finite scan window truncating the kernel tails. The upper axis
-gives the upper-bound conversion of §4.1 and applies to this round only. Vector
-version: `figures/fig3_exclusion_map.pdf`.
+**Figure 3.** Upper bound on the coupling strength ε against kernel width τ,
+for all four kernel shapes and both cross-pair channels. Left: the single
+pulse of §6.3, round 28297. Right: the ten-pulse joint bound of §6.4, which is
+the strongest statement these data support. Solid lines are O_A vs S_B, dashed
+O_B vs S_A; everything above a curve is excluded at family-wise α = 0.05. The
+bend above τ ≈ 3,000 is the finite scan window truncating the kernel tails.
+The upper axis gives the upper-bound conversion of §4.1 and applies to round
+28297 only.
 
 The one-sided bounds relax by the geometrically expected factor: predicted
 √2 = 1.414 against a measured median of 1.38 (range 1.18–1.56) for the
@@ -886,10 +895,11 @@ axis is the injected coupling in units of the bound this analysis states for
 that kernel and τ; the vertical axis is the matched-filter significance. Points
 are the mean over ten repetitions, error bars their standard deviation, and the
 six series are the three asymmetric kernels at τ = 30 and τ = 300. The dashed
-line is the linear scaling expected if the filter is unbiased. The boxes give
-the number of runs detected out of 60 at each level. Nothing is found when
-nothing is injected, and a signal at twice the stated bound is found every
-time. Vector version: `figures/fig4_injection_power.pdf`.
+line is not a fit: its slope is fixed by the measured z at ε = ε_excl and it is
+forced through the origin, so the other three levels are a prediction the
+points either meet or do not. The boxes give the number of runs detected out of
+60 at each level. Nothing is found when nothing is injected, and a signal at
+twice the stated bound is found every time.
 
 **Kernel mismatch.** The mirror-filter test covers the extreme case, a filter
 pointed the wrong way. The intermediate case is a filter of the wrong *width*.

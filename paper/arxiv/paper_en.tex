@@ -1106,7 +1106,7 @@ in \S6.7.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig1_mi_vs_lag.pdf}
-\caption{Mutual information between one party's outcome at trial \textit{i} and the other party's setting at trial i+k, for all 20,001 lags $|k| \le 10{,}000$, round 28297. Both cross-pair channels are shown. The dashed line is the Bonferroni threshold at family-wise $\alpha$ = 0.05 over 40,002 hypotheses. The largest value in either channel reaches 63\% of the threshold. Vector version: \texttt{figures/fig1\_mi\_vs\_lag.pdf}.}
+\caption{Mutual information between one party's outcome at trial \textit{i} and the other party's setting at trial i+k, over all 20,001 lags $|k| \le 10{,}000$, round 28297, for both cross-pair channels. Drawing every lag would let one pixel of width stand for about forty of them and show only their maximum, so the lags are binned in hundreds: the light line is the largest value in each bin, the dark line the median. The dashed red line is the Bonferroni threshold at family-wise $\alpha$ = 0.05 over 40,002 hypotheses, $1.13 \times 10^{-6}$ bits per trial; the largest single lag in either channel reaches 63\% of it. The strip above each panel carries the same-trial value of that same wing on its own scale, which is what the factor of 362 means. The right-hand panel is the histogram of all 20,001 values of $\sqrt{G}$ against the $\chi^2(1)$ curve the threshold assumes.}
 \label{fig:1}
 \end{figure}
 
@@ -1158,7 +1158,7 @@ the baseline within a single trial. There is no temporal tail. See
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig2_j_curve.pdf}
-\caption{Eberhard J in units of its Poisson error, as a function of the lag between settings and outcomes, round 28297. Left: |k| $\le$ 50, linear, every lag in that range measured, so the points are joined. Right: the full scanned range on a symmetric-log axis, showing that the behaviour at |k| up to 10,000 is identical to that at $|k| = 1$; here the lags are sampled rather than exhaustive (\S6.2), so the points are left unjoined. The violation is confined to exactly one lag. Vector version: \texttt{figures/fig2\_j\_curve.pdf}.}
+\caption{Eberhard J in units of its Poisson error, against the lag between settings and outcomes, round 28297. The y axis is broken: the narrow strip carries the decoupled baseline near $-135 \sigma$, which is a property of the statistic rather than a result, and the main axes carry the region where the question lies. Left: |k| $\le$ 50, every lag in that range measured, so the points are joined; k = 0 is drawn separately, since joining it would put a 147$\sigma$ vertical through the break. Right: |k| > 50 on a symmetric-log axis, where the lags are sampled rather than exhaustive (\S6.2), so the points are left unjoined. The violation is confined to exactly one lag.}
 \label{fig:2}
 \end{figure}
 
@@ -1297,7 +1297,7 @@ exp. future
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig3_exclusion_map.pdf}
-\caption{Upper bound on the coupling strength $\varepsilon$ as a function of kernel width $\tau$, for all four kernel shapes and both cross-pair channels, round 28297. The shaded region is excluded at family-wise $\alpha$ = 0.05. The bend above $\tau \approx$ 3,000 is the finite scan window truncating the kernel tails. The upper axis gives the upper-bound conversion of \S4.1 and applies to this round only. Vector version: \texttt{figures/fig3\_exclusion\_map.pdf}.}
+\caption{Upper bound on the coupling strength $\varepsilon$ against kernel width $\tau$, for all four kernel shapes and both cross-pair channels. Left: the single pulse of \S6.3, round 28297. Right: the ten-pulse joint bound of \S6.4, which is the strongest statement these data support. Solid lines are $O_{\mathrm{A}}$ vs $S_{\mathrm{B}}$, dashed $O_{\mathrm{B}}$ vs $S_{\mathrm{A}}$; everything above a curve is excluded at family-wise $\alpha$ = 0.05. The bend above $\tau \approx$ 3,000 is the finite scan window truncating the kernel tails. The upper axis gives the upper-bound conversion of \S4.1 and applies to round 28297 only.}
 \label{fig:3}
 \end{figure}
 
@@ -1418,7 +1418,7 @@ bound, and quoting anything else would misrepresent it.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig4_injection_power.pdf}
-\caption{Recovery of an injected signal of known strength. The horizontal axis is the injected coupling in units of the bound this analysis states for that kernel and $\tau$; the vertical axis is the matched-filter significance. Points are the mean over ten repetitions, error bars their standard deviation, and the six series are the three asymmetric kernels at $\tau$ = 30 and $\tau$ = 300. The dashed line is the linear scaling expected if the filter is unbiased. The boxes give the number of runs detected out of 60 at each level. Nothing is found when nothing is injected, and a signal at twice the stated bound is found every time. Vector version: \texttt{figures/fig4\_injection\_power.pdf}.}
+\caption{Recovery of an injected signal of known strength. The horizontal axis is the injected coupling in units of the bound this analysis states for that kernel and $\tau$; the vertical axis is the matched-filter significance. Points are the mean over ten repetitions, error bars their standard deviation, and the six series are the three asymmetric kernels at $\tau$ = 30 and $\tau$ = 300. The dashed line is not a fit: its slope is fixed by the measured z at $\varepsilon$ = $\varepsilon_{\mathrm{excl}}$ and it is forced through the origin, so the other three levels are a prediction the points either meet or do not. The boxes give the number of runs detected out of 60 at each level. Nothing is found when nothing is injected, and a signal at twice the stated bound is found every time.}
 \label{fig:4}
 \end{figure}
 
