@@ -97,6 +97,24 @@ the cosmic Bell tests [17,18] — are within-trial and in a different
 parametrisation, and are not directly comparable to ε. No published limit known
 to us constrains outcome–setting correlation as a function of trial separation.
 
+The nearest currency to ours is the one measured in bits. Barrett and Gisin
+[22] showed that if Bob's choices are completely free, every correlation
+obtainable from projective measurements on a singlet can be reproduced by a
+local model in which the mutual information between Alice's choice and the
+local variables is at most one bit — so a bound in bits on setting–variable
+correlation is the natural currency for how much measurement dependence a
+model needs. Hall and Branciard [23] sharpened the accounting in the CHSH
+scenario, finding that an optimal causal model needs about 0.080 bits of such
+information to reproduce the maximal quantum violation while a retrocausal
+one, in which later settings influence earlier source variables, needs about
+0.046. Koh et al. [24] carried the same relaxation into device-independent
+randomness expansion and bounded what an adversary gains from it. All three
+quantify information involving the hidden variable, at a single trial; the
+bound below is on information between two recorded quantities, at a
+separation in trials, and the data-processing inequality relates the two in
+one direction only (above). It cannot be compared with them numerically, and
+we do not.
+
 ---
 
 ## 2. The model class
@@ -606,6 +624,26 @@ positive correlation of neighbouring lags makes Bonferroni conservative for
 that purpose, as already noted.
 The full scan is shown in **Figure 1**.
 
+**Guessing advantage.** The same bound reads directly as a limit on
+prediction. Consider an adversary who tries to guess the setting S_B(i+k), a
+uniformly random bit, from Alice's outcome O_A(i) at some lag k. For a uniform
+binary S the advantage of the optimal guess equals the total-variation
+distance between the two conditional outcome distributions, and Pinsker's
+inequality applied to the joint distribution gives
+
+|2P(Ŝ = S) − 1| ≤ √(2 ln2 · I(O ; S)),
+
+with I in bits. At I < 1.13 × 10⁻⁶ bits the bias is below 1.25 × 10⁻³, so
+P(Ŝ = S) < 0.5 + bias/2 = 0.50063, at the family-wise confidence above. The
+constant was checked rather than copied: the binary form is the tight one for
+a uniform bit, an exact inversion of the binary entropy through Fano's
+inequality, H(S|O) ≤ h(P_err), gives 1.2516 × 10⁻³ as well, agreeing to seven
+digits, and the inequality was verified numerically over a grid of binary
+channels. This is the quantity a leakage lemma would take as input; we do not
+carry the argument through to a min-entropy statement, and the bound is stated
+per lag, not jointly over lags. What it means for device-independent protocols
+is discussed in §6.7.
+
 ![Figure 1](../figures/fig1_mi_vs_lag.png)
 
 **Figure 1.** Mutual information between one party's outcome at trial *i* and
@@ -926,6 +964,28 @@ measured rather than assumed. Had a substantial correlation appeared, the
 combination would have required generalised least squares with the full
 covariance matrix; it does not.
 
+That test is at the level of the lags. The quantity the joint bound actually
+depends on is the covariance of the estimators T_p themselves, and covariance
+concentrated in the few lags where a narrow kernel puts its weight would move
+an unweighted correlation over 20,000 lags very little while still biasing
+σ_joint. It was therefore computed directly, for each of the 104 filters, each
+of the 45 pulse pairs and both channels. Since T_p = Σ_k W(k) δ̂_p(k) and the
+δ̂ are uncorrelated across k, the covariance is Σ_k W(k)² Cov(δ̂_p, δ̂_q), whose
+estimator standardised by its own sampling error is
+t_pq = Σ_k W(k)² z_p z_q / √(Σ_k W(k)⁴) with z = δ̂/σ_δ, standard normal if the
+pulses are independent. A W²-weighted *correlation* would be the wrong
+statistic and would saturate at ±1: the effective number of lags a filter
+uses, (Σ W²)²/Σ W⁴, is 1.1 for the future kernel at τ = 1. Across the 9,360
+values of t the mean is +0.029 and the standard deviation 0.955 against 0 and
+1, and the largest is 4.18 where 4.28 is expected as the maximum of that many
+normals. Keeping the measured off-diagonal terms would move σ_joint by
++1.3% on average over the filters that rest on ten or more lags; against a
+null built by giving each pulse an independent random circular shift of its
+lag axis, which destroys any alignment between pulses while preserving each
+pulse's own structure, that shift is +0.58σ, and the corresponding figure over
+all filters is +0.86σ. There is no covariance beyond what independent pulses
+produce, and the diagonal weighting stands.
+
 The combination also assumes a coupling common to the ten pulses — not a
 triviality across twenty-two months of drifting hardware. The assumption was
 tested rather than left implicit: for each kernel and τ, the heterogeneity
@@ -1033,26 +1093,6 @@ interpretation of the model class of §2. It does not establish the security
 of the protocol: what is verified is one assumption, at the stated
 sensitivity, on these records.
 
-**In cryptographic units.** The bits of §6.1 convert directly into a guessing
-advantage. Consider an adversary who tries to predict the setting S_B(i+k), a
-uniformly random bit, from Alice's outcome O_A(i) at some lag k. For a uniform
-binary S the advantage of the optimal guess equals the total-variation
-distance between the two conditional outcome distributions, and Pinsker's
-inequality applied to the joint distribution gives
-
-|2P(Ŝ = S) − 1| ≤ √(2 ln2 · I(O ; S)),
-
-with I in bits. With I < 1.13 × 10⁻⁶ bits at every lag, the bias is below
-1.25 × 10⁻³, and the guessing probability satisfies
-P(Ŝ = S) < 0.5 + bias/2 = 0.50063, at the family-wise confidence of §6.1.
-The constant was checked rather than copied: the binary form above is the
-tight one for a uniform bit, an exact inversion of the binary entropy through
-Fano's inequality, H(S|O) ≤ h(P_err), gives 1.2516 × 10⁻³ as well, agreeing
-with the Pinsker form to seven digits, and the inequality was verified
-numerically over a grid of binary channels. This is the quantity a leakage
-lemma would take as input; we do not carry the argument through to a
-min-entropy statement, and the bound is stated per lag, not jointly over
-lags.
 
 ### 6.8 Oscillatory kernels: a frequency scan
 
@@ -1070,7 +1110,7 @@ Scargle normalisation the power at each frequency is Exp(1) under Gaussian
 white noise, and both conditions were established in §6.3: the δ̂(k) are
 uncorrelated across k (|r| ≤ 0.014) and Gaussian (Kolmogorov–Smirnov
 p = 0.535 and 0.223). The frequency grid is f_j = j/20,001 cycles per lag for
-j = 1 … 10,000, so M = 10,000 independent frequencies per channel, and the
+j = 1 … 10,000, so M = 10,000 searched frequencies per channel, and the
 Bonferroni threshold on Exp(1) is z = ln(m/0.05): z = 12.90 for the two
 channels of one pulse (m = 20,000) and z = 15.20 for the ten pulses
 (m = 200,000), the latter matching the family construction of §6.5, §6.6 and
@@ -1174,7 +1214,7 @@ I(O ; S at lag k) < 1.13 × 10⁻⁶ bits per trial for every lag up to ±10,000
 at family-wise α = 0.05 — 1/362 of the same-trial correlation the same
 instrument registers — while the outcome–outcome information at nonzero lag
 stays below 1/13,384 of the Bell correlation, and no outcome lets any other
-trial's setting be guessed with a bias above 1.25 × 10⁻³ (§6.7). The
+trial's setting be guessed with a bias above 1.25 × 10⁻³ (§6.1). The
 instrument is not insensitive.
 
 Translated into the parameters of the model class of §2, the same data exclude
@@ -1248,6 +1288,7 @@ now mapped.
 | `code/meros15_homogeneity.py` | §6.4: ε-homogeneity test; §6.3: matched-threshold factors |
 | `code/meros16_crosspulse.py` | §6.4: cross-pulse correlation of δ̂(k), the pulse-independence row of Table 3 |
 | `code/meros17_periodogram.py` | §6.8: Lomb–Scargle periodogram of δ̂(k), its threshold, null and positive control |
+| `code/meros18_covariance.py` | §6.4: covariance of the T_p across pulses, per filter, and its permutation null |
 | `code/check_refs.py` | verifies every internal cross-reference resolves |
 | `code/figures_en.py` | Figures 1–3 |
 
@@ -1269,7 +1310,7 @@ python3 code/meros9_joint.py ; python3 code/meros10_settings10.py
 python3 code/meros11_optimality.py ; python3 code/meros12_selfmemory.py
 python3 code/meros13_parity.py ; python3 code/meros14_oo10.py
 python3 code/meros15_homogeneity.py ; python3 code/meros16_crosspulse.py
-python3 code/meros17_periodogram.py
+python3 code/meros17_periodogram.py ; python3 code/meros18_covariance.py
 python3 code/figures_en.py
 ```
 
@@ -1380,3 +1421,16 @@ answering an unsolicited enquiry from an independent researcher.
      *Found. Phys.* **40**, 313 (2010), arXiv:0706.4075.
 [21] K. B. Wharton, "Time-symmetric boundary conditions and quantum
      foundations", *Symmetry* **2**, 272 (2010).
+
+[22] J. Barrett, N. Gisin, "How much measurement independence is needed in
+     order to demonstrate nonlocality?", *Phys. Rev. Lett.* **106**, 100406
+     (2011), arXiv:1008.3612.
+
+[23] M. J. W. Hall, C. Branciard, "Measurement-dependence cost for Bell
+     nonlocality: Causal versus retrocausal models", *Phys. Rev. A* **102**,
+     052228 (2020), arXiv:2007.11903.
+
+[24] D. E. Koh, M. J. W. Hall, Setiawan, J. E. Pope, C. Marletto, A. Kay,
+     V. Scarani, A. Ekert, "Effects of reduced measurement independence on
+     Bell-based randomness expansion", *Phys. Rev. Lett.* **109**, 160404
+     (2012), arXiv:1202.3571.

@@ -103,6 +103,14 @@ BOXED = [
 
 # multi-symbol inline expressions that need a hand-written rendering
 INLINE_EXACT = [
+    ("t_pq = Σ_k W(k)² z_p z_q / √(Σ_k W(k)⁴) with z = δ̂/σ_δ",
+     r"$t_{pq} = \sum_k W(k)^2 z_p z_q / \sqrt{\sum_k W(k)^4}$ with "
+     r"$z = \hat\delta/\sigma_\delta$"),
+    ("Σ_k W(k)² Cov(δ̂_p, δ̂_q)",
+     r"$\sum_k W(k)^2 \mathrm{Cov}(\hat\delta_p, \hat\delta_q)$"),
+    ("T_p = Σ_k W(k) δ̂_p(k)",
+     r"$T_p = \sum_k W(k)\,\hat\delta_p(k)$"),
+    ("(Σ W²)²/Σ W⁴", r"$(\sum W^2)^2/\sum W^4$"),
     ("λ(i) = λ₀ + α ε Σ_{k ≠ 0} cos(2πf₀k + φ) S_B(i+k)",
      r"$\lambda(i) = \lambda_0 + \alpha\varepsilon \sum_{k \neq 0} "
      r"\cos(2\pi f_0 k + \varphi)\, S_B(i+k)$"),

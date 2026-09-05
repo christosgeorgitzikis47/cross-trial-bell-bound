@@ -1,0 +1,106 @@
+==============================================================================
+PART 18 - COVARIANCE OF T_p ACROSS PULSES, PER FILTER
+==============================================================================
+  10 pulses, 45 pairs, 4 kernels x 26 widths = 104 filters, 2 channels
+  criterion: sigma_joint must move by less than 1% when the off-diagonal terms are kept
+
+  round 1000 scanned (1s)
+  round 15000 scanned (2s)
+  round 22000 scanned (3s)
+  round 23000 scanned (3s)
+  round 26000 scanned (4s)
+  round 28293 scanned (5s)
+  round 28294 scanned (6s)
+  round 28295 scanned (7s)
+  round 28296 scanned (8s)
+  round 28297 scanned (9s)
+
+  channel   kernel          tau    N_eff   max|C|   max|t|  sigma_joint shift
+  OA vs SB  sym               1      2.2   1.2466     1.85           -20.494%
+  OA vs SB  sym              10     24.3   0.6769     3.33            -6.417%
+  OA vs SB  sym             100    249.8   0.1951     3.08             3.312%
+  OA vs SB  sym            1000   2505.8   0.0455     2.28            -0.180%
+  OA vs SB  sym           10000  18649.0   0.0191     2.61            -0.154%
+  OA vs SB  future            1      1.1   1.8637     1.95           -52.868%
+  OA vs SB  future           10     12.1   0.6495     2.26             6.678%
+  OA vs SB  future          100    124.9   0.2624     2.93             7.877%
+  OA vs SB  future         1000   1252.9   0.0836     2.96            -0.617%
+  OA vs SB  future        10000   9324.5   0.0265     2.56            -0.967%
+  OA vs SB  past              1      1.1   1.7840     1.87             2.355%
+  OA vs SB  past             10     12.1   0.9750     3.40           -20.989%
+  OA vs SB  past            100    124.9   0.2496     2.79            -1.235%
+  OA vs SB  past           1000   1252.9   0.0739     2.62             0.280%
+  OA vs SB  past          10000   9324.5   0.0229     2.21             0.645%
+  OA vs SB  exp_future        1      1.3   1.8510     2.12           -25.182%
+  OA vs SB  exp_future       10     10.0   0.8003     2.53            11.566%
+  OA vs SB  exp_future      100    100.0   0.2662     2.66             7.709%
+  OA vs SB  exp_future     1000   1000.0   0.0992     3.14            -0.115%
+  OA vs SB  exp_future    10000   7615.9   0.0249     2.17            -0.965%
+  OB vs SA  sym               1      2.2   1.4067     2.09            19.527%
+  OB vs SA  sym              10     24.3   0.4388     2.16             1.181%
+  OB vs SA  sym             100    249.8   0.1289     2.04            -0.407%
+  OB vs SA  sym            1000   2505.8   0.0630     3.15             0.990%
+  OB vs SA  sym           10000  18649.0   0.0181     2.48             0.459%
+  OB vs SA  future            1      1.1   1.0091     1.06           -17.439%
+  OB vs SA  future           10     12.1   0.7816     2.72             7.968%
+  OB vs SA  future          100    124.9   0.1608     1.80             5.241%
+  OB vs SA  future         1000   1252.9   0.0961     3.40             2.053%
+  OB vs SA  future        10000   9324.5   0.0256     2.47            -0.074%
+  OB vs SA  past              1      1.1   2.8015     2.94            45.878%
+  OB vs SA  past             10     12.1   0.6861     2.39            -5.693%
+  OB vs SA  past            100    124.9   0.2158     2.41            -6.024%
+  OB vs SA  past           1000   1252.9   0.1082     3.83            -0.052%
+  OB vs SA  past          10000   9324.5   0.0339     3.27             0.967%
+  OB vs SA  exp_future        1      1.3   0.9117     1.04            -6.783%
+  OB vs SA  exp_future       10     10.0   0.7550     2.39             9.161%
+  OB vs SA  exp_future      100    100.0   0.2068     2.07             6.060%
+  OB vs SA  exp_future     1000   1000.0   0.1093     3.46             2.121%
+  OB vs SA  exp_future    10000   7615.9   0.0274     2.39             0.195%
+
+==============================================================================
+  filters examined: 208 (2 channels x 4 kernels x 26 widths), each over 45 pulse pairs -> 9,360 values of t
+
+  THE TEST: t_pq standard normal if the pulses are independent
+    mean +0.0291 (theory 0)   sd 0.9554 (theory 1)
+    largest |t| = 4.18; expected largest of 9,360 normals = 4.28
+    |t| > 3: 48 of 9,360 (0.51%, expected 0.27%)
+
+  the raw correlations C_pq, for reference (they saturate for narrow filters and are NOT the test):
+    largest |C| anywhere 2.8015 at OB vs SA, past, tau = 1, pulses [23000, 28297]
+    among the five consecutive pulses: max |C| = 2.7516, mean -0.0031
+
+  sigma_joint shift if the measured off-diagonal terms are kept:
+    mean over the 208 filters +2.2825%   sd 8.9334%
+    standard error of that mean: 0.6194%
+    filters with N_eff >= 10 (172 of 208): mean +1.2722%   range [-20.9891%, +11.5656%]
+    all filters, range [-52.8684%, +45.8775%] (the extremes are the narrow filters, where one draw of C carries an error of 1/sqrt(N_eff))
+
+  null for the shift: 20 independent circular shifts of the lag axis per pulse
+    permutation 1/20: mean shift -5.3021%
+    permutation 2/20: mean shift +2.5390%
+    permutation 3/20: mean shift -3.4246%
+    permutation 4/20: mean shift +5.6681%
+    permutation 5/20: mean shift -8.2302%
+    permutation 6/20: mean shift +5.2785%
+    permutation 7/20: mean shift -5.4052%
+    permutation 8/20: mean shift -9.2869%
+    permutation 9/20: mean shift +0.8788%
+    permutation 10/20: mean shift +2.4414%
+    permutation 11/20: mean shift +0.3393%
+    permutation 12/20: mean shift -0.4881%
+    permutation 13/20: mean shift -7.9457%
+    permutation 14/20: mean shift +1.9484%
+    permutation 15/20: mean shift -5.1393%
+    permutation 16/20: mean shift +1.0750%
+    permutation 17/20: mean shift -4.2617%
+    permutation 18/20: mean shift +2.1350%
+    permutation 19/20: mean shift -2.6434%
+    permutation 20/20: mean shift -0.7718%
+    null mean shift -1.5298% +- 4.4400%  ->  observed +2.2825% is +0.86 sigma
+    N_eff >= 10: null -0.1617% +- 2.4744%  ->  observed +1.2722% is +0.58 sigma
+
+  VERDICT: no covariance beyond what independent pulses give; inverse-variance weighting stands
+==============================================================================
+
+Saved: meros18_covariance.json
+=== meros18 END rc=0

@@ -199,6 +199,25 @@ within-trial and in a different parametrisation, and are not directly
 comparable to \(\varepsilon\). No published limit known to us constrains
 outcome--setting correlation as a function of trial separation.
 
+The nearest currency to ours is the one measured in bits. Barrett and
+Gisin {[}22{]} showed that if Bob's choices are completely free, every
+correlation obtainable from projective measurements on a singlet can be
+reproduced by a local model in which the mutual information between
+Alice's choice and the local variables is at most one bit --- so a bound
+in bits on setting--variable correlation is the natural currency for how
+much measurement dependence a model needs. Hall and Branciard {[}23{]}
+sharpened the accounting in the CHSH scenario, finding that an optimal
+causal model needs about 0.080 bits of such information to reproduce the
+maximal quantum violation while a retrocausal one, in which later
+settings influence earlier source variables, needs about 0.046. Koh et
+al.~{[}24{]} carried the same relaxation into device-independent
+randomness expansion and bounded what an adversary gains from it. All
+three quantify information involving the hidden variable, at a single
+trial; the bound below is on information between two recorded
+quantities, at a separation in trials, and the data-processing
+inequality relates the two in one direction only (above). It cannot be
+compared with them numerically, and we do not.
+
 \section{The model class}
 
 \textbf{Notation.} A \emph{trial} is one entry of the beacon record. A
@@ -1020,6 +1039,33 @@ The positive correlation of neighbouring lags makes Bonferroni
 conservative for that purpose, as already noted. The full scan is shown
 in \textbf{Figure 1}.
 
+\textbf{Guessing advantage.} The same bound reads directly as a limit on
+prediction. Consider an adversary who tries to guess the setting
+\(S_{\mathrm{B}}\)(i+k), a uniformly random bit, from Alice's outcome
+\(O_{\mathrm{A}}\)(i) at some lag k. For a uniform binary S the
+advantage of the optimal guess equals the total-variation distance
+between the two conditional outcome distributions, and Pinsker's
+inequality applied to the joint distribution gives
+
+\begin{equation}
+\left|\,2P(\hat S = S) - 1\,\right| \;\le\; \sqrt{2\ln 2\; I(O ; S)}
+\label{eq:pinsker}
+\end{equation}
+
+with I in bits. At I \textless{} \(1.13 \times 10^{-6}\) bits the bias
+is below \(1.25 \times 10^{-3}\), so
+\(P(\hat S = S) < 0.5 + \mathrm{bias}/2 = 0.50063\), at the family-wise
+confidence above. The constant was checked rather than copied: the
+binary form is the tight one for a uniform bit, an exact inversion of
+the binary entropy through Fano's inequality,
+\(H(S|O) \le h(P_{\mathrm{err}})\), gives \(1.2516 \times 10^{-3}\) as
+well, agreeing to seven digits, and the inequality was verified
+numerically over a grid of binary channels. This is the quantity a
+leakage lemma would take as input; we do not carry the argument through
+to a min-entropy statement, and the bound is stated per lag, not jointly
+over lags. What it means for device-independent protocols is discussed
+in \S6.7.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig1_mi_vs_lag.pdf}
@@ -1578,6 +1624,34 @@ rather than assumed. Had a substantial correlation appeared, the
 combination would have required generalised least squares with the full
 covariance matrix; it does not.
 
+That test is at the level of the lags. The quantity the joint bound
+actually depends on is the covariance of the estimators
+\(T_{\mathrm{p}}\) themselves, and covariance concentrated in the few
+lags where a narrow kernel puts its weight would move an unweighted
+correlation over 20,000 lags very little while still biasing
+\(\sigma_{\mathrm{joint}}\). It was therefore computed directly, for
+each of the 104 filters, each of the 45 pulse pairs and both channels.
+Since \(T_p = \sum_k W(k)\,\hat\delta_p(k)\) and the \(\hat\delta\) are
+uncorrelated across k, the covariance is
+\(\sum_k W(k)^2 \mathrm{Cov}(\hat\delta_p, \hat\delta_q)\), whose
+estimator standardised by its own sampling error is
+\(t_{pq} = \sum_k W(k)^2 z_p z_q / \sqrt{\sum_k W(k)^4}\) with
+\(z = \hat\delta/\sigma_\delta\), standard normal if the pulses are
+independent. A \(W^{2}\)-weighted \emph{correlation} would be the wrong
+statistic and would saturate at \(\pm 1\): the effective number of lags
+a filter uses, \((\sum W^2)^2/\sum W^4\), is 1.1 for the future kernel
+at \(\tau\) = 1. Across the 9,360 values of t the mean is +0.029 and the
+standard deviation 0.955 against 0 and 1, and the largest is 4.18 where
+4.28 is expected as the maximum of that many normals. Keeping the
+measured off-diagonal terms would move \(\sigma_{\mathrm{joint}}\) by
++1.3\% on average over the filters that rest on ten or more lags;
+against a null built by giving each pulse an independent random circular
+shift of its lag axis, which destroys any alignment between pulses while
+preserving each pulse's own structure, that shift is +0.58\(\sigma\),
+and the corresponding figure over all filters is +0.86\(\sigma\). There
+is no covariance beyond what independent pulses produce, and the
+diagonal weighting stands.
+
 The combination also assumes a coupling common to the ten pulses --- not
 a triviality across twenty-two months of drifting hardware. The
 assumption was tested rather than left implicit: for each kernel and
@@ -1713,33 +1787,6 @@ is independent of any interpretation of the model class of \S2. It does
 not establish the security of the protocol: what is verified is one
 assumption, at the stated sensitivity, on these records.
 
-\textbf{In cryptographic units.} The bits of \S6.1 convert directly into
-a guessing advantage. Consider an adversary who tries to predict the
-setting \(S_{\mathrm{B}}\)(i+k), a uniformly random bit, from Alice's
-outcome \(O_{\mathrm{A}}\)(i) at some lag k. For a uniform binary S the
-advantage of the optimal guess equals the total-variation distance
-between the two conditional outcome distributions, and Pinsker's
-inequality applied to the joint distribution gives
-
-\begin{equation}
-\left|\,2P(\hat S = S) - 1\,\right| \;\le\; \sqrt{2\ln 2\; I(O ; S)}
-\label{eq:pinsker}
-\end{equation}
-
-with I in bits. With I \textless{} \(1.13 \times 10^{-6}\) bits at every
-lag, the bias is below \(1.25 \times 10^{-3}\), and the guessing
-probability satisfies
-\(P(\hat S = S) < 0.5 + \mathrm{bias}/2 = 0.50063\), at the family-wise
-confidence of \S6.1. The constant was checked rather than copied: the
-binary form above is the tight one for a uniform bit, an exact inversion
-of the binary entropy through Fano's inequality,
-\(H(S|O) \le h(P_{\mathrm{err}})\), gives \(1.2516 \times 10^{-3}\) as
-well, agreeing with the Pinsker form to seven digits, and the inequality
-was verified numerically over a grid of binary channels. This is the
-quantity a leakage lemma would take as input; we do not carry the
-argument through to a min-entropy statement, and the bound is stated per
-lag, not jointly over lags.
-
 \subsection{Oscillatory kernels: a frequency scan}
 
 All four kernel families of \S2.2 are one-signed, and an oscillatory
@@ -1759,8 +1806,8 @@ conditions were established in \S6.3: the \(\hat\delta(k)\) are
 uncorrelated across k (\textbar r\textbar{} \(\le\) 0.014) and Gaussian
 (Kolmogorov--Smirnov p = 0.535 and 0.223). The frequency grid is
 \(f_j = j/20{,}001\) cycles per lag for j = 1 \ldots{} 10,000, so M =
-10,000 independent frequencies per channel, and the Bonferroni threshold
-on Exp(1) is \(z = \ln(m/0.05)\): z = 12.90 for the two channels of one
+10,000 searched frequencies per channel, and the Bonferroni threshold on
+Exp(1) is \(z = \ln(m/0.05)\): z = 12.90 for the two channels of one
 pulse (m = 20,000) and z = 15.20 for the ten pulses (m = 200,000), the
 latter matching the family construction of \S6.5, \S6.6 and \S6.7.
 Frequencies are reported in cycles per lag; the conversion to Hz is
@@ -1888,7 +1935,7 @@ model-independent one: I(O ; S at lag k) \textless{}
 same-trial correlation the same instrument registers --- while the
 outcome--outcome information at nonzero lag stays below 1/13,384 of the
 Bell correlation, and no outcome lets any other trial's setting be
-guessed with a bias above \(1.25 \times 10^{-3}\) (\S6.7). The
+guessed with a bias above \(1.25 \times 10^{-3}\) (\S6.1). The
 instrument is not insensitive.
 
 Translated into the parameters of the model class of \S2, the same data
@@ -2013,6 +2060,9 @@ scan \\
 \(\hat\delta(k)\), the pulse-independence row of Table 3 \\
 \texttt{code/meros17\_periodogram.py} & \S6.8: Lomb--Scargle periodogram
 of \(\hat\delta(k)\), its threshold, null and positive control \\
+\texttt{code/meros18\_covariance.py} & \S6.4: covariance of the
+\(T_{\mathrm{p}}\) across pulses, per filter, and its permutation
+null \\
 \texttt{code/check\_refs.py} & verifies every internal cross-reference
 resolves \\
 \texttt{code/figures\_en.py} & Figures 1--3 \\
@@ -2034,7 +2084,7 @@ python3 code/meros9_joint.py ; python3 code/meros10_settings10.py
 python3 code/meros11_optimality.py ; python3 code/meros12_selfmemory.py
 python3 code/meros13_parity.py ; python3 code/meros14_oo10.py
 python3 code/meros15_homogeneity.py ; python3 code/meros16_crosspulse.py
-python3 code/meros17_periodogram.py
+python3 code/meros17_periodogram.py ; python3 code/meros18_covariance.py
 python3 code/figures_en.py
 \end{verbatim}
 
@@ -2157,6 +2207,9 @@ and for answering an unsolicited enquiry from an independent researcher.
 \bibitem{r19} J. Barrett, R. Colbeck, A. Kent, \textit{Phys. Rev. Lett.} \textbf{110}, 010503 (2013).
 \bibitem{r20} K. B. Wharton, ``A novel interpretation of the Klein-Gordon equation'', \textit{Found. Phys.} \textbf{40}, 313 (2010), arXiv:0706.4075.
 \bibitem{r21} K. B. Wharton, ``Time-symmetric boundary conditions and quantum foundations'', \textit{Symmetry} \textbf{2}, 272 (2010).
+\bibitem{r22} J. Barrett, N. Gisin, ``How much measurement independence is needed in order to demonstrate nonlocality?'', \textit{Phys. Rev. Lett.} \textbf{106}, 100406 (2011), arXiv:1008.3612.
+\bibitem{r23} M. J. W. Hall, C. Branciard, ``Measurement-dependence cost for Bell nonlocality: Causal versus retrocausal models'', \textit{Phys. Rev. A} \textbf{102}, 052228 (2020), arXiv:2007.11903.
+\bibitem{r24} D. E. Koh, M. J. W. Hall, Setiawan, J. E. Pope, C. Marletto, A. Kay, V. Scarani, A. Ekert, ``Effects of reduced measurement independence on Bell-based randomness expansion'', \textit{Phys. Rev. Lett.} \textbf{109}, 160404 (2012), arXiv:1202.3571.
 \end{thebibliography}
 
 \end{document}

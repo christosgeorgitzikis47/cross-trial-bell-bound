@@ -1,0 +1,3209 @@
+{
+  "rounds": [
+    1000,
+    15000,
+    22000,
+    23000,
+    26000,
+    28293,
+    28294,
+    28295,
+    28296,
+    28297
+  ],
+  "taus": [
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.0,
+    10.0,
+    15.0,
+    22.0,
+    30.0,
+    32.0,
+    46.0,
+    68.0,
+    100.0,
+    147.0,
+    215.0,
+    300.0,
+    316.0,
+    464.0,
+    681.0,
+    1000.0,
+    1468.0,
+    2154.0,
+    3162.0,
+    4642.0,
+    6813.0,
+    10000.0
+  ],
+  "kernels": [
+    "sym",
+    "future",
+    "past",
+    "exp_future"
+  ],
+  "inflation_limit": 0.01,
+  "filters": [
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 1.0,
+      "n_eff": 2.2000622885372354,
+      "max_abs_rho": 1.2465506398921589,
+      "max_rho": 1.2465506398921589,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 1.8489595681452224,
+      "sigma_joint_inflation": -0.2049432219720264,
+      "mean_abs_offdiag": 0.46047148380075537
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 2.0,
+      "n_eff": 4.298708090201923,
+      "max_abs_rho": 0.901389862338694,
+      "max_rho": 0.901389862338694,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 1.868880991239338,
+      "sigma_joint_inflation": 0.11379674855101829,
+      "mean_abs_offdiag": 0.34509228875465725
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 3.0,
+      "n_eff": 6.7536230814791205,
+      "max_abs_rho": 0.9155941012737048,
+      "max_rho": 0.9155941012737048,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.3794215774305876,
+      "sigma_joint_inflation": 0.13029001083771719,
+      "mean_abs_offdiag": 0.2943284746176468
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 5.0,
+      "n_eff": 11.737291970320165,
+      "max_abs_rho": 0.881486180011491,
+      "max_rho": -0.881486180011491,
+      "max_pair": [
+        22000,
+        26000
+      ],
+      "max_abs_t": 3.01994797784264,
+      "sigma_joint_inflation": 0.035585286748351264,
+      "mean_abs_offdiag": 0.24541460428392917
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 7.0,
+      "n_eff": 16.740043161456946,
+      "max_abs_rho": 0.8169259727798072,
+      "max_rho": 0.8169259727798072,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.3424197638708613,
+      "sigma_joint_inflation": -0.03689175242887144,
+      "mean_abs_offdiag": 0.2135569618454865
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 10.0,
+      "n_eff": 24.25273213002777,
+      "max_abs_rho": 0.6768956012877723,
+      "max_rho": 0.6768956012877723,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.333512031332272,
+      "sigma_joint_inflation": -0.06416794685551763,
+      "mean_abs_offdiag": 0.18089427565400878
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 15.0,
+      "n_eff": 36.7806360762207,
+      "max_abs_rho": 0.5003595532615894,
+      "max_rho": 0.5003595532615894,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.0345326446863177,
+      "sigma_joint_inflation": -0.04011542617924768,
+      "mean_abs_offdiag": 0.1459486846521917
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 22.0,
+      "n_eff": 54.323851600602644,
+      "max_abs_rho": 0.3522002529529304,
+      "max_rho": 0.3522002529529304,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.5958819617637183,
+      "sigma_joint_inflation": -0.00991766730248389,
+      "mean_abs_offdiag": 0.11895720876474135
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 30.0,
+      "n_eff": 74.37510897142153,
+      "max_abs_rho": 0.3214628491374504,
+      "max_rho": -0.3214628491374504,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.7723279093545488,
+      "sigma_joint_inflation": 0.008031831957031388,
+      "mean_abs_offdiag": 0.09981857404487733
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 32.0,
+      "n_eff": 79.38806503738797,
+      "max_abs_rho": 0.3185108299643771,
+      "max_rho": -0.3185108299643771,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.8379308700683574,
+      "sigma_joint_inflation": 0.011675870826813428,
+      "mean_abs_offdiag": 0.09611846385081135
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 46.0,
+      "n_eff": 114.47950202468638,
+      "max_abs_rho": 0.28410748683000425,
+      "max_rho": -0.28410748683000425,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 3.039810734232615,
+      "sigma_joint_inflation": 0.0300125448776003,
+      "mean_abs_offdiag": 0.07479142112916684
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 68.0,
+      "n_eff": 169.62433261919344,
+      "max_abs_rho": 0.2406781050431476,
+      "max_rho": -0.2406781050431476,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 3.1345893912930904,
+      "sigma_joint_inflation": 0.03753538176757809,
+      "mean_abs_offdiag": 0.05886924438219957
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 100.0,
+      "n_eff": 249.83578030235583,
+      "max_abs_rho": 0.19506721967680574,
+      "max_rho": -0.19506721967680574,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 3.0832703884406247,
+      "sigma_joint_inflation": 0.03311720002666885,
+      "mean_abs_offdiag": 0.048269127876643954
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 147.0,
+      "n_eff": 367.6468655891536,
+      "max_abs_rho": 0.14083847432729382,
+      "max_rho": -0.14083847432729382,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 2.7004537626166822,
+      "sigma_joint_inflation": 0.026015501546562625,
+      "mean_abs_offdiag": 0.04002285385973003
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 215.0,
+      "n_eff": 538.0972910152058,
+      "max_abs_rho": 0.10466000373678995,
+      "max_rho": 0.10466000373678995,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.427790170464196,
+      "sigma_joint_inflation": 0.01926146901760717,
+      "mean_abs_offdiag": 0.03311505369041083
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 300.0,
+      "n_eff": 751.1605127992476,
+      "max_abs_rho": 0.08528633085976324,
+      "max_rho": 0.08528633085976324,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.3374687084893915,
+      "sigma_joint_inflation": 0.010177781182738155,
+      "mean_abs_offdiag": 0.02812173848149466
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 316.0,
+      "n_eff": 791.2665419683882,
+      "max_abs_rho": 0.0831698582762539,
+      "max_rho": 0.0831698582762539,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.3395232342245693,
+      "sigma_joint_inflation": 0.00863363752422619,
+      "mean_abs_offdiag": 0.02765212628990951
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 464.0,
+      "n_eff": 1162.2473878453225,
+      "max_abs_rho": 0.07258570377883922,
+      "max_rho": 0.07258570377883922,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.4745736346341207,
+      "sigma_joint_inflation": -0.000399049687039299,
+      "mean_abs_offdiag": 0.02440063237150219
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 681.0,
+      "n_eff": 1706.185629155834,
+      "max_abs_rho": 0.06145703150985112,
+      "max_rho": 0.06145703150985112,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.5385441384543714,
+      "sigma_joint_inflation": -0.0023809640019727407,
+      "mean_abs_offdiag": 0.021800215242180353
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 1000.0,
+      "n_eff": 2505.799984510916,
+      "max_abs_rho": 0.04549243147818402,
+      "max_rho": 0.04549243147818402,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.2772585993039938,
+      "sigma_joint_inflation": -0.0017987728439987638,
+      "mean_abs_offdiag": 0.018360847677826118
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 1468.0,
+      "n_eff": 3678.901973337237,
+      "max_abs_rho": 0.03511649402300416,
+      "max_rho": -0.03511649402300416,
+      "max_pair": [
+        28295,
+        28296
+      ],
+      "max_abs_t": 2.1299541660725962,
+      "sigma_joint_inflation": -0.0029674286512693104,
+      "mean_abs_offdiag": 0.014216345728565349
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 2154.0,
+      "n_eff": 5398.448939449255,
+      "max_abs_rho": 0.02843086617080273,
+      "max_rho": -0.02843086617080273,
+      "max_pair": [
+        28295,
+        28296
+      ],
+      "max_abs_t": 2.088933381514773,
+      "sigma_joint_inflation": -0.0036429167701073073,
+      "mean_abs_offdiag": 0.011140115143355264
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 3162.0,
+      "n_eff": 7925.007806754064,
+      "max_abs_rho": 0.02518756890491927,
+      "max_rho": 0.02518756890491927,
+      "max_pair": [
+        26000,
+        28295
+      ],
+      "max_abs_t": 2.2422606782845538,
+      "sigma_joint_inflation": -0.003071389923700929,
+      "mean_abs_offdiag": 0.009046051316763679
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 4642.0,
+      "n_eff": 11581.34921302895,
+      "max_abs_rho": 0.02268812802527894,
+      "max_rho": 0.02268812802527894,
+      "max_pair": [
+        28295,
+        26000
+      ],
+      "max_abs_t": 2.4416209501226125,
+      "sigma_joint_inflation": -0.0028600582216919967,
+      "mean_abs_offdiag": 0.007222498596920076
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 6813.0,
+      "n_eff": 15859.393257338388,
+      "max_abs_rho": 0.02005248840517222,
+      "max_rho": -0.02005248840517222,
+      "max_pair": [
+        23000,
+        28293
+      ],
+      "max_abs_t": 2.5252917388779252,
+      "sigma_joint_inflation": -0.0023238344925461396,
+      "mean_abs_offdiag": 0.006319933046554283
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "sym",
+      "tau": 10000.0,
+      "n_eff": 18649.00038072046,
+      "max_abs_rho": 0.019083808748640945,
+      "max_rho": -0.019083808748640945,
+      "max_pair": [
+        28293,
+        23000
+      ],
+      "max_abs_t": 2.606110550785238,
+      "sigma_joint_inflation": -0.001540187573000451,
+      "mean_abs_offdiag": 0.0060961916522757524
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 1.0,
+      "n_eff": 1.1000311442686177,
+      "max_abs_rho": 1.8636937735565122,
+      "max_rho": 1.8636937735565122,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 1.9546861908852846,
+      "sigma_joint_inflation": -0.5286840499381781,
+      "mean_abs_offdiag": 0.8383144766025119
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 2.0,
+      "n_eff": 2.1493540451009614,
+      "max_abs_rho": 1.758585708246989,
+      "max_rho": 1.758585708246989,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.5782054311212623,
+      "sigma_joint_inflation": 0.19116464376740416,
+      "mean_abs_offdiag": 0.5240220317497305
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 3.0,
+      "n_eff": 3.3768115407395602,
+      "max_abs_rho": 1.4507689568709485,
+      "max_rho": 1.4507689568709485,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.665947948884303,
+      "sigma_joint_inflation": 0.26796123849897513,
+      "mean_abs_offdiag": 0.37251401712409965
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 5.0,
+      "n_eff": 5.868645985160082,
+      "max_abs_rho": 1.0237541801273267,
+      "max_rho": 1.0237541801273267,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.4800740273858355,
+      "sigma_joint_inflation": 0.21030601160153783,
+      "mean_abs_offdiag": 0.2614840780423372
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 7.0,
+      "n_eff": 8.370021580728473,
+      "max_abs_rho": 0.8191771195913099,
+      "max_rho": 0.8191771195913099,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.369960471099668,
+      "sigma_joint_inflation": 0.1297180973080707,
+      "mean_abs_offdiag": 0.22373689883465
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 10.0,
+      "n_eff": 12.126366065013885,
+      "max_abs_rho": 0.6494847576478736,
+      "max_rho": 0.6494847576478736,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.261696367580146,
+      "sigma_joint_inflation": 0.06678196200176623,
+      "mean_abs_offdiag": 0.2051762593816598
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 15.0,
+      "n_eff": 18.39031803811035,
+      "max_abs_rho": 0.48664110885961465,
+      "max_rho": -0.48664110885961465,
+      "max_pair": [
+        28294,
+        26000
+      ],
+      "max_abs_t": 2.086908524222076,
+      "sigma_joint_inflation": 0.056000627577312834,
+      "mean_abs_offdiag": 0.18118457549283262
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 22.0,
+      "n_eff": 27.161925800301315,
+      "max_abs_rho": 0.43338025982103195,
+      "max_rho": -0.43338025982103195,
+      "max_pair": [
+        26000,
+        28294
+      ],
+      "max_abs_t": 2.258652428336853,
+      "sigma_joint_inflation": 0.07229125003850179,
+      "mean_abs_offdiag": 0.1588497680186864
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 30.0,
+      "n_eff": 37.18755448571076,
+      "max_abs_rho": 0.37763750862063805,
+      "max_rho": -0.37763750862063805,
+      "max_pair": [
+        28294,
+        26000
+      ],
+      "max_abs_t": 2.3028939217065485,
+      "sigma_joint_inflation": 0.08026672647642896,
+      "mean_abs_offdiag": 0.13894967740890302
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 32.0,
+      "n_eff": 39.69403251869399,
+      "max_abs_rho": 0.36425683476437964,
+      "max_rho": -0.36425683476437964,
+      "max_pair": [
+        26000,
+        28294
+      ],
+      "max_abs_t": 2.294934633236861,
+      "sigma_joint_inflation": 0.08139631429030492,
+      "mean_abs_offdiag": 0.13477264949771986
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 46.0,
+      "n_eff": 57.23975101234317,
+      "max_abs_rho": 0.3041193981497664,
+      "max_rho": -0.3041193981497664,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.3008748145744917,
+      "sigma_joint_inflation": 0.08605914826318584,
+      "mean_abs_offdiag": 0.11548663240178272
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 68.0,
+      "n_eff": 84.8121663095967,
+      "max_abs_rho": 0.2993924787304393,
+      "max_rho": -0.2993924787304393,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 2.757210756098487,
+      "sigma_joint_inflation": 0.08579185426682634,
+      "mean_abs_offdiag": 0.09522619971218009
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 100.0,
+      "n_eff": 124.91789015117789,
+      "max_abs_rho": 0.2623714546382831,
+      "max_rho": -0.2623714546382831,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.9324384365728844,
+      "sigma_joint_inflation": 0.07876726140189216,
+      "mean_abs_offdiag": 0.07698641651087601
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 147.0,
+      "n_eff": 183.8234327945768,
+      "max_abs_rho": 0.1946245345895228,
+      "max_rho": -0.1946245345895228,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.6387486434928826,
+      "sigma_joint_inflation": 0.06135020187859985,
+      "mean_abs_offdiag": 0.061481223706018114
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 215.0,
+      "n_eff": 269.04864550760294,
+      "max_abs_rho": 0.15852121006900205,
+      "max_rho": 0.15852121006900205,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.6001762303594043,
+      "sigma_joint_inflation": 0.03722606861945743,
+      "mean_abs_offdiag": 0.04897444057134092
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 300.0,
+      "n_eff": 375.5802563996238,
+      "max_abs_rho": 0.14206186070022714,
+      "max_rho": 0.14206186070022714,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.753143673342461,
+      "sigma_joint_inflation": 0.016464996199703208,
+      "mean_abs_offdiag": 0.04007454698678763
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 316.0,
+      "n_eff": 395.63327098419427,
+      "max_abs_rho": 0.1401253240247401,
+      "max_rho": 0.1401253240247401,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.7871672687920577,
+      "sigma_joint_inflation": 0.013625471456224947,
+      "mean_abs_offdiag": 0.03886082537304329
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 464.0,
+      "n_eff": 581.1236939226612,
+      "max_abs_rho": 0.12628841708999866,
+      "max_rho": 0.12628841708999866,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 3.0443726477460658,
+      "sigma_joint_inflation": -0.0020407576643415304,
+      "mean_abs_offdiag": 0.03250588653380537
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 681.0,
+      "n_eff": 853.0928145779175,
+      "max_abs_rho": 0.10752414251408783,
+      "max_rho": 0.10752414251408783,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 3.1405385579290086,
+      "sigma_joint_inflation": -0.006822089246251828,
+      "mean_abs_offdiag": 0.028771783457296755
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 1000.0,
+      "n_eff": 1252.8999922554578,
+      "max_abs_rho": 0.0835528997908843,
+      "max_rho": 0.0835528997908843,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.957465794857257,
+      "sigma_joint_inflation": -0.006171614232271971,
+      "mean_abs_offdiag": 0.02374789405463255
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 1468.0,
+      "n_eff": 1839.450986668619,
+      "max_abs_rho": 0.061948262730471264,
+      "max_rho": 0.061948262730471264,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.656887965878825,
+      "sigma_joint_inflation": -0.0075323036638301755,
+      "mean_abs_offdiag": 0.018275512552000564
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 2154.0,
+      "n_eff": 2699.2244697246265,
+      "max_abs_rho": 0.04496247178339499,
+      "max_rho": 0.04496247178339499,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.3359830083800404,
+      "sigma_joint_inflation": -0.00960718991375531,
+      "mean_abs_offdiag": 0.014581719604111738
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 3162.0,
+      "n_eff": 3962.503903377032,
+      "max_abs_rho": 0.030606377497457895,
+      "max_rho": 0.030606377497457895,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 1.9266231838830028,
+      "sigma_joint_inflation": -0.009819414879594257,
+      "mean_abs_offdiag": 0.011835033520330203
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 4642.0,
+      "n_eff": 5790.6746065144725,
+      "max_abs_rho": 0.0230086587727001,
+      "max_rho": -0.0230086587727001,
+      "max_pair": [
+        1000,
+        28293
+      ],
+      "max_abs_t": 1.7508779932414766,
+      "sigma_joint_inflation": -0.010088666964706228,
+      "mean_abs_offdiag": 0.009828733853914078
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 6813.0,
+      "n_eff": 7929.696628669192,
+      "max_abs_rho": 0.023377084653072314,
+      "max_rho": -0.023377084653072314,
+      "max_pair": [
+        1000,
+        28293
+      ],
+      "max_abs_t": 2.0817023658812763,
+      "sigma_joint_inflation": -0.010116236723488714,
+      "mean_abs_offdiag": 0.008818808130965463
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "future",
+      "tau": 10000.0,
+      "n_eff": 9324.50019036023,
+      "max_abs_rho": 0.026492965491247276,
+      "max_rho": -0.026492965491247276,
+      "max_pair": [
+        28295,
+        1000
+      ],
+      "max_abs_t": 2.558252191702795,
+      "sigma_joint_inflation": -0.00966963917894137,
+      "mean_abs_offdiag": 0.008634912299537055
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 1.0,
+      "n_eff": 1.1000311442686177,
+      "max_abs_rho": 1.7840053349403404,
+      "max_rho": 1.7840053349403404,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 1.8711070682062456,
+      "sigma_joint_inflation": 0.023550423461674574,
+      "mean_abs_offdiag": 0.2921537448358334
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 2.0,
+      "n_eff": 2.1493540451009614,
+      "max_abs_rho": 1.3924393501148913,
+      "max_rho": -1.3924393501148913,
+      "max_pair": [
+        23000,
+        28293
+      ],
+      "max_abs_t": 2.041410138918841,
+      "sigma_joint_inflation": 0.02987514339843811,
+      "mean_abs_offdiag": 0.3716575820136285
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 3.0,
+      "n_eff": 3.3768115407395602,
+      "max_abs_rho": 1.346609506153594,
+      "max_rho": 1.346609506153594,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.4745434714989027,
+      "sigma_joint_inflation": -0.024053432537530672,
+      "mean_abs_offdiag": 0.4191705521411423
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 5.0,
+      "n_eff": 5.868645985160084,
+      "max_abs_rho": 1.3247019217106637,
+      "max_rho": 1.3247019217106637,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.209128610985612,
+      "sigma_joint_inflation": -0.17316903912145465,
+      "mean_abs_offdiag": 0.4053857178958687
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 7.0,
+      "n_eff": 8.370021580728473,
+      "max_abs_rho": 1.2006623919527941,
+      "max_rho": 1.2006623919527941,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.473635115057582,
+      "sigma_joint_inflation": -0.23516889047973122,
+      "mean_abs_offdiag": 0.34862688198815067
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 10.0,
+      "n_eff": 12.126366065013885,
+      "max_abs_rho": 0.9750216411913123,
+      "max_rho": 0.9750216411913123,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.395311249767623,
+      "sigma_joint_inflation": -0.20989119720707172,
+      "mean_abs_offdiag": 0.2768951598477702
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 15.0,
+      "n_eff": 18.390318038110347,
+      "max_abs_rho": 0.7452486610074163,
+      "max_rho": 0.7452486610074163,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.195919446604183,
+      "sigma_joint_inflation": -0.13783510980347058,
+      "mean_abs_offdiag": 0.20615832389938524
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 22.0,
+      "n_eff": 27.161925800301322,
+      "max_abs_rho": 0.5785058336331473,
+      "max_rho": 0.5785058336331473,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.0150048977360746,
+      "sigma_joint_inflation": -0.08973963894844994,
+      "mean_abs_offdiag": 0.15703205179812377
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 30.0,
+      "n_eff": 37.18755448571076,
+      "max_abs_rho": 0.45519898536760417,
+      "max_rho": 0.45519898536760417,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.7758762110230575,
+      "sigma_joint_inflation": -0.06278537172257037,
+      "mean_abs_offdiag": 0.13041270127755128
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 32.0,
+      "n_eff": 39.69403251869399,
+      "max_abs_rho": 0.4317394836761287,
+      "max_rho": 0.4317394836761287,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.7200969180579917,
+      "sigma_joint_inflation": -0.056958875087647964,
+      "mean_abs_offdiag": 0.12585558011157513
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 46.0,
+      "n_eff": 57.239751012343206,
+      "max_abs_rho": 0.3251551740835855,
+      "max_rho": 0.3251551740835855,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.4600250935294747,
+      "sigma_joint_inflation": -0.024864865442924433,
+      "mean_abs_offdiag": 0.10344468153977593
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 68.0,
+      "n_eff": 84.81216630959672,
+      "max_abs_rho": 0.28882833100835215,
+      "max_rho": 0.28882833100835215,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 2.659921799970177,
+      "sigma_joint_inflation": -0.008968549333652986,
+      "mean_abs_offdiag": 0.09119739091158766
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 100.0,
+      "n_eff": 124.91789015117789,
+      "max_abs_rho": 0.24960437106370115,
+      "max_rho": 0.24960437106370115,
+      "max_pair": [
+        28296,
+        15000
+      ],
+      "max_abs_t": 2.7897449920872512,
+      "sigma_joint_inflation": -0.012350314302296717,
+      "mean_abs_offdiag": 0.07751444760735195
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 147.0,
+      "n_eff": 183.82343279457683,
+      "max_abs_rho": 0.21435206676496255,
+      "max_rho": 0.21435206676496255,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 2.9062174848555284,
+      "sigma_joint_inflation": -0.0094407183130093,
+      "mean_abs_offdiag": 0.0627388001156548
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 215.0,
+      "n_eff": 269.048645507603,
+      "max_abs_rho": 0.1920836110083767,
+      "max_rho": 0.1920836110083767,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 3.150690304270193,
+      "sigma_joint_inflation": 0.002684992509846218,
+      "mean_abs_offdiag": 0.05241326426535729
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 300.0,
+      "n_eff": 375.58025639962386,
+      "max_abs_rho": 0.17231159639429192,
+      "max_rho": 0.17231159639429192,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 3.3393803172657295,
+      "sigma_joint_inflation": 0.006281670333865952,
+      "mean_abs_offdiag": 0.043664348444062105
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 316.0,
+      "n_eff": 395.6332709841941,
+      "max_abs_rho": 0.16867070654975427,
+      "max_rho": 0.16867070654975427,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 3.3549501189128623,
+      "sigma_joint_inflation": 0.0060456725013229295,
+      "mean_abs_offdiag": 0.04235225368930628
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 464.0,
+      "n_eff": 581.1236939226613,
+      "max_abs_rho": 0.13799300016693475,
+      "max_rho": 0.13799300016693475,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 3.3265292650651506,
+      "sigma_joint_inflation": 0.002938492859002828,
+      "mean_abs_offdiag": 0.03320673886994905
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 681.0,
+      "n_eff": 853.092814577917,
+      "max_abs_rho": 0.10573328547362845,
+      "max_rho": 0.10573328547362845,
+      "max_pair": [
+        28296,
+        15000
+      ],
+      "max_abs_t": 3.088231648468518,
+      "sigma_joint_inflation": 0.0029952299507094438,
+      "mean_abs_offdiag": 0.026445169934130788
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 1000.0,
+      "n_eff": 1252.8999922554585,
+      "max_abs_rho": 0.07392061817164879,
+      "max_rho": 0.07392061817164879,
+      "max_pair": [
+        28296,
+        15000
+      ],
+      "max_abs_t": 2.6165184012106124,
+      "sigma_joint_inflation": 0.0027986413486384976,
+      "mean_abs_offdiag": 0.020612925385274615
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 1468.0,
+      "n_eff": 1839.4509866686178,
+      "max_abs_rho": 0.05133359653467404,
+      "max_rho": 0.05133359653467404,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 2.201637444970151,
+      "sigma_joint_inflation": 0.0015109403592472592,
+      "mean_abs_offdiag": 0.01681685369805971
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 2154.0,
+      "n_eff": 2699.2244697246274,
+      "max_abs_rho": 0.04265430495483386,
+      "max_rho": 0.04265430495483386,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 2.2160643678302017,
+      "sigma_joint_inflation": 0.0022423541390625967,
+      "mean_abs_offdiag": 0.015347747083866863
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 3162.0,
+      "n_eff": 3962.503903377032,
+      "max_abs_rho": 0.03848947872961957,
+      "max_rho": 0.03848947872961957,
+      "max_pair": [
+        15000,
+        28296
+      ],
+      "max_abs_t": 2.422851971364985,
+      "sigma_joint_inflation": 0.0036749400115234643,
+      "mean_abs_offdiag": 0.013228408842974155
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 4642.0,
+      "n_eff": 5790.674606514475,
+      "max_abs_rho": 0.03134984892705724,
+      "max_rho": 0.03134984892705724,
+      "max_pair": [
+        26000,
+        28295
+      ],
+      "max_abs_t": 2.3856132215301686,
+      "sigma_joint_inflation": 0.004394843238015422,
+      "mean_abs_offdiag": 0.011000363699654993
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 6813.0,
+      "n_eff": 7929.696628669194,
+      "max_abs_rho": 0.023093952922537245,
+      "max_rho": 0.023093952922537245,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.0564898125600286,
+      "sigma_joint_inflation": 0.005424410029295501,
+      "mean_abs_offdiag": 0.009621523344059205
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "past",
+      "tau": 10000.0,
+      "n_eff": 9324.50019036023,
+      "max_abs_rho": 0.02289848019349495,
+      "max_rho": -0.02289848019349495,
+      "max_pair": [
+        23000,
+        26000
+      ],
+      "max_abs_t": 2.2111562845248547,
+      "sigma_joint_inflation": 0.006452487559934994,
+      "mean_abs_offdiag": 0.008939492327125216
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 1.0,
+      "n_eff": 1.313035285499332,
+      "max_abs_rho": 1.8510109044147685,
+      "max_rho": 1.8510109044147685,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.1210317803290963,
+      "sigma_joint_inflation": -0.25181680714840127,
+      "mean_abs_offdiag": 0.7567054811754786
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 2.0,
+      "n_eff": 2.163953413738653,
+      "max_abs_rho": 1.6862635160875359,
+      "max_rho": 1.6862635160875359,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.480558063410283,
+      "sigma_joint_inflation": 0.0910473842736208,
+      "mean_abs_offdiag": 0.5457426218010049
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 3.0,
+      "n_eff": 3.110296679619444,
+      "max_abs_rho": 1.4806507808477878,
+      "max_rho": 1.4806507808477878,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.611280636769561,
+      "sigma_joint_inflation": 0.17375329091545177,
+      "mean_abs_offdiag": 0.4227996287216537
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 5.0,
+      "n_eff": 5.066489563439471,
+      "max_abs_rho": 1.1753725109705693,
+      "max_rho": 1.1753725109705693,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.6456299940641856,
+      "sigma_joint_inflation": 0.18000705155891805,
+      "mean_abs_offdiag": 0.311478332960804
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 7.0,
+      "n_eff": 7.047554385466543,
+      "max_abs_rho": 0.9831686417458585,
+      "max_rho": 0.9831686417458585,
+      "max_pair": [
+        28295,
+        22000
+      ],
+      "max_abs_t": 2.6100404392189445,
+      "sigma_joint_inflation": 0.15059866356923024,
+      "mean_abs_offdiag": 0.2629625903200179
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 10.0,
+      "n_eff": 10.033311132253994,
+      "max_abs_rho": 0.8002926923461613,
+      "max_rho": 0.8002926923461613,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.5349593017609733,
+      "sigma_joint_inflation": 0.11565550223376952,
+      "mean_abs_offdiag": 0.22239790656292913
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 15.0,
+      "n_eff": 15.02221564064587,
+      "max_abs_rho": 0.6203663201356658,
+      "max_rho": 0.6203663201356658,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.404446995421331,
+      "sigma_joint_inflation": 0.09030052069471295,
+      "mean_abs_offdiag": 0.19228729100564967
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 22.0,
+      "n_eff": 22.01514942857654,
+      "max_abs_rho": 0.47505738542748327,
+      "max_rho": 0.47505738542748327,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.2289837019689944,
+      "sigma_joint_inflation": 0.0823439361278746,
+      "mean_abs_offdiag": 0.16759660324566455
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 30.0,
+      "n_eff": 30.011110288152928,
+      "max_abs_rho": 0.39952604458583385,
+      "max_rho": -0.39952604458583385,
+      "max_pair": [
+        28294,
+        26000
+      ],
+      "max_abs_t": 2.1886994414599927,
+      "sigma_joint_inflation": 0.08213906311205199,
+      "mean_abs_offdiag": 0.14975501359763255
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 32.0,
+      "n_eff": 32.01041598856133,
+      "max_abs_rho": 0.38997951212715715,
+      "max_rho": -0.38997951212715715,
+      "max_pair": [
+        26000,
+        28294
+      ],
+      "max_abs_t": 2.2064162666045943,
+      "sigma_joint_inflation": 0.08237359061507399,
+      "mean_abs_offdiag": 0.1460304620472861
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 46.0,
+      "n_eff": 46.007246148517595,
+      "max_abs_rho": 0.33153702643312927,
+      "max_rho": -0.33153702643312927,
+      "max_pair": [
+        26000,
+        28294
+      ],
+      "max_abs_t": 2.248770612730034,
+      "sigma_joint_inflation": 0.08367426691436242,
+      "mean_abs_offdiag": 0.12550936564995976
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 68.0,
+      "n_eff": 68.00490189011157,
+      "max_abs_rho": 0.29556233177265184,
+      "max_rho": -0.29556233177265184,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.437357271378489,
+      "sigma_joint_inflation": 0.08307272642589703,
+      "mean_abs_offdiag": 0.10501616144509705
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 100.0,
+      "n_eff": 100.00333331111135,
+      "max_abs_rho": 0.2662318390155933,
+      "max_rho": -0.2662318390155933,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.662362761463537,
+      "sigma_joint_inflation": 0.07708731517929235,
+      "mean_abs_offdiag": 0.0868368909655664
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 147.0,
+      "n_eff": 147.0022675667004,
+      "max_abs_rho": 0.2225365332368692,
+      "max_rho": -0.2225365332368692,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.698132884696166,
+      "sigma_joint_inflation": 0.06527339940430266,
+      "mean_abs_offdiag": 0.07013380736739809
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 215.0,
+      "n_eff": 215.00155038536084,
+      "max_abs_rho": 0.17704397336714964,
+      "max_rho": 0.17704397336714964,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.5959835948769334,
+      "sigma_joint_inflation": 0.04898628060825572,
+      "mean_abs_offdiag": 0.05615083216165442
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 300.0,
+      "n_eff": 300.0011111102882,
+      "max_abs_rho": 0.1598840676401408,
+      "max_rho": 0.1598840676401408,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.7692784130103423,
+      "sigma_joint_inflation": 0.033434442393651675,
+      "mean_abs_offdiag": 0.04774368990176311
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 316.0,
+      "n_eff": 316.0010548516166,
+      "max_abs_rho": 0.15732358533577276,
+      "max_rho": 0.15732358533577276,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.796649893576969,
+      "sigma_joint_inflation": 0.031079057624760598,
+      "mean_abs_offdiag": 0.0465610228560234
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 464.0,
+      "n_eff": 464.000718390582,
+      "max_abs_rho": 0.13873684418357302,
+      "max_rho": 0.13873684418357302,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.9884853964680076,
+      "sigma_joint_inflation": 0.015654580580175104,
+      "mean_abs_offdiag": 0.03823563812231103
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 681.0,
+      "n_eff": 681.0004894759501,
+      "max_abs_rho": 0.11948141180708749,
+      "max_rho": 0.11948141180708749,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 3.1179852593099384,
+      "sigma_joint_inflation": 0.005097190101756244,
+      "mean_abs_offdiag": 0.031610894531040774
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 1000.0,
+      "n_eff": 1000.0003292110023,
+      "max_abs_rho": 0.09916491918643407,
+      "max_rho": 0.09916491918643407,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 3.1358706023380556,
+      "sigma_joint_inflation": -0.0011547355199966747,
+      "mean_abs_offdiag": 0.026151174955334797
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 1468.0,
+      "n_eff": 1467.9966712686519,
+      "max_abs_rho": 0.07915649354793987,
+      "max_rho": 0.07915649354793987,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 3.0328370932415405,
+      "sigma_joint_inflation": -0.004896685245372567,
+      "mean_abs_offdiag": 0.021163456009462796
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 2154.0,
+      "n_eff": 2153.600404282053,
+      "max_abs_rho": 0.060800206797820056,
+      "max_rho": 0.060800206797820056,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.821549140868782,
+      "sigma_joint_inflation": -0.007242175751570934,
+      "mean_abs_offdiag": 0.016800257125486065
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 3162.0,
+      "n_eff": 3150.6955319481763,
+      "max_abs_rho": 0.044801870761214176,
+      "max_rho": 0.044801870761214176,
+      "max_pair": [
+        15000,
+        28297
+      ],
+      "max_abs_t": 2.5147763502343903,
+      "sigma_joint_inflation": -0.008583536231967392,
+      "mean_abs_offdiag": 0.013867828726941471
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 4642.0,
+      "n_eff": 4518.752405069732,
+      "max_abs_rho": 0.03176313462733806,
+      "max_rho": 0.03176313462733806,
+      "max_pair": [
+        28297,
+        15000
+      ],
+      "max_abs_t": 2.1351708329984214,
+      "sigma_joint_inflation": -0.009307016861033413,
+      "mean_abs_offdiag": 0.0116052807683187
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 6813.0,
+      "n_eff": 6125.933088376256,
+      "max_abs_rho": 0.02493904160821575,
+      "max_rho": -0.02493904160821575,
+      "max_pair": [
+        1000,
+        28293
+      ],
+      "max_abs_t": 1.9519373945606053,
+      "sigma_joint_inflation": -0.009623642870962401,
+      "mean_abs_offdiag": 0.010068211814347788
+    },
+    {
+      "channel": "OA vs SB",
+      "kernel": "exp_future",
+      "tau": 10000.0,
+      "n_eff": 7615.941584944121,
+      "max_abs_rho": 0.024886648319917437,
+      "max_rho": -0.024886648319917437,
+      "max_pair": [
+        28293,
+        1000
+      ],
+      "max_abs_t": 2.171841927051699,
+      "sigma_joint_inflation": -0.009647313563555637,
+      "mean_abs_offdiag": 0.009323611967124307
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 1.0,
+      "n_eff": 2.2000622885372354,
+      "max_abs_rho": 1.4066633382615263,
+      "max_rho": -1.4066633382615263,
+      "max_pair": [
+        28295,
+        28297
+      ],
+      "max_abs_t": 2.086448440364006,
+      "sigma_joint_inflation": 0.19526527783152026,
+      "mean_abs_offdiag": 0.4183450495821873
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 2.0,
+      "n_eff": 4.298708090201923,
+      "max_abs_rho": 1.1102473156404777,
+      "max_rho": -1.1102473156404777,
+      "max_pair": [
+        28297,
+        28295
+      ],
+      "max_abs_t": 2.3019119589292054,
+      "sigma_joint_inflation": 0.24712462536431445,
+      "mean_abs_offdiag": 0.2888793032247751
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 3.0,
+      "n_eff": 6.7536230814791205,
+      "max_abs_rho": 0.6991988651151122,
+      "max_rho": -0.6991988651151122,
+      "max_pair": [
+        28295,
+        28297
+      ],
+      "max_abs_t": 1.8170593981060819,
+      "sigma_joint_inflation": 0.17682453456057967,
+      "mean_abs_offdiag": 0.21686903313900835
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 5.0,
+      "n_eff": 11.737291970320165,
+      "max_abs_rho": 0.5057004035245225,
+      "max_rho": -0.5057004035245225,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 1.732516000418952,
+      "sigma_joint_inflation": 0.07515988491126158,
+      "mean_abs_offdiag": 0.16355382932429324
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 7.0,
+      "n_eff": 16.740043161456946,
+      "max_abs_rho": 0.5051527330365627,
+      "max_rho": -0.5051527330365627,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.066812091834281,
+      "sigma_joint_inflation": 0.03508586346759213,
+      "mean_abs_offdiag": 0.15330195550189926
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 10.0,
+      "n_eff": 24.25273213002777,
+      "max_abs_rho": 0.4387691017391284,
+      "max_rho": -0.4387691017391284,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.16080895907967,
+      "sigma_joint_inflation": 0.011813150453287236,
+      "mean_abs_offdiag": 0.14317877730417192
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 15.0,
+      "n_eff": 36.7806360762207,
+      "max_abs_rho": 0.33119031691765705,
+      "max_rho": -0.33119031691765705,
+      "max_pair": [
+        28295,
+        22000
+      ],
+      "max_abs_t": 2.0085712798716493,
+      "sigma_joint_inflation": -0.0002732785304286889,
+      "mean_abs_offdiag": 0.12053493873506363
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 22.0,
+      "n_eff": 54.323851600602644,
+      "max_abs_rho": 0.2550622865921958,
+      "max_rho": -0.2550622865921958,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 1.879929339458415,
+      "sigma_joint_inflation": -0.0013392637109180816,
+      "mean_abs_offdiag": 0.09141592730124182
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 30.0,
+      "n_eff": 74.37510897142153,
+      "max_abs_rho": 0.21783048905792457,
+      "max_rho": 0.21783048905792457,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 1.8785920237564422,
+      "sigma_joint_inflation": 0.005659268470713297,
+      "mean_abs_offdiag": 0.07082452161983042
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 32.0,
+      "n_eff": 79.38806503738797,
+      "max_abs_rho": 0.21181525921480315,
+      "max_rho": 0.21181525921480315,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 1.8872735440250215,
+      "sigma_joint_inflation": 0.006970793739823344,
+      "mean_abs_offdiag": 0.06742699571314381
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 46.0,
+      "n_eff": 114.47950202468638,
+      "max_abs_rho": 0.16677245553720824,
+      "max_rho": 0.16677245553720824,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 1.784383460544547,
+      "sigma_joint_inflation": 0.00848621368899427,
+      "mean_abs_offdiag": 0.052738369310244844
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 68.0,
+      "n_eff": 169.62433261919344,
+      "max_abs_rho": 0.15267174886145485,
+      "max_rho": -0.15267174886145485,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 1.9883954306748617,
+      "sigma_joint_inflation": 0.0010770508539905688,
+      "mean_abs_offdiag": 0.04192197317506107
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 100.0,
+      "n_eff": 249.83578030235583,
+      "max_abs_rho": 0.12894275966091617,
+      "max_rho": 0.12894275966091617,
+      "max_pair": [
+        1000,
+        28296
+      ],
+      "max_abs_t": 2.0380943211525726,
+      "sigma_joint_inflation": -0.004065754250276221,
+      "mean_abs_offdiag": 0.03576151002611278
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 147.0,
+      "n_eff": 367.6468655891536,
+      "max_abs_rho": 0.11626155651882372,
+      "max_rho": 0.11626155651882372,
+      "max_pair": [
+        28296,
+        1000
+      ],
+      "max_abs_t": 2.229212999136316,
+      "sigma_joint_inflation": -0.004568204155645295,
+      "mean_abs_offdiag": 0.031189259942308093
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 215.0,
+      "n_eff": 538.0972910152058,
+      "max_abs_rho": 0.09310157642695781,
+      "max_rho": 0.09310157642695781,
+      "max_pair": [
+        1000,
+        28296
+      ],
+      "max_abs_t": 2.1596702086170008,
+      "sigma_joint_inflation": -0.0017545276168774437,
+      "mean_abs_offdiag": 0.026880362028314547
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 300.0,
+      "n_eff": 751.1605127992476,
+      "max_abs_rho": 0.06947012983449724,
+      "max_rho": -0.06947012983449724,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 1.9039892210844651,
+      "sigma_joint_inflation": -0.0002843710768065666,
+      "mean_abs_offdiag": 0.024305119448415183
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 316.0,
+      "n_eff": 791.2665419683882,
+      "max_abs_rho": 0.06924369895845153,
+      "max_rho": -0.06924369895845153,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 1.9477878872760008,
+      "sigma_joint_inflation": -9.136852690583286e-05,
+      "mean_abs_offdiag": 0.023847582140257378
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 464.0,
+      "n_eff": 1162.2473878453225,
+      "max_abs_rho": 0.06700616370055273,
+      "max_rho": -0.06700616370055273,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.284357351642906,
+      "sigma_joint_inflation": 0.0028673308963389488,
+      "mean_abs_offdiag": 0.020479245866580176
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 681.0,
+      "n_eff": 1706.185629155834,
+      "max_abs_rho": 0.06512560631792275,
+      "max_rho": -0.06512560631792275,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.690078289172647,
+      "sigma_joint_inflation": 0.007460705881034535,
+      "mean_abs_offdiag": 0.01823954850286629
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 1000.0,
+      "n_eff": 2505.799984510916,
+      "max_abs_rho": 0.06301488370367128,
+      "max_rho": -0.06301488370367128,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 3.154396921323996,
+      "sigma_joint_inflation": 0.009895685875101146,
+      "mean_abs_offdiag": 0.015601596284775749
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 1468.0,
+      "n_eff": 3678.901973337237,
+      "max_abs_rho": 0.05513341209814995,
+      "max_rho": -0.05513341209814995,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 3.344059367410779,
+      "sigma_joint_inflation": 0.009867970265864834,
+      "mean_abs_offdiag": 0.012508315075223283
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 2154.0,
+      "n_eff": 5398.448939449255,
+      "max_abs_rho": 0.04366526404940215,
+      "max_rho": -0.04366526404940215,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 3.2082676319979915,
+      "sigma_joint_inflation": 0.008868454633138123,
+      "mean_abs_offdiag": 0.010110663693980488
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 3162.0,
+      "n_eff": 7925.007806754064,
+      "max_abs_rho": 0.03293212453181181,
+      "max_rho": -0.03293212453181181,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 2.931700481646322,
+      "sigma_joint_inflation": 0.007268229950586846,
+      "mean_abs_offdiag": 0.008143110198546721
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 4642.0,
+      "n_eff": 11581.34921302895,
+      "max_abs_rho": 0.025343509931815385,
+      "max_rho": -0.025343509931815385,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.7273843276190775,
+      "sigma_joint_inflation": 0.006041234526324768,
+      "mean_abs_offdiag": 0.007001622755876013
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 6813.0,
+      "n_eff": 15859.393257338388,
+      "max_abs_rho": 0.02074702940989884,
+      "max_rho": -0.02074702940989884,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 2.6127581234038333,
+      "sigma_joint_inflation": 0.005237431186107644,
+      "mean_abs_offdiag": 0.006564981239150008
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "sym",
+      "tau": 10000.0,
+      "n_eff": 18649.00038072046,
+      "max_abs_rho": 0.01813447390160706,
+      "max_rho": -0.01813447390160706,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.4764681091914285,
+      "sigma_joint_inflation": 0.004591803563271268,
+      "mean_abs_offdiag": 0.006236465060609024
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 1.0,
+      "n_eff": 1.1000311442686177,
+      "max_abs_rho": 1.009069787194827,
+      "max_rho": 1.009069787194827,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 1.0583363032357485,
+      "sigma_joint_inflation": -0.17439025318081536,
+      "mean_abs_offdiag": 0.256974813368155
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 2.0,
+      "n_eff": 2.1493540451009614,
+      "max_abs_rho": 0.9276745878493144,
+      "max_rho": 0.9276745878493144,
+      "max_pair": [
+        1000,
+        28295
+      ],
+      "max_abs_t": 1.3600336051237643,
+      "sigma_joint_inflation": 0.15069012695931927,
+      "mean_abs_offdiag": 0.3185380653691402
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 3.0,
+      "n_eff": 3.3768115407395602,
+      "max_abs_rho": 0.8725074805451445,
+      "max_rho": 0.8725074805451445,
+      "max_pair": [
+        28295,
+        1000
+      ],
+      "max_abs_t": 1.6033287155264453,
+      "sigma_joint_inflation": 0.15828131830788839,
+      "mean_abs_offdiag": 0.29248062460105934
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 5.0,
+      "n_eff": 5.868645985160082,
+      "max_abs_rho": 0.7888375112985069,
+      "max_rho": -0.7888375112985069,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 1.9109816219317302,
+      "sigma_joint_inflation": 0.1152566250889584,
+      "mean_abs_offdiag": 0.24547272513899432
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 7.0,
+      "n_eff": 8.370021580728473,
+      "max_abs_rho": 0.7705855086935649,
+      "max_rho": -0.7705855086935649,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.229380132244299,
+      "sigma_joint_inflation": 0.0982683270055571,
+      "mean_abs_offdiag": 0.22321382059478137
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 10.0,
+      "n_eff": 12.126366065013885,
+      "max_abs_rho": 0.7816165342319606,
+      "max_rho": -0.7816165342319606,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.721817957229771,
+      "sigma_joint_inflation": 0.07968465418933968,
+      "mean_abs_offdiag": 0.20193162050435626
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 15.0,
+      "n_eff": 18.39031803811035,
+      "max_abs_rho": 0.7554764530179969,
+      "max_rho": -0.7554764530179969,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 3.239780242460229,
+      "sigma_joint_inflation": 0.0602182530900961,
+      "mean_abs_offdiag": 0.1652547452208942
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 22.0,
+      "n_eff": 27.161925800301315,
+      "max_abs_rho": 0.619263161066188,
+      "max_rho": -0.619263161066188,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 3.22742028697686,
+      "sigma_joint_inflation": 0.06155592273703392,
+      "mean_abs_offdiag": 0.1276776203002541
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 30.0,
+      "n_eff": 37.18755448571076,
+      "max_abs_rho": 0.4655667925580115,
+      "max_rho": -0.4655667925580115,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.8391007573543368,
+      "sigma_joint_inflation": 0.0775171817095055,
+      "mean_abs_offdiag": 0.1042020730018774
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 32.0,
+      "n_eff": 39.69403251869399,
+      "max_abs_rho": 0.43115452884766625,
+      "max_rho": -0.43115452884766625,
+      "max_pair": [
+        28297,
+        28293
+      ],
+      "max_abs_t": 2.7164115154338075,
+      "sigma_joint_inflation": 0.08053208459659666,
+      "mean_abs_offdiag": 0.09990787985444935
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 46.0,
+      "n_eff": 57.23975101234317,
+      "max_abs_rho": 0.2770942285867919,
+      "max_rho": 0.2770942285867919,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.0964106061571406,
+      "sigma_joint_inflation": 0.08489352458812438,
+      "mean_abs_offdiag": 0.07677559434378287
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 68.0,
+      "n_eff": 84.8121663095967,
+      "max_abs_rho": 0.21251888140572897,
+      "max_rho": 0.21251888140572897,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 1.9571612091613984,
+      "sigma_joint_inflation": 0.06820092406851863,
+      "mean_abs_offdiag": 0.06472475194004917
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 100.0,
+      "n_eff": 124.91789015117789,
+      "max_abs_rho": 0.1608106693140175,
+      "max_rho": 0.1608106693140175,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 1.7973273363810103,
+      "sigma_joint_inflation": 0.052411644128103285,
+      "mean_abs_offdiag": 0.05142931372204493
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 147.0,
+      "n_eff": 183.8234327945768,
+      "max_abs_rho": 0.11987671343084827,
+      "max_rho": 0.11987671343084827,
+      "max_pair": [
+        28293,
+        15000
+      ],
+      "max_abs_t": 1.6253064682681815,
+      "sigma_joint_inflation": 0.0398734362197295,
+      "mean_abs_offdiag": 0.043145918786707746
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 215.0,
+      "n_eff": 269.04864550760294,
+      "max_abs_rho": 0.14179906337593146,
+      "max_rho": 0.14179906337593146,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.325887834926523,
+      "sigma_joint_inflation": 0.030797278543309048,
+      "mean_abs_offdiag": 0.04003185824550352
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 300.0,
+      "n_eff": 375.5802563996238,
+      "max_abs_rho": 0.15577373506108436,
+      "max_rho": 0.15577373506108436,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.0188783325971413,
+      "sigma_joint_inflation": 0.02505689751513751,
+      "mean_abs_offdiag": 0.03755957021610966
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 316.0,
+      "n_eff": 395.63327098419427,
+      "max_abs_rho": 0.15653979967883966,
+      "max_rho": 0.15653979967883966,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.11365992524731,
+      "sigma_joint_inflation": 0.02420565909807748,
+      "mean_abs_offdiag": 0.03728005518037602
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 464.0,
+      "n_eff": 581.1236939226612,
+      "max_abs_rho": 0.1483188354260699,
+      "max_rho": 0.1483188354260699,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.5754490880576313,
+      "sigma_joint_inflation": 0.020075019306259767,
+      "mean_abs_offdiag": 0.03267783944851436
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 681.0,
+      "n_eff": 853.0928145779175,
+      "max_abs_rho": 0.12275849676200912,
+      "max_rho": 0.12275849676200912,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.585499808510272,
+      "sigma_joint_inflation": 0.020308941376311784,
+      "mean_abs_offdiag": 0.02691262343123481
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 1000.0,
+      "n_eff": 1252.8999922554578,
+      "max_abs_rho": 0.09611008124180175,
+      "max_rho": 0.09611008124180175,
+      "max_pair": [
+        23000,
+        22000
+      ],
+      "max_abs_t": 3.401943900510702,
+      "sigma_joint_inflation": 0.020526534680518793,
+      "mean_abs_offdiag": 0.022782071717310975
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 1468.0,
+      "n_eff": 1839.450986668619,
+      "max_abs_rho": 0.07499608637328566,
+      "max_rho": 0.07499608637328566,
+      "max_pair": [
+        23000,
+        22000
+      ],
+      "max_abs_t": 3.216493741561874,
+      "sigma_joint_inflation": 0.018074076812774065,
+      "mean_abs_offdiag": 0.019151480419506643
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 2154.0,
+      "n_eff": 2699.2244697246265,
+      "max_abs_rho": 0.055834858611496056,
+      "max_rho": 0.055834858611496056,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.900847658467153,
+      "sigma_joint_inflation": 0.013021390599820437,
+      "mean_abs_offdiag": 0.015584820976571243
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 3162.0,
+      "n_eff": 3962.503903377032,
+      "max_abs_rho": 0.03731826145141924,
+      "max_rho": 0.03731826145141924,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.349125691221818,
+      "sigma_joint_inflation": 0.0074247557285094246,
+      "mean_abs_offdiag": 0.012542975864530268
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 4642.0,
+      "n_eff": 5790.6746065144725,
+      "max_abs_rho": 0.029468419504059817,
+      "max_rho": -0.029468419504059817,
+      "max_pair": [
+        28293,
+        28295
+      ],
+      "max_abs_t": 2.2424430608916985,
+      "sigma_joint_inflation": 0.0030456200673638634,
+      "mean_abs_offdiag": 0.010445849941924835
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 6813.0,
+      "n_eff": 7929.696628669192,
+      "max_abs_rho": 0.027068900146681313,
+      "max_rho": -0.027068900146681313,
+      "max_pair": [
+        28293,
+        28295
+      ],
+      "max_abs_t": 2.410454268075076,
+      "sigma_joint_inflation": 0.0004392292266941489,
+      "mean_abs_offdiag": 0.009274226893617002
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "future",
+      "tau": 10000.0,
+      "n_eff": 9324.50019036023,
+      "max_abs_rho": 0.025618843490398755,
+      "max_rho": -0.025618843490398755,
+      "max_pair": [
+        28295,
+        28293
+      ],
+      "max_abs_t": 2.4738439541566732,
+      "sigma_joint_inflation": -0.0007437507887506634,
+      "mean_abs_offdiag": 0.00899786387011338
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 1.0,
+      "n_eff": 1.1000311442686177,
+      "max_abs_rho": 2.801513197192962,
+      "max_rho": 2.801513197192962,
+      "max_pair": [
+        23000,
+        28297
+      ],
+      "max_abs_t": 2.938293424507122,
+      "sigma_joint_inflation": 0.45877529956968943,
+      "mean_abs_offdiag": 0.77852149613924
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 2.0,
+      "n_eff": 2.1493540451009614,
+      "max_abs_rho": 1.7979875253229827,
+      "max_rho": 1.7979875253229827,
+      "max_pair": [
+        28297,
+        28293
+      ],
+      "max_abs_t": 2.6359711563315718,
+      "sigma_joint_inflation": 0.31095673304342086,
+      "mean_abs_offdiag": 0.5183828559033177
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 3.0,
+      "n_eff": 3.3768115407395602,
+      "max_abs_rho": 1.2997865745061161,
+      "max_rho": 1.2997865745061161,
+      "max_pair": [
+        28297,
+        28293
+      ],
+      "max_abs_t": 2.3885011709691373,
+      "sigma_joint_inflation": 0.18467731024839584,
+      "mean_abs_offdiag": 0.4028042394492096
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 5.0,
+      "n_eff": 5.868645985160084,
+      "max_abs_rho": 0.9966016353831816,
+      "max_rho": -0.9966016353831816,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.4142962046383762,
+      "sigma_joint_inflation": 0.03789143803194772,
+      "mean_abs_offdiag": 0.3009636425505456
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 7.0,
+      "n_eff": 8.370021580728473,
+      "max_abs_rho": 0.8690398087069345,
+      "max_rho": -0.8690398087069345,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.51421816502271,
+      "sigma_joint_inflation": -0.027678054608693103,
+      "mean_abs_offdiag": 0.25598634198740355
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 10.0,
+      "n_eff": 12.126366065013885,
+      "max_abs_rho": 0.6860889976230893,
+      "max_rho": -0.6860889976230893,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.389163064242582,
+      "sigma_joint_inflation": -0.056930660749314965,
+      "mean_abs_offdiag": 0.21454172935592755
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 15.0,
+      "n_eff": 18.390318038110347,
+      "max_abs_rho": 0.5011542358160298,
+      "max_rho": -0.5011542358160298,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 2.149146522219071,
+      "sigma_joint_inflation": -0.06673535356272964,
+      "mean_abs_offdiag": 0.16821089304892783
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 22.0,
+      "n_eff": 27.161925800301322,
+      "max_abs_rho": 0.32636226341614405,
+      "max_rho": -0.32636226341614405,
+      "max_pair": [
+        1000,
+        28297
+      ],
+      "max_abs_t": 1.7009056182826445,
+      "sigma_joint_inflation": -0.0748269513744988,
+      "mean_abs_offdiag": 0.1241168658718007
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 30.0,
+      "n_eff": 37.18755448571076,
+      "max_abs_rho": 0.31169845528540946,
+      "max_rho": -0.31169845528540946,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 1.9007870290850166,
+      "sigma_joint_inflation": -0.07776508456376141,
+      "mean_abs_offdiag": 0.1041769094705172
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 32.0,
+      "n_eff": 39.69403251869399,
+      "max_abs_rho": 0.31901563602936833,
+      "max_rho": -0.31901563602936833,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.0099006025280373,
+      "sigma_joint_inflation": -0.07789418956479399,
+      "mean_abs_offdiag": 0.1016729338725665
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 46.0,
+      "n_eff": 57.239751012343206,
+      "max_abs_rho": 0.32917654233145904,
+      "max_rho": -0.32917654233145904,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 2.4904495418808597,
+      "sigma_joint_inflation": -0.07592972387670838,
+      "mean_abs_offdiag": 0.09224990577617588
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 68.0,
+      "n_eff": 84.81216630959672,
+      "max_abs_rho": 0.2836923205932216,
+      "max_rho": -0.2836923205932216,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.612622471610021,
+      "sigma_joint_inflation": -0.06921867968482132,
+      "mean_abs_offdiag": 0.07938156018205646
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 100.0,
+      "n_eff": 124.91789015117789,
+      "max_abs_rho": 0.21575661726973508,
+      "max_rho": -0.21575661726973508,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 2.4114399117807026,
+      "sigma_joint_inflation": -0.06023554336529835,
+      "mean_abs_offdiag": 0.06837941645394252
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 147.0,
+      "n_eff": 183.82343279457683,
+      "max_abs_rho": 0.17262285133042535,
+      "max_rho": 0.17262285133042535,
+      "max_pair": [
+        1000,
+        28296
+      ],
+      "max_abs_t": 2.340446520500272,
+      "sigma_joint_inflation": -0.048249462177111124,
+      "mean_abs_offdiag": 0.05678221165238305
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 215.0,
+      "n_eff": 269.048645507603,
+      "max_abs_rho": 0.1459765451921725,
+      "max_rho": 0.1459765451921725,
+      "max_pair": [
+        1000,
+        28296
+      ],
+      "max_abs_t": 2.3944098258741104,
+      "sigma_joint_inflation": -0.03407387673868012,
+      "mean_abs_offdiag": 0.04578340995067632
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 300.0,
+      "n_eff": 375.58025639962386,
+      "max_abs_rho": 0.11547666682133997,
+      "max_rho": -0.11547666682133997,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.2379254580419494,
+      "sigma_joint_inflation": -0.025836337630777084,
+      "mean_abs_offdiag": 0.0371077995298547
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 316.0,
+      "n_eff": 395.6332709841941,
+      "max_abs_rho": 0.11433027753375889,
+      "max_rho": -0.11433027753375889,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.2740900661021377,
+      "sigma_joint_inflation": -0.02460603523213656,
+      "mean_abs_offdiag": 0.036104422671694454
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 464.0,
+      "n_eff": 581.1236939226613,
+      "max_abs_rho": 0.10038136689110924,
+      "max_rho": -0.10038136689110924,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 2.41984415315676,
+      "sigma_joint_inflation": -0.014461843397458152,
+      "mean_abs_offdiag": 0.03201992134432216
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 681.0,
+      "n_eff": 853.092814577917,
+      "max_abs_rho": 0.1066534945911925,
+      "max_rho": -0.1066534945911925,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 3.115108888756103,
+      "sigma_joint_inflation": -0.005197697590979322,
+      "mean_abs_offdiag": 0.02949413380974272
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 1000.0,
+      "n_eff": 1252.8999922554585,
+      "max_abs_rho": 0.10815912918873719,
+      "max_rho": -0.10815912918873719,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 3.828435946302565,
+      "sigma_joint_inflation": -0.0005208485462014911,
+      "mean_abs_offdiag": 0.02664088672170414
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 1468.0,
+      "n_eff": 1839.4509866686178,
+      "max_abs_rho": 0.09735541429836968,
+      "max_rho": -0.09735541429836968,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 4.175458959807989,
+      "sigma_joint_inflation": 0.001731390772633068,
+      "mean_abs_offdiag": 0.021547346181637932
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 2154.0,
+      "n_eff": 2699.2244697246274,
+      "max_abs_rho": 0.07907058607847865,
+      "max_rho": -0.07907058607847865,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 4.108038064094856,
+      "sigma_joint_inflation": 0.004735187235869631,
+      "mean_abs_offdiag": 0.01699357630328989
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 3162.0,
+      "n_eff": 3962.503903377032,
+      "max_abs_rho": 0.059795379442787996,
+      "max_rho": -0.059795379442787996,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 3.76402481257787,
+      "sigma_joint_inflation": 0.006939761281774981,
+      "mean_abs_offdiag": 0.014303823892594044
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 4642.0,
+      "n_eff": 5790.674606514475,
+      "max_abs_rho": 0.045263776967498,
+      "max_rho": -0.045263776967498,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 3.4444141992933024,
+      "sigma_joint_inflation": 0.00869518346939957,
+      "mean_abs_offdiag": 0.012650101000207959
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 6813.0,
+      "n_eff": 7929.696628669194,
+      "max_abs_rho": 0.03741580430675946,
+      "max_rho": -0.03741580430675946,
+      "max_pair": [
+        23000,
+        28295
+      ],
+      "max_abs_t": 3.3318341231439903,
+      "sigma_joint_inflation": 0.009708252376306348,
+      "mean_abs_offdiag": 0.01112056337575221
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "past",
+      "tau": 10000.0,
+      "n_eff": 9324.50019036023,
+      "max_abs_rho": 0.03390851976628113,
+      "max_rho": -0.03390851976628113,
+      "max_pair": [
+        28295,
+        23000
+      ],
+      "max_abs_t": 3.2743237082366443,
+      "sigma_joint_inflation": 0.009672478601611578,
+      "mean_abs_offdiag": 0.010120100648287016
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 1.0,
+      "n_eff": 1.313035285499332,
+      "max_abs_rho": 0.9117221481920411,
+      "max_rho": 0.9117221481920411,
+      "max_pair": [
+        22000,
+        28295
+      ],
+      "max_abs_t": 1.044721911974169,
+      "sigma_joint_inflation": -0.06783248207278425,
+      "mean_abs_offdiag": 0.26983866109048926
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 2.0,
+      "n_eff": 2.163953413738653,
+      "max_abs_rho": 0.7876419518220059,
+      "max_rho": 0.7876419518220059,
+      "max_pair": [
+        28294,
+        28295
+      ],
+      "max_abs_t": 1.158651406516505,
+      "sigma_joint_inflation": 0.08488802033926857,
+      "mean_abs_offdiag": 0.28360370548995034
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 3.0,
+      "n_eff": 3.110296679619444,
+      "max_abs_rho": 0.7781919725507565,
+      "max_rho": 0.7781919725507565,
+      "max_pair": [
+        28294,
+        28295
+      ],
+      "max_abs_t": 1.3724219484406561,
+      "sigma_joint_inflation": 0.11569587448958218,
+      "mean_abs_offdiag": 0.26738766165464434
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 5.0,
+      "n_eff": 5.066489563439471,
+      "max_abs_rho": 0.720606011204984,
+      "max_rho": -0.720606011204984,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 1.6220022668154734,
+      "sigma_joint_inflation": 0.11536065658868555,
+      "mean_abs_offdiag": 0.2439531786955718
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 7.0,
+      "n_eff": 7.047554385466543,
+      "max_abs_rho": 0.7480675655316954,
+      "max_rho": -0.7480675655316954,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 1.9859121969539948,
+      "sigma_joint_inflation": 0.10517613099257783,
+      "mean_abs_offdiag": 0.2224533637329853
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 10.0,
+      "n_eff": 10.033311132253994,
+      "max_abs_rho": 0.7549982549726941,
+      "max_rho": -0.7549982549726941,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.391487349016669,
+      "sigma_joint_inflation": 0.09160750183932609,
+      "mean_abs_offdiag": 0.20193859622505045
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 15.0,
+      "n_eff": 15.02221564064587,
+      "max_abs_rho": 0.721126706857232,
+      "max_rho": -0.721126706857232,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.794979171728354,
+      "sigma_joint_inflation": 0.0784891595211652,
+      "mean_abs_offdiag": 0.17400869767469365
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 22.0,
+      "n_eff": 22.01514942857654,
+      "max_abs_rho": 0.635576688297159,
+      "max_rho": -0.635576688297159,
+      "max_pair": [
+        28297,
+        28293
+      ],
+      "max_abs_t": 2.9821451534554666,
+      "sigma_joint_inflation": 0.07417807246465702,
+      "mean_abs_offdiag": 0.14196399316994024
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 30.0,
+      "n_eff": 30.011110288152928,
+      "max_abs_rho": 0.5327927972553832,
+      "max_rho": -0.5327927972553832,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.9187666575670153,
+      "sigma_joint_inflation": 0.07544987046339746,
+      "mean_abs_offdiag": 0.11847896595591918
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 32.0,
+      "n_eff": 32.01041598856133,
+      "max_abs_rho": 0.5089006980298117,
+      "max_rho": -0.5089006980298117,
+      "max_pair": [
+        28297,
+        28293
+      ],
+      "max_abs_t": 2.8792455585546053,
+      "sigma_joint_inflation": 0.07583226750252137,
+      "mean_abs_offdiag": 0.11406870221802831
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 46.0,
+      "n_eff": 46.007246148517595,
+      "max_abs_rho": 0.36975719924155165,
+      "max_rho": -0.36975719924155165,
+      "max_pair": [
+        28293,
+        28297
+      ],
+      "max_abs_t": 2.5080128528795806,
+      "sigma_joint_inflation": 0.07599594802157417,
+      "mean_abs_offdiag": 0.09104443390851552
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 68.0,
+      "n_eff": 68.00490189011157,
+      "max_abs_rho": 0.2593738766467468,
+      "max_rho": 0.2593738766467468,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.138928869788648,
+      "sigma_joint_inflation": 0.07042621385704351,
+      "mean_abs_offdiag": 0.07011522081700873
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 100.0,
+      "n_eff": 100.00333331111135,
+      "max_abs_rho": 0.20682071907949184,
+      "max_rho": 0.20682071907949184,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 2.068241660397724,
+      "sigma_joint_inflation": 0.060600362968472155,
+      "mean_abs_offdiag": 0.05564947528380999
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 147.0,
+      "n_eff": 147.0022675667004,
+      "max_abs_rho": 0.16226716943777134,
+      "max_rho": 0.16226716943777134,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 1.9674000470772097,
+      "sigma_joint_inflation": 0.049773651098868,
+      "mean_abs_offdiag": 0.0460954247882373
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 215.0,
+      "n_eff": 215.00155038536084,
+      "max_abs_rho": 0.12749706190189536,
+      "max_rho": 0.12749706190189536,
+      "max_pair": [
+        15000,
+        28293
+      ],
+      "max_abs_t": 1.8694806425630215,
+      "sigma_joint_inflation": 0.03992756745832682,
+      "mean_abs_offdiag": 0.040975154438715265
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 300.0,
+      "n_eff": 300.0011111102882,
+      "max_abs_rho": 0.1329843751940167,
+      "max_rho": 0.1329843751940167,
+      "max_pair": [
+        23000,
+        22000
+      ],
+      "max_abs_t": 2.303361209957106,
+      "sigma_joint_inflation": 0.03287259882210236,
+      "mean_abs_offdiag": 0.03637886922695542
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 316.0,
+      "n_eff": 316.0010548516166,
+      "max_abs_rho": 0.1341493583082329,
+      "max_rho": 0.1341493583082329,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.3846951354142014,
+      "sigma_joint_inflation": 0.03193613853130661,
+      "mean_abs_offdiag": 0.035634516886883995
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 464.0,
+      "n_eff": 464.000718390582,
+      "max_abs_rho": 0.13563153107127843,
+      "max_rho": 0.13563153107127843,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.921594853136392,
+      "sigma_joint_inflation": 0.026484818972200896,
+      "mean_abs_offdiag": 0.03178291468318242
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 681.0,
+      "n_eff": 681.0004894759501,
+      "max_abs_rho": 0.12586893114802766,
+      "max_rho": 0.12586893114802766,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.284673875115424,
+      "sigma_joint_inflation": 0.02337350233819402,
+      "mean_abs_offdiag": 0.02793200182931214
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 1000.0,
+      "n_eff": 1000.0003292110023,
+      "max_abs_rho": 0.10934655312676805,
+      "max_rho": 0.10934655312676805,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.4578421908716406,
+      "sigma_joint_inflation": 0.021213128961970806,
+      "mean_abs_offdiag": 0.02404553965305075
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 1468.0,
+      "n_eff": 1467.9966712686519,
+      "max_abs_rho": 0.09034120313007446,
+      "max_rho": 0.09034120313007446,
+      "max_pair": [
+        23000,
+        22000
+      ],
+      "max_abs_t": 3.4613730298073495,
+      "sigma_joint_inflation": 0.018587047827218317,
+      "mean_abs_offdiag": 0.020861043854932516
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 2154.0,
+      "n_eff": 2153.600404282053,
+      "max_abs_rho": 0.07113521955614222,
+      "max_rho": 0.07113521955614222,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 3.301165048526473,
+      "sigma_joint_inflation": 0.015029076292516041,
+      "mean_abs_offdiag": 0.01737320828726034
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 3162.0,
+      "n_eff": 3150.6955319481763,
+      "max_abs_rho": 0.05309690719645012,
+      "max_rho": 0.05309690719645012,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.9803855111295863,
+      "sigma_joint_inflation": 0.010910660186106425,
+      "mean_abs_offdiag": 0.014305281642773348
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 4642.0,
+      "n_eff": 4518.752405069732,
+      "max_abs_rho": 0.03763880866085226,
+      "max_rho": 0.03763880866085226,
+      "max_pair": [
+        22000,
+        23000
+      ],
+      "max_abs_t": 2.5301434315078875,
+      "sigma_joint_inflation": 0.007031317369271761,
+      "mean_abs_offdiag": 0.012111734542312609
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 6813.0,
+      "n_eff": 6125.933088376256,
+      "max_abs_rho": 0.028572732046087516,
+      "max_rho": -0.028572732046087516,
+      "max_pair": [
+        28295,
+        28293
+      ],
+      "max_abs_t": 2.2363403141821268,
+      "sigma_joint_inflation": 0.004001102713509397,
+      "mean_abs_offdiag": 0.010535949965075599
+    },
+    {
+      "channel": "OB vs SA",
+      "kernel": "exp_future",
+      "tau": 10000.0,
+      "n_eff": 7615.941584944121,
+      "max_abs_rho": 0.027359483875980178,
+      "max_rho": -0.027359483875980178,
+      "max_pair": [
+        28295,
+        28293
+      ],
+      "max_abs_t": 2.3876447089419,
+      "sigma_joint_inflation": 0.0019489388884132985,
+      "mean_abs_offdiag": 0.009585959203573193
+    }
+  ],
+  "null_shift_mean": -0.015297739181760788,
+  "null_shift_sd": 0.044399986629664615,
+  "null_shift_wide_mean": -0.0016169917757156865,
+  "null_shift_wide_sd": 0.024744143069150994,
+  "z_shift": 0.8586288643179952,
+  "z_shift_wide": 0.5794970028414286,
+  "n_perm": 20,
+  "t_mean": 0.029110582667493428,
+  "t_sd": 0.9553834412965316,
+  "t_max_abs": 4.175458959807989,
+  "n_t": 9360,
+  "n_t_above_3": 48,
+  "inflation_mean_wide": 0.012722164970736824,
+  "inflation_sem": 0.006194186300939719,
+  "max_abs_rho": 2.801513197192962,
+  "worst_rho": {
+    "value": 2.801513197192962,
+    "channel": "OB vs SA",
+    "kernel": "past",
+    "tau": 1.0,
+    "max_pair": [
+      23000,
+      28297
+    ]
+  },
+  "max_abs_rho_consecutive": 2.751642333604991,
+  "mean_rho_consecutive": -0.0031345234127535893,
+  "inflation_mean": 0.022825370913802316,
+  "inflation_min": -0.5286840499381781,
+  "inflation_max": 0.45877529956968943,
+  "inflation_max_abs": 0.5286840499381781,
+  "worst_inflation": {
+    "value": 0.45877529956968943,
+    "channel": "OB vs SA",
+    "kernel": "past",
+    "tau": 1.0
+  },
+  "diagonal_ok": true
+}

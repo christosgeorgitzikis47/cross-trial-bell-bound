@@ -25,7 +25,8 @@ In model parameters, for a coupling kernel of width τ trials with the
 same-trial term k = 0 excluded, the excluded coupling strength ε falls from
 **7.6 × 10⁻²** at τ = 1 to **4.4 × 10⁻⁴** at τ = 10,000 for a single pulse, and
 to **1.9 × 10⁻²** and **1.2 × 10⁻⁴** when all ten pulses are combined by
-inverse-variance weights. Here ε = 1 is the strength of the ordinary lag-0
+inverse-variance weights, those weights being justified by a measured absence
+of covariance between the pulses rather than assumed. Here ε = 1 is the strength of the ordinary lag-0
 quantum correlation. Four kernel families were tested (symmetric, future-only,
 past-only, one-sided exponential) at 26 widths each: 208 tests on the single
 pulse and 208 on the joint estimate, zero detections in either.
@@ -111,6 +112,7 @@ python3 meros14_oo10.py              # outcome-outcome scan, all ten
 python3 meros15_homogeneity.py       # epsilon homogeneity across pulses
 python3 meros16_crosspulse.py        # cross-pulse correlation, pulse independence
 python3 meros17_periodogram.py       # frequency scan of delta-hat, oscillatory kernels
+python3 meros18_covariance.py        # covariance of the per-pulse estimators
 python3 stability10.py               # J across all ten pulses, the 0-of-1,060 count
 
 # 6. figures
