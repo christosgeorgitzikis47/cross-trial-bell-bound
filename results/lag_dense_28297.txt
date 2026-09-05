@@ -1,32 +1,32 @@
-Trials: 15,000,000   lags: 111   συγκρίσεις: 222
-Ανακατέματα null: 2000
+Trials: 15,000,000   lags: 111   comparisons: 222
+Null shuffles: 2000
 
 ======================================================================
 OA vs SB
 ======================================================================
-null: μέσος 4.7534e-08  σ 6.9142e-08  max 7.2070e-07
-κατώφλι Bonferroni (99.977ο εκατοστημόριο): 7.0117e-07
+null: mean 4.7534e-08  sd 6.9142e-08  max 7.2070e-07
+Bonferroni threshold (99.977th percentile): 7.0117e-07
 
-  μέγιστο σ σε όλο το εύρος : +3.88  στο lag -6
-  ελάχιστο σ                : -0.69  στο lag -34
-  ΜΕΓΙΣΤΟ |σ|               : 3.88  στο lag -6
-  ΜΕΛΛΟΝ  (lag>0) μέγιστο σ : +2.94  στο lag 38
-  ΠΑΡΕΛΘΟΝ(lag<0) μέγιστο σ : +3.88  στο lag -6
-  lag πάνω από null max     : 0 / 111
-  lag πάνω από Bonferroni   : 0 / 111
+  largest sigma overall     : +3.88  at lag -6
+  smallest sigma            : -0.69  at lag -34
+  LARGEST |sigma|           : 3.88  at lag -6
+  FUTURE (lag>0) max sigma  : +2.94  at lag 38
+  PAST   (lag<0) max sigma  : +3.88  at lag -6
+  lags above the null max   : 0 / 111
+  lags above Bonferroni     : 0 / 111
 
 ======================================================================
 OB vs SA
 ======================================================================
-null: μέσος 4.7850e-08  σ 6.6821e-08  max 6.2931e-07
-κατώφλι Bonferroni (99.977ο εκατοστημόριο): 5.7011e-07
+null: mean 4.7850e-08  sd 6.6821e-08  max 6.2931e-07
+Bonferroni threshold (99.977th percentile): 5.7011e-07
 
-  μέγιστο σ σε όλο το εύρος : +4.77  στο lag 44
-  ελάχιστο σ                : -0.72  στο lag 48
-  ΜΕΓΙΣΤΟ |σ|               : 4.77  στο lag 44
-  ΜΕΛΛΟΝ  (lag>0) μέγιστο σ : +4.77  στο lag 44
-  ΠΑΡΕΛΘΟΝ(lag<0) μέγιστο σ : +3.50  στο lag -1
-  lag πάνω από null max     : 0 / 111
-  lag πάνω από Bonferroni   : 0 / 111
+  largest sigma overall     : +4.77  at lag 44
+  smallest sigma            : -0.72  at lag 48
+  LARGEST |sigma|           : 4.77  at lag 44
+  FUTURE (lag>0) max sigma  : +4.77  at lag 44
+  PAST   (lag<0) max sigma  : +3.50  at lag -1
+  lags above the null max   : 0 / 111
+  lags above Bonferroni     : 0 / 111
 
-Αποθηκεύτηκε: lag_dense_results.json
+Saved: lag_dense_results.json

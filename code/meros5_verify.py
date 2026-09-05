@@ -1,23 +1,23 @@
 """
-ΜΕΡΟΣ 5, ΒΗΜΑ 2 — ΕΠΑΛΗΘΕΥΣΗ ΤΩΝ ΑΣΥΜΜΕΤΡΩΝ ΦΙΛΤΡΩΝ ΜΕ ΕΝΕΣΗ
+PART 5, STEP 2 - VERIFYING THE ASYMMETRIC FILTERS BY INJECTION
 
-Ίδιο σχήμα με το meros3_verify.py, αλλά ο ΙΔΙΟΣ ασύμμετρος πυρήνας
-χρησιμοποιείται και στην ένεση και στο φίλτρο:
+The same design as meros3_verify.py, but the SAME asymmetric kernel is used
+both in the injection and in the filter:
 
-    λ(i) = λ₀(SA(i)) + α·ε·F(i),   F(i) = Σ_k W(k)·S_B(i+k)
-    W = future / past / exp_future  (γκαουσιανοί ή εκθετικός, μονόπλευροι)
+    lam(i) = lam0(SA(i)) + alpha*eps*F(i),  F(i) = sum_k W(k)*S_B(i+k)
+    W = future / past / exp_future  (Gaussian or exponential, one-sided)
 
-Αν το φίλτρο «κοιτάζει» προς τη λάθος κατεύθυνση, το T θα καταρρεύσει στο
-μηδέν — γι' αυτό το τεστ έχει νόημα: ένα σήμα μόνο-μέλλον ΔΕΝ πρέπει να
-ανιχνεύεται από το φίλτρο μόνο-παρελθόν (ελέγχεται ρητά, cross-check).
+If the filter looks in the wrong direction, T collapses to zero -- which is
+why the test is meaningful: a future-only signal must NOT be detected by the
+past-only filter (checked explicitly, as a cross-check).
 
-Κριτήριο (ίδιο με #6): E[z] = frac·(z_thr + |z_obs|). Το ε_excl είναι άνω
-όριο εμπιστοσύνης, άρα στο frac=1 η ισχύς είναι ~50% ΕΞ ΟΡΙΣΜΟΥ· το
-κριτήριο είναι η συμφωνία του μέσου z με την πρόβλεψη, συν πλήρης
-ανίχνευση στο frac=2.
+Criterion (the same as #6): E[z] = frac*(z_thr + |z_obs|). eps_excl is a
+confidence upper bound, so at frac=1 the power is ~50% BY CONSTRUCTION; the
+criterion is the agreement of the mean z with the prediction, plus full
+detection at frac=2.
 
-2 τιμές τ ανά πυρήνα (30 και 300 — υπάρχουν ΑΚΡΙΒΩΣ στο πλέγμα του χάρτη,
-χωρίς παρεμβολή), 2 επίπεδα ε (ε_excl, 2·ε_excl), 10 επαναλήψεις.
+2 values of tau per kernel (30 and 300 -- both EXACTLY on the map's grid, so
+no interpolation), 2 levels of eps (eps_excl, 2*eps_excl), 10 repetitions.
 """
 import argparse, json, math, os
 import numpy as np
@@ -31,9 +31,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def build_F_kernel(S, name, tau, K):
-    """F(i) = Σ_k W(k)·S(i+k) με γραμμική συνέλιξη FFT, για οποιονδήποτε
-    πυρήνα. Το άθροισμα κόβεται εκεί που W < 1e-6 (και ποτέ πέρα από ±K,
-    ώστε η ένεση να έχει ΤΟ ΙΔΙΟ παράθυρο με το φίλτρο)."""
+    """F(i) = sum_k W(k)*S(i+k) by linear FFT convolution, for any kernel.
+    The sum is truncated where W < 1e-6 (and never beyond +/-K, so that the
+    injection has THE SAME window as the filter)."""
     if name == "exp_future":
         half = int(math.ceil(14 * tau))
     else:
@@ -51,7 +51,7 @@ def build_F_kernel(S, name, tau, K):
 
 
 def check_F(S, F, name, tau, half, rng, n_check=4):
-    """Απευθείας επαλήθευση του F σε λίγες θέσεις (όχι εμπιστοσύνη στο FFT)."""
+    """Direct verification of F at a few positions (not trusting the FFT)."""
     n = len(S)
     k = np.arange(-half, half + 1, dtype=np.float64)
     W = kernel_W(name, k, tau)
@@ -90,25 +90,26 @@ def main():
     rng = np.random.default_rng(a.seed)
 
     print("=" * 78)
-    print("ΕΠΑΛΗΘΕΥΣΗ ΤΩΝ ΑΣΥΜΜΕΤΡΩΝ ΦΙΛΤΡΩΝ ΜΕ ΕΝΕΣΗ  (ζεύγος OA vs SB)")
+    print("VERIFYING THE ASYMMETRIC FILTERS BY INJECTION  (pair OA vs SB)")
     print("=" * 78)
-    print(f"  κατώφλι z = {z_thr:.3f}   {a.reps} επαναλήψεις ανά σημείο\n")
+    print(f"  threshold z = {z_thr:.3f}   {a.reps} repetitions per point\n")
 
     res = []
     for kn in a.kernels:
         print("-" * 78)
-        print(f"ΠΥΡΗΝΑΣ: {kn} — {KERNEL_LABEL[kn]}")
+        print(f"KERNEL: {kn} - {KERNEL_LABEL[kn]}")
         print("-" * 78)
         for tau in a.taus:
             j = int(np.argmin(np.abs(grid - tau)))
-            assert abs(grid[j] - tau) < 1e-9, "το τ δεν είναι στο πλέγμα"
+            assert abs(grid[j] - tau) < 1e-9, "tau is not on the grid"
             eps_x = P[kn]["eps_excl"][j]
             z_obs = P[kn]["z"][j]
-            Wf = kernel_W(kn, kax, tau)[None, :]          # φίλτρο (1 × n_lag)
+            Wf = kernel_W(kn, kax, tau)[None, :]          # filter (1 x n_lag)
             F, half = build_F_kernel(S, kn, tau, a.K)
             werr = check_F(S, F, kn, tau, half, rng)
-            print(f"  τ = {tau:g}   ε_excl = {eps_x:.4e}   z_obs = {z_obs:+.2f}"
-                  f"   half = {half}   σφάλμα F = {werr:.2e}   "
+            print(f"  tau = {tau:g}   eps_excl = {eps_x:.4e}   "
+                  f"z_obs = {z_obs:+.2f}"
+                  f"   half = {half}   F error = {werr:.2e}   "
                   f"sd(F) = {F.std():.3f}")
 
             for frac in (1.0, 2.0):
@@ -130,10 +131,11 @@ def main():
                 sem = zs.std(ddof=1) / math.sqrt(a.reps)
                 dev = (zs.mean() - z_pred) / sem if sem > 0 else 0.0
                 npass = int((np.abs(zs) > z_thr).sum())
-                print(f"    ε = {eps:.4e} ({frac:g}×)  clip {max(clips)*100:.4f}%"
-                      f"   z = {zs.mean():+.2f} ± {sem:.2f}  "
-                      f"(πρόβλεψη {z_pred:+.2f}, {dev:+.1f}σ)   "
-                      f"ανιχνεύθηκε {npass}/{a.reps}")
+                print(f"    eps = {eps:.4e} ({frac:g}x)  "
+                      f"clip {max(clips)*100:.4f}%"
+                      f"   z = {zs.mean():+.2f} +/- {sem:.2f}  "
+                      f"(predicted {z_pred:+.2f}, {dev:+.1f} sigma)   "
+                      f"detected {npass}/{a.reps}")
                 rec = dict(kernel=kn, tau=tau, frac=frac, eps=eps,
                            z_mean=float(zs.mean()),
                            z_sd=float(zs.std(ddof=1)), z_sem=float(sem),
@@ -141,12 +143,12 @@ def main():
                            n_pass=npass, reps=a.reps, max_clip=max(clips),
                            zs=zs.tolist())
 
-                # cross-check ΜΟΝΟ στο frac=2, μία επανάληψη: το ίδιο σήμα
-                # περασμένο από το ΑΝΤΙΘΕΤΟ φίλτρο (μέλλον <-> παρελθόν)
+                # cross-check ONLY at frac=2, one repetition: the same signal
+                # passed through the OPPOSITE filter (future <-> past)
                 if frac == 2.0:
                     opp = {"future": "past", "past": "future",
-                           "exp_future": "exp_past (κάτοπτρο)"}[kn]
-                    Wo = Wf[:, ::-1].copy()        # κάτοπτρο ως προς k -> -k
+                           "exp_future": "exp_past (mirrored)"}[kn]
+                    Wo = Wf[:, ::-1].copy()        # mirror in k -> -k
                     lam = lam0 + alpha * eps * F
                     O = (rng.random(n) < np.clip(lam, 0, 1)).astype(np.int8)
                     _, n11, A1, B1, nk, _ = scan(O, SB1, a.K)
@@ -154,38 +156,40 @@ def main():
                     sd = sigma_delta(A1, B1, nk)
                     zo = float((Wo @ dl)[0] /
                                np.sqrt(Wo ** 2 @ sd ** 2)[0])
-                    print(f"      cross-check: το ίδιο σήμα μέσα από το "
-                          f"φίλτρο «{opp}» -> z = {zo:+.2f}")
+                    print(f"      cross-check: the same signal through the "
+                          f"'{opp}' filter -> z = {zo:+.2f}")
                     rec["cross_kernel"] = opp
                     rec["cross_z"] = zo
                 res.append(rec)
             print()
 
     print("=" * 78)
-    print("ΕΤΥΜΗΓΟΡΙΑ")
+    print("VERDICT")
     print("=" * 78)
     worst = max(abs(r["dev_sigma"]) for r in res)
     ok_cal = worst < 3.0
     ok_hi = all(r["n_pass"] == r["reps"] for r in res if r["frac"] == 2.0)
     cross = [r for r in res if "cross_z" in r]
     ok_cross = all(abs(r["cross_z"]) < z_thr for r in cross)
-    print(f"  συμφωνία z με την πρόβλεψη: μέγιστη απόκλιση {worst:.1f}σ  -> "
-          f"{'ΝΑΙ' if ok_cal else 'ΟΧΙ'}")
-    print(f"  2·ε_excl ανιχνεύεται ΠΑΝΤΑ: {'ΝΑΙ' if ok_hi else 'ΟΧΙ'}")
-    print(f"  αντίθετο φίλτρο ΔΕΝ ανάβει: {'ΝΑΙ' if ok_cross else 'ΟΧΙ'} "
+    print(f"  z agrees with the prediction: largest deviation "
+          f"{worst:.1f} sigma  -> {'YES' if ok_cal else 'NO'}")
+    print(f"  2*eps_excl is ALWAYS detected: {'YES' if ok_hi else 'NO'}")
+    print(f"  the opposite filter does NOT fire: "
+          f"{'YES' if ok_cross else 'NO'} "
           f"(max |z| = {max(abs(r['cross_z']) for r in cross):.2f})")
     for r in res:
         if r["frac"] == 1.0:
-            print(f"    (ισχύς στο ίδιο το ε_excl, {r['kernel']} τ={r['tau']:g}: "
-                  f"{r['n_pass']}/{r['reps']} — αναμένεται ~50%, ΔΕΝ είναι "
-                  f"κριτήριο)")
-    print(f"  ΤΑ ΑΣΥΜΜΕΤΡΑ ΦΙΛΤΡΑ ΕΠΑΛΗΘΕΥΟΝΤΑΙ: "
-          f"{'ΝΑΙ' if (ok_cal and ok_hi and ok_cross) else 'ΟΧΙ'}")
+            print(f"    (power at the bound itself, {r['kernel']} "
+                  f"tau={r['tau']:g}: "
+                  f"{r['n_pass']}/{r['reps']} -- ~50% expected, NOT a "
+                  f"criterion)")
+    print(f"  THE ASYMMETRIC FILTERS ARE VERIFIED: "
+          f"{'YES' if (ok_cal and ok_hi and ok_cross) else 'NO'}")
 
     json.dump(dict(z_thr=z_thr, points=res, worst_dev_sigma=worst,
                    verified=bool(ok_cal and ok_hi and ok_cross)),
               open(os.path.join(HERE, "meros5_verify.json"), "w"), indent=2)
-    print("\nΑποθηκεύτηκε: meros5_verify.json")
+    print("\nSaved: meros5_verify.json")
 
 
 if __name__ == "__main__":

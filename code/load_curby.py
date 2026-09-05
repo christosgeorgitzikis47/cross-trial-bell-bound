@@ -1,20 +1,20 @@
 """
-Φόρτωση ωμών δεδομένων Bell test από το CURBy beacon.
+Load raw Bell-test records from the CURBy beacon.
 
-ΜΟΡΦΗ (επιβεβαιωμένη — δες ANAFORA.md):
+FORMAT (confirmed, see ANAFORA.md):
   base64 -> zlib -> dtype = [('SA','u1'),('SB','u1'),('OA','u1'),('OB','u1')]
 
-  Πηγή: trevisan_python_interface/python/extractor_server.py:7-11
-        (aggregate=True είναι η ΠΡΟΕΠΙΛΟΓΗ -> 4 bytes ανά trial)
+  Source: trevisan_python_interface/python/extractor_server.py:7-11
+          (aggregate=True is the DEFAULT -> 4 bytes per trial)
 
-  ΟΧΙ η παλιά εργαστηριακή μορφή [u1,u1,u8,u8] (18 bytes): δεν διαιρεί
-  τα αρχεία CURBy και δεν έχει base64. Τα OA/OB εδώ είναι ΗΔΗ
-  συγκεντρωμένα σε click/no-click — ΜΗΝ ξαναεφαρμόσεις pulse mask.
+  NOT the older laboratory format [u1,u1,u8,u8] (18 bytes): it does not
+  divide the CURBy files and there is no base64 in it. OA/OB here are
+  ALREADY aggregated to click/no-click -- do NOT reapply a pulse mask.
 
-  Κοπή στο stoppingCriteria (15.000.000): extractor_jobs.py:67-73
+  Cut at stoppingCriteria (15,000,000): extractor_jobs.py:67-73
 
-Χρήση:
-    python3 load_curby.py <αρχείο.bin> [--out curby_trials.npz]
+Usage:
+    python3 load_curby.py <file.bin> [--out curby_trials.npz]
 """
 import argparse, base64, os, sys, zlib
 import numpy as np
@@ -42,32 +42,32 @@ def main():
     a = ap.parse_args()
 
     data, n_raw = read_file(a.path, a.stopping)
-    print(f"Αρχείο: {a.path}")
-    print(f"Εγγραφές στο αρχείο: {n_raw:,}")
-    print(f"Μετά την κοπή στο stoppingCriteria: {len(data):,}\n")
+    print(f"File: {a.path}")
+    print(f"Records in the file: {n_raw:,}")
+    print(f"After the cut at stoppingCriteria: {len(data):,}\n")
 
     SA = data['SA'].astype(np.int8)
     SB = data['SB'].astype(np.int8)
     OA = (data['OA'] > 0).astype(np.int8)      # click / no-click
     OB = (data['OB'] > 0).astype(np.int8)
 
-    print("Έλεγχοι λογικότητας:")
-    print(f"  SA τιμές: {np.unique(SA)}   κατανομή: {np.bincount(SA)[1:]}")
-    print(f"  SB τιμές: {np.unique(SB)}   κατανομή: {np.bincount(SB)[1:]}")
-    print(f"  ρυθμός click Alice: {OA.mean()*100:.4f}%")
-    print(f"  ρυθμός click Bob:   {OB.mean()*100:.4f}%")
+    print("Sanity checks:")
+    print(f"  SA values: {np.unique(SA)}   counts: {np.bincount(SA)[1:]}")
+    print(f"  SB values: {np.unique(SB)}   counts: {np.bincount(SB)[1:]}")
+    print(f"  click rate Alice: {OA.mean()*100:.4f}%")
+    print(f"  click rate Bob:   {OB.mean()*100:.4f}%")
 
-    # Eberhard ως επαλήθευση ότι φορτώθηκε σωστά
+    # Eberhard, as a check that the file was loaded correctly
     def N(sa, sb, oa, ob):
         return int(((SA == sa) & (SB == sb) & (OA == oa) & (OB == ob)).sum())
     J = N(1,1,1,1) - N(1,2,1,0) - N(2,1,0,1) - N(2,2,1,1)
     sd = np.sqrt(N(1,1,1,1) + N(1,2,1,0) + N(2,1,0,1) + N(2,2,1,1))
-    print(f"  Eberhard J = {J:,}  ({J/sd:+.1f}σ)  -> "
-          f"{'ΟΚ, παραβίαση Bell' if J > 0 else 'ΠΡΟΒΛΗΜΑ: καμία παραβίαση'}")
+    print(f"  Eberhard J = {J:,}  ({J/sd:+.1f} sigma)  -> "
+          f"{'OK, Bell violation' if J > 0 else 'PROBLEM: no violation'}")
 
     np.savez_compressed(a.out, SA=SA, SB=SB, OA=OA, OB=OB)
-    print(f"\nΑποθηκεύτηκε: {a.out}  ({len(data):,} trials)")
-    print(f"Επόμενο: python3 lag_test.py {a.out}")
+    print(f"\nSaved: {a.out}  ({len(data):,} trials)")
+    print(f"Next: python3 lag_test.py {a.out}")
 
 
 if __name__ == '__main__':

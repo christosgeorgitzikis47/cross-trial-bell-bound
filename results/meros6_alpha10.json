@@ -2,7 +2,7 @@
   "rounds": [
     {
       "round": 1000,
-      "group": "\u03b1\u03c0\u03bb\u03c9\u03bc\u03ad\u03bd\u03bf\u03b9",
+      "group": "spread",
       "n": 15000000,
       "n_raw": 15228817,
       "r1_A": 0.006040645507227399,
@@ -19,7 +19,7 @@
     },
     {
       "round": 15000,
-      "group": "\u03b1\u03c0\u03bb\u03c9\u03bc\u03ad\u03bd\u03bf\u03b9",
+      "group": "spread",
       "n": 15000000,
       "n_raw": 15227680,
       "r1_A": 0.005576417799426522,
@@ -36,7 +36,7 @@
     },
     {
       "round": 22000,
-      "group": "\u03b1\u03c0\u03bb\u03c9\u03bc\u03ad\u03bd\u03bf\u03b9",
+      "group": "spread",
       "n": 15000000,
       "n_raw": 15223405,
       "r1_A": 0.005114007361940276,
@@ -53,7 +53,7 @@
     },
     {
       "round": 23000,
-      "group": "\u03b1\u03c0\u03bb\u03c9\u03bc\u03ad\u03bd\u03bf\u03b9",
+      "group": "spread",
       "n": 15000000,
       "n_raw": 15182270,
       "r1_A": 0.004501405122594763,
@@ -70,7 +70,7 @@
     },
     {
       "round": 26000,
-      "group": "\u03b1\u03c0\u03bb\u03c9\u03bc\u03ad\u03bd\u03bf\u03b9",
+      "group": "spread",
       "n": 15000000,
       "n_raw": 15191281,
       "r1_A": 0.0042031627299841876,
@@ -87,7 +87,7 @@
     },
     {
       "round": 28293,
-      "group": "\u03b4\u03b9\u03b1\u03b4\u03bf\u03c7\u03b9\u03ba\u03bf\u03af",
+      "group": "consecutive",
       "n": 15000000,
       "n_raw": 15191016,
       "r1_A": 0.004966887858561587,
@@ -104,7 +104,7 @@
     },
     {
       "round": 28294,
-      "group": "\u03b4\u03b9\u03b1\u03b4\u03bf\u03c7\u03b9\u03ba\u03bf\u03af",
+      "group": "consecutive",
       "n": 15000000,
       "n_raw": 15182571,
       "r1_A": 0.004939364645488183,
@@ -121,7 +121,7 @@
     },
     {
       "round": 28295,
-      "group": "\u03b4\u03b9\u03b1\u03b4\u03bf\u03c7\u03b9\u03ba\u03bf\u03af",
+      "group": "consecutive",
       "n": 15000000,
       "n_raw": 15186766,
       "r1_A": 0.004967498916630554,
@@ -138,7 +138,7 @@
     },
     {
       "round": 28296,
-      "group": "\u03b4\u03b9\u03b1\u03b4\u03bf\u03c7\u03b9\u03ba\u03bf\u03af",
+      "group": "consecutive",
       "n": 15000000,
       "n_raw": 15190447,
       "r1_A": 0.004952105818457636,
@@ -155,7 +155,7 @@
     },
     {
       "round": 28297,
-      "group": "\u03b4\u03b9\u03b1\u03b4\u03bf\u03c7\u03b9\u03ba\u03bf\u03af",
+      "group": "consecutive",
       "n": 15000000,
       "n_raw": 15190485,
       "r1_A": 0.0049666150577381,

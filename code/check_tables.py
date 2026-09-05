@@ -1,15 +1,15 @@
 """
-ΕΛΕΓΧΟΣ ΟΡΦΑΝΩΝ ΚΕΦΑΛΙΔΩΝ ΠΙΝΑΚΑ ΣΤΟ PDF
+CHECK FOR ORPHANED TABLE HEADERS IN THE PDF
 
-Το longtable, όταν ο πίνακας αρχίζει πολύ χαμηλά στη σελίδα, τυπώνει την
-κεφαλίδα, σπάει, και την ξανατυπώνει στην επόμενη — οπότε φαίνεται μία φορά
-πάνω από τη λεζάντα και μία μέσα στον πίνακα. Με το μάτι το προσπερνάς.
+When a longtable starts too low on a page, LaTeX prints the header, breaks,
+and prints it again on the next page -- so it appears once above the caption
+and once inside the table. By eye you read straight past it.
 
-Ο έλεγχος: για κάθε «Table N:», αν οι λέξεις της γραμμής ΑΜΕΣΩΣ ΜΕΤΑ τη λεζάντα
-(η κεφαλίδα) εμφανίζονται και ΠΡΙΝ από τη λεζάντα στην ίδια σελίδα, υπάρχει
-ορφανή κεφαλίδα.
+The check: for every "Table N:", if the words of the line IMMEDIATELY AFTER
+the caption (the header) also appear BEFORE the caption on the same page,
+there is an orphaned header.
 
-Χρήση:  python3 code/check_tables.py paper/georgitzikis_2026_cross_trial_bell_bound.pdf
+Usage:  python3 code/check_tables.py paper/georgitzikis_2026_cross_trial_bell_bound.pdf
 """
 import re, subprocess, sys, os
 
@@ -27,8 +27,8 @@ def check(pdf):
             if not m:
                 continue
             n_tab += 1
-            # η κεφαλίδα: η πρώτη μη κενή γραμμή μετά τη λεζάντα (η λεζάντα
-            # μπορεί να πιάνει δύο γραμμές)
+            # the header: the first non-empty line after the caption (the
+            # caption may span two lines)
             j = i + 1
             while j < len(lines) and (not lines[j].strip() or
                                       len(lines[j].split()) < 2 or
@@ -43,12 +43,12 @@ def check(pdf):
             overlap = head & set(before.split())
             if len(overlap) >= max(2, len(head) - 1):
                 bad.append((pno, m.group(1), lines[j].strip()[:60]))
-    print(f"--- {os.path.basename(pdf)}: {n_tab} πίνακες ---")
+    print(f"--- {os.path.basename(pdf)}: {n_tab} tables ---")
     if bad:
         for pno, n, h in bad:
-            print(f"  ΟΡΦΑΝΗ ΚΕΦΑΛΙΔΑ: σελ {pno}, Table {n}: «{h}»")
+            print(f"  ORPHANED HEADER: page {pno}, Table {n}: \"{h}\"")
     else:
-        print("  ΚΑΜΙΑ ΟΡΦΑΝΗ ΚΕΦΑΛΙΔΑ")
+        print("  NO ORPHANED HEADERS")
     return len(bad)
 
 

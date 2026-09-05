@@ -1,20 +1,20 @@
 ==============================================================================
-ΜΕΡΟΣ 15α — ΕΛΕΓΧΟΣ ΟΜΟΙΟΓΕΝΕΙΑΣ: Q_het ~ χ²(9) ΥΠΟ ΚΟΙΝΟ ε
+PART 15a - HOMOGENEITY TEST: Q_het ~ chi^2(9) UNDER A COMMON eps
 ==============================================================================
-  208 σημεία (2 ζεύγη × 4 πυρήνες × 26 τ), dof = 9
-  μέσος Q_het   = 7.97   (θεωρία 9.00)
-  διάμεσος      = 7.11   (θεωρία 8.34)
-  μέγιστο       = 28.47  [OB vs SA, past, τ = 1000]
-    p ανά σημείο = 0.0008   Bonferroni × 208: p = 0.17
-  πάνω από το 99% ποσοστημόριο (21.7): 5 (αναμενόμενα 2.1 — τα σημεία μοιράζονται τα ίδια δέκα δ̂ πεδία, άρα είναι ισχυρά συσχετισμένα)
+  208 points (2 pairs x 4 kernels x 26 tau), dof = 9
+  mean Q_het   = 7.97   (theory 9.00)
+  median       = 7.11   (theory 8.34)
+  maximum      = 28.47  [OB vs SA, past, tau = 1000]
+    p per point = 0.0008   Bonferroni x 208: p = 0.17
+  above the 99% quantile (21.7): 5 (expected 2.1 -- the points share the same ten delta-hat fields, so they are strongly correlated)
 
-  ΕΤΥΜΗΓΟΡΙΑ: ΣΥΜΒΑΤΟ με κοινό ε (εδώ μηδέν)
+  VERDICT: CONSISTENT with a common eps (here zero)
 
 ==============================================================================
-ΜΕΡΟΣ 15β — MATCHED ΚΑΤΩΦΛΙ 208 ΤΕΣΤ ΑΝΤΙ ΤΟΥ ΔΑΝΕΙΚΟΥ
+PART 15b - THE MATCHED THRESHOLD FOR 208 TESTS VS THE BORROWED ONE
 ==============================================================================
-  z δανεικό = 4.848   z matched (m = 208) = 3.672
-  λόγος ορίων matched/δανεικό: μέσος 0.778   εύρος [0.758, 0.837]
-  -> τα όρια θα έσφιγγαν κατά 16%–24% (μέσο 22%)
+  z borrowed = 4.848   z matched (m = 208) = 3.672
+  ratio of bounds matched/borrowed: mean 0.778   range [0.758, 0.837]
+  -> the bounds would tighten by 16%-24% (mean 22%)
 
-Αποθηκεύτηκε: meros15_homogeneity.json
+Saved: meros15_homogeneity.json

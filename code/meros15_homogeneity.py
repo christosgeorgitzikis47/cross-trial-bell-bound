@@ -1,19 +1,21 @@
 """
-ΜΕΡΟΣ 15 — ΟΜΟΙΟΓΕΝΕΙΑ ΤΟΥ ε ΣΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ + ΠΟΣΟΤΙΚΟΠΟΙΗΣΗ ΚΑΤΩΦΛΙΟΥ
+PART 15 - HOMOGENEITY OF eps ACROSS THE TEN PULSES + THRESHOLD QUANTIFICATION
 
-(α) Η σύνθεση του §6.4 προϋποθέτει ΚΟΙΝΟ ε στους δέκα παλμούς (ένσταση
-    εξωτερικού βαθμολογητή: 22 μήνες, τεκμηριωμένες αλλαγές συσκευής).
-    Η υπόθεση ελέγχεται από τα ίδια νούμερα:
+(a) The combination of section 6.4 presupposes a COMMON eps across the ten
+    pulses (objection of an outside reviewer: 22 months, documented changes
+    to the apparatus). The assumption is tested with the same numbers:
 
-        Q_het = Σ_p (ε̂_p − ε̂_joint)² / σ_p²  ~  χ²(9)   αν το ε είναι κοινό
+        Q_het = sum_p (eps-hat_p - eps-hat_joint)^2 / sigma_p^2  ~  chi^2(9)
+        if eps is common
 
-    ανά (ζεύγος, πυρήνας, τ) — 208 σημεία. Υπο-διασπορά αναμένεται ελαφρά,
-    γιατί το σ_T είναι το συντηρητικό max(εμπειρικό, αναλυτικό).
+    per (pair, kernel, tau) -- 208 points. Slight under-dispersion is
+    expected, because sigma_T is the conservative max(empirical, analytic).
 
-(β) Πόσο θα έσφιγγε ο χάρτης με το matched κατώφλι των 208 τεστ (z = 3,672)
-    αντί του δανεικού 4,848 — για τη μία πρόταση του §6.3.
+(b) How much the map would tighten under the matched threshold for 208 tests
+    (z = 3.672) instead of the borrowed 4.848 -- for the one sentence in
+    section 6.3.
 
-Αν η ετερογένεια βγει σημαντική, το γράφουμε ΠΡΩΤΟ και ΣΤΑΜΑΤΑΜΕ.
+If the heterogeneity comes out significant, we write it FIRST and STOP.
 """
 import json, math, os
 import numpy as np
@@ -32,7 +34,7 @@ def main():
     z_bor = m5["z_thr"]
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 15α — ΕΛΕΓΧΟΣ ΟΜΟΙΟΓΕΝΕΙΑΣ: Q_het ~ χ²(9) ΥΠΟ ΚΟΙΝΟ ε")
+    print("PART 15a - HOMOGENEITY TEST: Q_het ~ chi^2(9) UNDER A COMMON eps")
     print("=" * 78)
 
     pts = []
@@ -54,22 +56,24 @@ def main():
     worst = max(pts, key=lambda p: p["Q_het"])
     p_fam = min(1.0, n_pts * worst["p"])
 
-    print(f"  {n_pts} σημεία (2 ζεύγη × 4 πυρήνες × {len(taus)} τ), dof = {DOF}")
-    print(f"  μέσος Q_het   = {qh.mean():.2f}   (θεωρία {DOF}.00)")
-    print(f"  διάμεσος      = {np.median(qh):.2f}   (θεωρία {chi2.ppf(.5, DOF):.2f})")
-    print(f"  μέγιστο       = {worst['Q_het']:.2f}  [{worst['pair']}, "
-          f"{worst['kernel']}, τ = {worst['tau']:g}]")
-    print(f"    p ανά σημείο = {worst['p']:.4f}   Bonferroni × {n_pts}: "
+    print(f"  {n_pts} points (2 pairs x 4 kernels x {len(taus)} tau), "
+          f"dof = {DOF}")
+    print(f"  mean Q_het   = {qh.mean():.2f}   (theory {DOF}.00)")
+    print(f"  median       = {np.median(qh):.2f}   "
+          f"(theory {chi2.ppf(.5, DOF):.2f})")
+    print(f"  maximum      = {worst['Q_het']:.2f}  [{worst['pair']}, "
+          f"{worst['kernel']}, tau = {worst['tau']:g}]")
+    print(f"    p per point = {worst['p']:.4f}   Bonferroni x {n_pts}: "
           f"p = {p_fam:.2f}")
     n99 = int((qh > q99).sum())
-    print(f"  πάνω από το 99% ποσοστημόριο ({q99:.1f}): {n99} "
-          f"(αναμενόμενα {0.01*n_pts:.1f} — τα σημεία μοιράζονται τα ίδια "
-          f"δέκα δ̂ πεδία, άρα είναι ισχυρά συσχετισμένα)")
+    print(f"  above the 99% quantile ({q99:.1f}): {n99} "
+          f"(expected {0.01*n_pts:.1f} -- the points share the same ten "
+          f"delta-hat fields, so they are strongly correlated)")
     verdict = p_fam > 0.05
-    print(f"\n  ΕΤΥΜΗΓΟΡΙΑ: {'ΣΥΜΒΑΤΟ με κοινό ε (εδώ μηδέν)' if verdict else '*** ΕΤΕΡΟΓΕΝΕΙΑ — ΣΤΑΜΑΤΑ ***'}")
+    print(f"\n  VERDICT: {'CONSISTENT with a common eps (here zero)' if verdict else '*** HETEROGENEITY - STOP ***'}")
 
     print("\n" + "=" * 78)
-    print("ΜΕΡΟΣ 15β — MATCHED ΚΑΤΩΦΛΙ 208 ΤΕΣΤ ΑΝΤΙ ΤΟΥ ΔΑΝΕΙΚΟΥ")
+    print("PART 15b - THE MATCHED THRESHOLD FOR 208 TESTS VS THE BORROWED ONE")
     print("=" * 78)
     z_mat = float(math.sqrt(chi2.ppf(1 - 0.05 / n_pts, 1)))
     sh = []
@@ -80,11 +84,11 @@ def main():
             e_mat = np.abs(np.array(P["eps_hat"])) + z_mat * np.array(P["sigma_eps"])
             sh.append(e_mat / e_now)
     sh = np.concatenate(sh)
-    print(f"  z δανεικό = {z_bor:.3f}   z matched (m = {n_pts}) = {z_mat:.3f}")
-    print(f"  λόγος ορίων matched/δανεικό: μέσος {sh.mean():.3f}   "
-          f"εύρος [{sh.min():.3f}, {sh.max():.3f}]")
-    print(f"  -> τα όρια θα έσφιγγαν κατά {100*(1-sh.max()):.0f}%–"
-          f"{100*(1-sh.min()):.0f}% (μέσο {100*(1-sh.mean()):.0f}%)")
+    print(f"  z borrowed = {z_bor:.3f}   z matched (m = {n_pts}) = {z_mat:.3f}")
+    print(f"  ratio of bounds matched/borrowed: mean {sh.mean():.3f}   "
+          f"range [{sh.min():.3f}, {sh.max():.3f}]")
+    print(f"  -> the bounds would tighten by {100*(1-sh.max()):.0f}%-"
+          f"{100*(1-sh.min()):.0f}% (mean {100*(1-sh.mean()):.0f}%)")
 
     out = dict(dof=DOF, n_points=n_pts,
                mean_Q_het=float(qh.mean()), median_Q_het=float(np.median(qh)),
@@ -98,7 +102,7 @@ def main():
                shrink_max=float(sh.max()), points=pts)
     json.dump(out, open(os.path.join(HERE, "meros15_homogeneity.json"), "w"),
               indent=2)
-    print("\nΑποθηκεύτηκε: meros15_homogeneity.json")
+    print("\nSaved: meros15_homogeneity.json")
 
 
 if __name__ == "__main__":

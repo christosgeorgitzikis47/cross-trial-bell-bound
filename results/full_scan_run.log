@@ -1,67 +1,67 @@
-Παλμός: files/curby_28297.npz
-Trials: 15,000,000   lag: 20,001 ανά ζεύγος   ΣΥΝΟΛΟ ΥΠΟΘΕΣΕΩΝ: 40,002
+Pulse: /Users/christosgeorgitzikis/Desktop/kvantiko-peirama-2026-08-03/files/curby_28297.npz
+Trials: 15,000,000   lags: 20,001 per pair   TOTAL HYPOTHESES: 40,002
 
 ==============================================================================
-ΚΑΤΩΦΛΙ BONFERRONI ΓΙΑ ΤΟΝ ΝΕΟ ΑΡΙΘΜΟ ΥΠΟΘΕΣΕΩΝ
+BONFERRONI THRESHOLD FOR THE NEW NUMBER OF HYPOTHESES
 ==============================================================================
-  υποθέσεις m           = 40,002   (ήταν 222 στα 111 lag)
-  α                     = 0.05
-  ανά υπόθεση p         = α/m = 1.2499e-06
-  χ²(1) κατώφλι         = 23.4988
-  -> MI κατώφλι         = 1.1301e-06 bits/trial  (στο n=15,000,000)
-  (για σύγκριση: το κατώφλι των 222 υποθέσεων ήταν 7,0e-07)
+  hypotheses m          = 40,002   (was 222 over 111 lags)
+  alpha                 = 0.05
+  p per hypothesis      = alpha/m = 1.2499e-06
+  chi^2(1) threshold    = 23.4988
+  -> MI threshold       = 1.1301e-06 bits/trial  (at n=15,000,000)
+  (for comparison: the 222-hypothesis threshold was 7.0e-07)
 
 ==============================================================================
 OA vs SB
 ==============================================================================
-  επαλήθευση χ²(1) με 2000 ανακατέματα…
-    μέσος G   0.9884  (θεωρία 1)     διασπορά 2.0672  (θεωρία 2)
-    διάμεσος  0.4674 / 0.4549    q90 2.659 / 2.706    q99 6.196 / 6.635
-    q99,9     13.302 / 10.828    max 14.987 / 12.116 (αναμ.)
-    KS: D = 0.0172, p = 0.592  -> ΤΑΙΡΙΑΖΕΙ
-  σάρωση 20,001 lag με FFT…
-    μέγιστο σφάλμα στρογγυλοποίησης FFT: 1.46e-11  (ασφαλές)
-    επαλήθευση σε 25 lag: ΟΛΑ ΤΑΥΤΙΖΟΝΤΑΙ
+  validating chi^2(1) with 2000 shuffles...
+    mean G    0.9884  (theory 1)     variance 2.0672  (theory 2)
+    median    0.4674 / 0.4549    q90 2.659 / 2.706    q99 6.196 / 6.635
+    q99.9     13.302 / 10.828    max 14.987 / 12.116 (expected)
+    KS: D = 0.0172, p = 0.592  -> FITS
+  scanning 20,001 lags by FFT...
+    largest FFT rounding error: 1.46e-11  (safe)
+    verified at 25 lags: ALL MATCH
 
-    ΜΕΓΙΣΤΟ σε 20,001 lag:
-      lag             = -3,194
-      MI              = 6.9846e-07 bits/trial
-      G               = 14.521   (κατώφλι 23.499)
-      p (χ²(1))       = 1.386e-04   (κατώφλι 1.250e-06)
-      σ πάνω από null = +9.41
-      -> ΚΑΤΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ  (62% του κατωφλιού)
-    lag πάνω από το κατώφλι: 0 / 20,001
-    (αναμενόμενα από τύχη σε όλο το πείραμα: 0.050 = α = 0.05)
-    παλιό μέγιστο (στα 111 ελεγμένα lag): MI = 3.1611e-07 στο lag -6  -> κατάταξη 180 μέσα στα 20,001
+    LARGEST over 20,001 lags:
+      lag              = -3,194
+      MI               = 6.9846e-07 bits/trial
+      G                = 14.521   (threshold 23.499)
+      p (chi^2(1))     = 1.386e-04   (threshold 1.250e-06)
+      sigma above null = +9.41
+      -> BELOW THE THRESHOLD  (62% of the threshold)
+    lags above the threshold: 0 / 20,001
+    (expected by chance across the whole experiment: 0.050 = alpha = 0.05)
+    old maximum (over the 111 tested lags): MI = 3.1611e-07 at lag -6  -> rank 180 among 20,001
 
 ==============================================================================
 OB vs SA
 ==============================================================================
-  επαλήθευση χ²(1) με 2000 ανακατέματα…
-    μέσος G   0.9950  (θεωρία 1)     διασπορά 1.9307  (θεωρία 2)
-    διάμεσος  0.4758 / 0.4549    q90 2.588 / 2.706    q99 6.905 / 6.635
-    q99,9     9.941 / 10.828    max 13.086 / 12.116 (αναμ.)
-    KS: D = 0.0159, p = 0.690  -> ΤΑΙΡΙΑΖΕΙ
-  σάρωση 20,001 lag με FFT…
-    μέγιστο σφάλμα στρογγυλοποίησης FFT: 1.46e-11  (ασφαλές)
-    επαλήθευση σε 25 lag: ΟΛΑ ΤΑΥΤΙΖΟΝΤΑΙ
+  validating chi^2(1) with 2000 shuffles...
+    mean G    0.9950  (theory 1)     variance 1.9307  (theory 2)
+    median    0.4758 / 0.4549    q90 2.588 / 2.706    q99 6.905 / 6.635
+    q99.9     9.941 / 10.828    max 13.086 / 12.116 (expected)
+    KS: D = 0.0159, p = 0.690  -> FITS
+  scanning 20,001 lags by FFT...
+    largest FFT rounding error: 1.46e-11  (safe)
+    verified at 25 lags: ALL MATCH
 
-    ΜΕΓΙΣΤΟ σε 20,001 lag:
-      lag             = -9,992
-      MI              = 7.1078e-07 bits/trial
-      G               = 14.770   (κατώφλι 23.499)
-      p (χ²(1))       = 1.214e-04   (κατώφλι 1.250e-06)
-      σ πάνω από null = +9.92
-      -> ΚΑΤΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ  (63% του κατωφλιού)
-    lag πάνω από το κατώφλι: 0 / 20,001
-    (αναμενόμενα από τύχη σε όλο το πείραμα: 0.050 = α = 0.05)
-    παλιό μέγιστο (στα 111 ελεγμένα lag): MI = 3.6661e-07 στο lag +44  -> κατάταξη 123 μέσα στα 20,001
+    LARGEST over 20,001 lags:
+      lag              = -9,992
+      MI               = 7.1078e-07 bits/trial
+      G                = 14.770   (threshold 23.499)
+      p (chi^2(1))     = 1.214e-04   (threshold 1.250e-06)
+      sigma above null = +9.92
+      -> BELOW THE THRESHOLD  (63% of the threshold)
+    lags above the threshold: 0 / 20,001
+    (expected by chance across the whole experiment: 0.050 = alpha = 0.05)
+    old maximum (over the 111 tested lags): MI = 3.6661e-07 at lag +44  -> rank 123 among 20,001
 
 ==============================================================================
-ΤΟ ΟΡΙΟ ΓΙΑ ΚΑΘΕ |k| <= 10.000
+THE BOUND FOR EVERY |k| <= 10,000
 ==============================================================================
-  μέγιστο παρατηρούμενο MI σε 40,002 υποθέσεις: 7.1078e-07 bits/trial
-  κατώφλι Bonferroni:                              1.1301e-06 bits/trial
-  -> MI(αποτέλεσμα ; ρύθμιση σε lag k) < 1.13e-06 bits/trial για ΚΑΘΕ |k| <= 10,000
+  largest observed MI over 40,002 hypotheses: 7.1078e-07 bits/trial
+  Bonferroni threshold:                          1.1301e-06 bits/trial
+  -> MI(outcome ; setting at lag k) < 1.13e-06 bits/trial for EVERY |k| <= 10,000
 
-Αποθηκεύτηκε: full_scan_results.json  + full_scan_*.npz
+Saved: full_scan_results.json  + full_scan_*.npz

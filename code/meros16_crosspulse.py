@@ -1,14 +1,15 @@
 """
-ΜΕΡΟΣ 16 — ΣΥΣΧΕΤΙΣΗ ΤΩΝ δ̂_p(k) ΑΝΑΜΕΣΑ ΣΤΟΥΣ ΠΑΛΜΟΥΣ (ένσταση κριτή: το
-inverse-variance weighting του §6.4 προϋποθέτει ανεξάρτητους παλμούς· οι πέντε
-28293–28297 είναι διαδοχικοί μέσα σε 65 λεπτά).
+PART 16 - CORRELATION OF delta-hat_p(k) BETWEEN PULSES (referee objection: the
+inverse-variance weighting of section 6.4 presupposes independent pulses, and
+the five rounds 28293-28297 were acquired consecutively within 65 minutes).
 
-Για κάθε ζεύγος παλμών (p,q) και κάθε κανάλι: Pearson r των δ̂_p(k)/σ_p(k) με
-δ̂_q(k)/σ_q(k) πάνω στα 20.000 lag k ≠ 0. Υπό ανεξαρτησία r ~ N(0, 1/√20000 =
-0,0071). Αναφέρονται max|r| σε όλα τα 45 ζεύγη, και ΧΩΡΙΣΤΑ στα 10 ζεύγη των
-πέντε διαδοχικών. Επίσης το ίδιο στο T(τ): Corr των ε̂_p(τ) ανά τ δεν έχει
-νόημα με 10 σημεία, αλλά η συσχέτιση των δ̂ σε επίπεδο lag είναι ακριβώς ό,τι
-θα έκανε τα σ_p² μη προσθετικά, γιατί T = Σ W δ̂ είναι γραμμικό.
+For every pair of pulses (p,q) and every channel: the Pearson r of
+delta-hat_p(k)/sigma_p(k) with delta-hat_q(k)/sigma_q(k) over the 20,000 lags
+k != 0. Under independence r ~ N(0, 1/sqrt(20000) = 0.0071). Reported: max |r|
+over all 45 pairs, and SEPARATELY over the 10 pairs among the five consecutive
+pulses. Correlating the eps-hat_p(tau) across tau would be meaningless with ten
+points, whereas the correlation of the delta-hat at lag level is exactly what
+would make the sigma_p^2 non-additive, because T = sum W delta-hat is linear.
 """
 import json, os, math, itertools, time
 import numpy as np
@@ -38,16 +39,16 @@ def main():
             sd = sigma_delta(A1, B1, nk)
             nz = ks != 0
             zs[label][rnd] = (delta[nz] / sd[nz]).astype(np.float64)
-        print(f"  γύρος {rnd} σαρώθηκε ({time.time()-t0:.0f}s)", flush=True)
+        print(f"  round {rnd} scanned ({time.time()-t0:.0f}s)", flush=True)
 
     n_lag = 2 * K
     se = 1.0 / math.sqrt(n_lag)
     out = {"n_lag": n_lag, "se_r": se, "pairs": {}}
     print("=" * 78)
-    print("ΜΕΡΟΣ 16 — ΔΙΑΠΑΛΜΙΚΗ ΣΥΣΧΕΤΙΣΗ ΤΩΝ δ̂(k)")
+    print("PART 16 - CROSS-PULSE CORRELATION OF delta-hat(k)")
     print("=" * 78)
-    print(f"  {n_lag:,} lag (k ≠ 0) ανά ζεύγος· τυπικό σφάλμα του r υπό "
-          f"ανεξαρτησία: {se:.4f}")
+    print(f"  {n_lag:,} lags (k != 0) per pair; standard error of r under "
+          f"independence: {se:.4f}")
     for label in zs:
         rows = []
         for p, q in itertools.combinations(ROUNDS, 2):
@@ -58,17 +59,19 @@ def main():
         worst = max(rows, key=lambda x: abs(x["r"]))
         cons = [x for x in rows if x["consecutive"]]
         wc = max(cons, key=lambda x: abs(x["r"]))
-        print(f"\n  {label}: {len(rows)} ζεύγη")
-        print(f"    max |r| = {abs(worst['r']):.4f} ({worst['z']:+.2f}σ) στο "
-              f"ζεύγος ({worst['p']}, {worst['q']})")
-        print(f"    μέσος r = {rs.mean():+.4f}   sd r = {rs.std(ddof=1):.4f} "
-              f"(αναμ. {se:.4f})   |r|>3σ: {int((np.abs(rs)>3*se).sum())}/{len(rs)}")
-        print(f"    ΔΙΑΔΟΧΙΚΟΙ (28293–28297), {len(cons)} ζεύγη: "
-              f"max |r| = {abs(wc['r']):.4f} ({wc['z']:+.2f}σ) στο "
-              f"({wc['p']}, {wc['q']})   μέσος r = "
+        print(f"\n  {label}: {len(rows)} pairs")
+        print(f"    max |r| = {abs(worst['r']):.4f} ({worst['z']:+.2f} sigma) "
+              f"for the pair ({worst['p']}, {worst['q']})")
+        print(f"    mean r = {rs.mean():+.4f}   sd r = {rs.std(ddof=1):.4f} "
+              f"(expected {se:.4f})   |r|>3 sigma: "
+              f"{int((np.abs(rs)>3*se).sum())}/{len(rs)}")
+        print(f"    CONSECUTIVE (28293-28297), {len(cons)} pairs: "
+              f"max |r| = {abs(wc['r']):.4f} ({wc['z']:+.2f} sigma) for "
+              f"({wc['p']}, {wc['q']})   mean r = "
               f"{np.mean([x['r'] for x in cons]):+.4f}")
         for x in cons:
-            print(f"       ({x['p']}, {x['q']})  r = {x['r']:+.4f}  ({x['z']:+.2f}σ)")
+            print(f"       ({x['p']}, {x['q']})  r = {x['r']:+.4f}  "
+                  f"({x['z']:+.2f} sigma)")
         out["pairs"][label] = dict(rows=rows, max_abs_r=abs(worst["r"]),
                                    max_pair=[worst["p"], worst["q"]],
                                    max_abs_r_consecutive=abs(wc["r"]),
@@ -77,12 +80,12 @@ def main():
                                    sd_r=float(rs.std(ddof=1)))
     allmax = max(v["max_abs_r"] for v in out["pairs"].values())
     print("\n" + "=" * 78)
-    print(f"  ΣΥΝΟΛΙΚΟ max |r| = {allmax:.4f}  ->  "
-          f"{'ΑΝΕΞΑΡΤΗΤΟΙ ΠΑΛΜΟΙ, το inverse-variance στέκει' if allmax < 0.05 else '*** ΟΥΣΙΑΣΤΙΚΗ ΣΥΣΧΕΤΙΣΗ — ΣΤΑΜΑΤΑ ***'}")
+    print(f"  OVERALL max |r| = {allmax:.4f}  ->  "
+          f"{'PULSES INDEPENDENT, the inverse-variance weighting holds' if allmax < 0.05 else '*** SUBSTANTIAL CORRELATION - STOP ***'}")
     out["max_abs_r_all"] = allmax
     json.dump(out, open(os.path.join(HERE, "meros16_crosspulse.json"), "w"),
               indent=2)
-    print("Αποθηκεύτηκε: meros16_crosspulse.json")
+    print("Saved: meros16_crosspulse.json")
 
 
 if __name__ == "__main__":

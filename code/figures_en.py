@@ -1,13 +1,13 @@
 """
-ΣΧΗΜΑΤΑ ΤΟΥ PAPER — αγγλικά, vector PDF + PNG.
+FIGURES OF THE PAPER - English, vector PDF + PNG.
 
-Fig 1  MI(O ; S at lag k) για τα 20.001 lag, και τα δύο ζεύγη, με το κατώφλι.
-       (Το κύριο αποτέλεσμα του §6.1 — έλειπε εντελώς.)
-Fig 2  J(k)/σ του Eberhard: πλήρες εύρος (symlog) + ένθετο |k| ≤ 50.
-Fig 3  ε_excl(τ) για τους τέσσερις πυρήνες, με την κάμψη σημειωμένη.
+Fig 1  MI(O ; S at lag k) over the 20,001 lags, both pairs, with the threshold.
+       (The main result of section 6.1 - it was missing entirely.)
+Fig 2  Eberhard J(k)/sigma: full range (symlog) plus an inset for |k| <= 50.
+Fig 3  eps_excl(tau) for the four kernels, with the bend marked.
 
-Κάθε σχήμα γράφεται δύο φορές: .pdf (vector, για δημοσίευση) και .png
-(για preview μέσα στο markdown).
+Every figure is written twice: .pdf (vector, for publication) and .png
+(for preview inside the markdown).
 """
 import json, math, os
 import numpy as np
@@ -42,7 +42,7 @@ def save(fig, name):
     for ext in ("pdf", "png"):
         p = os.path.join(OUT, f"{name}.{ext}")
         fig.savefig(p, dpi=300 if ext == "png" else None)
-    print("γράφτηκε:", os.path.join(OUT, name) + ".{pdf,png}")
+    print("written:", os.path.join(OUT, name) + ".{pdf,png}")
     plt.close(fig)
 
 
@@ -202,7 +202,7 @@ def fig4():
     fig, ax = plt.subplots(figsize=(7.0, 4.6))
     fracs = [0.0, 0.5, 1.0, 2.0]
 
-    # η αναμενόμενη γραμμική κλιμάκωση (μέσος όρος των έξι σημείων)
+    # the expected linear scaling (mean over the six series)
     exp_slope = np.mean([r["z_mean"] for r in pts if r["frac"] == 1.0])
     ax.plot([0, 2.1], [0, 2.1 * exp_slope], color=INK2, lw=0.9,
             ls=(0, (5, 3)), zorder=1,
@@ -229,7 +229,7 @@ def fig4():
                         mec=col[kn], mew=1.1, zorder=4,
                         label=f"{lab[kn]}, " + r"$\tau$ = " + f"{tau:g}")
 
-    # ποσοστά ανίχνευσης ανά επίπεδο
+    # detection rates per level
     for f in fracs:
         sel = [r for r in pts if r["frac"] == f]
         det = sum(r["n_pass"] for r in sel)
@@ -262,4 +262,4 @@ def fig4():
 
 if __name__ == "__main__":
     fig1(); fig2(); fig3(); fig4()
-    print("Όλα στο", OUT)
+    print("All written to", OUT)

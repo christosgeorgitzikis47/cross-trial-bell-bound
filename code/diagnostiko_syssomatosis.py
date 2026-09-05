@@ -1,18 +1,19 @@
 """
-ΔΙΑΓΝΩΣΤΙΚΟ (μετά τα δεδομένα — ΔΕΝ είναι το προκαθορισμένο κριτήριο).
+DIAGNOSTIC (post hoc -- NOT the pre-specified criterion).
 
-Παρατήρηση: οι κορυφές OA vs SB των 5 ΝΕΩΝ παλμών είναι όλες σε αρνητικό lag
-και μαζεμένες: -39, -41, -39, -46, -32.
+Observation: the OA vs SB peaks of the 5 NEW pulses all sit at negative lags
+and are clustered: -39, -41, -39, -46, -32.
 
-Δύο πράγματα πρέπει να ξεχωρίσουν:
-  (α) ΣΗΜΕΙΑΚΗ ΣΥΜΠΤΩΣΗ — ο argmax 5 ανεξάρτητων θορυβωδών καμπυλών έτυχε
-      να πέσει κοντά. Τότε η υπόλοιπη καμπύλη είναι επίπεδη.
-  (β) ΠΛΑΤΙΑ ΔΟΜΗ — ολόκληρη η περιοχή αρνητικών lag είναι ανυψωμένη.
-      Τότε ο argmax είναι απλώς η μύτη ενός λόφου, και το φαινόμενο
-      είναι πραγματικό (αν και όχι απαραίτητα φυσικό).
+Two things must be told apart:
+  (a) A POINTWISE COINCIDENCE -- the argmax of 5 independent noisy curves
+      happened to land close together. Then the rest of the curve is flat.
+  (b) BROAD STRUCTURE -- the whole region of negative lags is raised. Then the
+      argmax is merely the tip of a hill, and the effect is real (though not
+      necessarily physical).
 
-Μετράμε το μέσο MI σε ζώνες lag ανά παλμό. Χωρίς null εδώ: όλοι οι παλμοί
-έχουν ίδιο n, οπότε τα ωμά MI συγκρίνονται μεταξύ ΖΩΝΩΝ του ίδιου παλμού.
+We measure the mean MI in lag bands per pulse. No null here: all pulses have
+the same n, so the raw MI values are comparable BETWEEN BANDS of the same
+pulse.
 """
 import json, os
 import numpy as np
@@ -50,20 +51,20 @@ def zones(vals):
 
 def main():
     res = {}
-    for grp, rounds in [("ΠΑΛΙΟΙ", OLD), ("ΝΕΟΙ", NEW)]:
+    for grp, rounds in [("OLD", OLD), ("NEW", NEW)]:
         for r in rounds:
-            print(f"  γύρος {r} …", flush=True)
+            print(f"  round {r} ...", flush=True)
             res[str(r)] = curves(r)
     json.dump({"lags": LAGSET, "curves": res},
               open(os.path.join(HERE, "diagnostiko_curves.json"), "w"))
 
     for label in ("OA vs SB", "OB vs SA"):
         print("\n" + "=" * 84)
-        print(f"{label} — μέσο MI ανά ζώνη lag  (×1e-7 bits)")
+        print(f"{label} - mean MI per lag band  (x1e-7 bits)")
         print("=" * 84)
-        print(f"{'ομάδα':>8} {'γύρος':>7} {'ζώνη -46..-32':>15} {'άλλα αρνητ.':>13} "
-              f"{'θετικά':>10} {'μακρινά':>10} {'λόγος':>8}")
-        for grp, rounds in [("ΠΑΛΙΟΙ", OLD), ("ΝΕΟΙ", NEW)]:
+        print(f"{'group':>8} {'round':>7} {'band -46..-32':>15} {'other neg.':>13} "
+              f"{'positive':>10} {'far':>10} {'ratio':>8}")
+        for grp, rounds in [("OLD", OLD), ("NEW", NEW)]:
             for r in rounds:
                 z = zones(res[str(r)][label])
                 ratio = z["neg_32_46"] / ((z["neg_rest"] + z["pos_all"]) / 2)
@@ -71,23 +72,23 @@ def main():
                       f"{z['neg_rest']*1e7:>13.3f} {z['pos_all']*1e7:>10.3f} "
                       f"{z['far']*1e7:>10.3f} {ratio:>8.2f}")
 
-    # --- πόσο απίθανη είναι η συσσωμάτωση, ΩΣ POST-HOC στατιστικό; ---
+    # --- how unlikely is the clustering, AS A POST-HOC statistic? ---
     rng = np.random.default_rng(7)
     obs = np.array([-39, -41, -39, -46, -32])
-    w = obs.max() - obs.min()                 # εύρος = 14
+    w = obs.max() - obs.min()                 # range = 14
     L = len(LAGSET)
     idx = rng.integers(0, L, size=(400_000, 5))
     ks = np.array(LAGSET)[idx]
-    inside = np.abs(ks) <= 50                 # το εύρος ορίζεται μόνο στα κοντινά
+    inside = np.abs(ks) <= 50                 # the range is defined on near lags only
     rng_w = ks.max(axis=1) - ks.min(axis=1)
     p_range = float(((rng_w <= w) & inside.all(axis=1)).mean())
     p_allneg = float((ks < 0).all(axis=1).mean())
-    print(f"\nPOST-HOC (ΔΕΝ είναι το προκαθορισμένο κριτήριο):")
-    print(f"  P(5 τυχαίες κορυφές όλες κοντινές και εύρος <= {w}) = {p_range:.5f}")
-    print(f"  P(5 τυχαίες κορυφές όλες αρνητικές)                = {p_allneg:.5f}")
-    print(f"  ΠΡΟΣΟΧΗ: το παράθυρο επιλέχθηκε ΑΦΟΥ είδα τα δεδομένα. Το p είναι")
-    print(f"  δείκτης, όχι τεστ. Το ίδιο ισχύει για τα άλλα κανάλια/ομάδες που")
-    print(f"  ΔΕΝ ξεχώρισαν — δεν μπαίνουν στον παρονομαστή.")
+    print(f"\nPOST HOC (NOT the pre-specified criterion):")
+    print(f"  P(5 random peaks all near and range <= {w}) = {p_range:.5f}")
+    print(f"  P(5 random peaks all negative)             = {p_allneg:.5f}")
+    print(f"  NOTE: the window was chosen AFTER seeing the data. The p value is")
+    print(f"  an indicator, not a test. The same applies to the other channels")
+    print(f"  and groups that did NOT stand out - they are not in the denominator.")
 
 
 if __name__ == "__main__":

@@ -1,31 +1,31 @@
 ==============================================================================
-ΜΕΡΟΣ 7 — τα σημεία ε = 0 και ε_excl/2 που έλειπαν
+PART 7 - the missing eps = 0 and eps_excl/2 points
 ==============================================================================
-  κατώφλι z = 4.848   10 επαναλήψεις ανά σημείο
+  threshold z = 4.848   10 repetitions per point
 
-future τ=30  ε_excl=1.0932e-02
-    frac 0.0: z = -0.34 ± 0.60   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +2.69 ± 0.83   ανιχνεύθηκε 0/10   clip 0.0000%
-future τ=300  ε_excl=3.5132e-03
-    frac 0.0: z = -0.07 ± 0.85   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +2.69 ± 1.02   ανιχνεύθηκε 0/10   clip 0.0000%
-past τ=30  ε_excl=1.1821e-02
-    frac 0.0: z = +0.29 ± 0.49   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +3.30 ± 1.32   ανιχνεύθηκε 2/10   clip 0.0000%
-past τ=300  ε_excl=3.6075e-03
-    frac 0.0: z = +0.30 ± 1.11   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +3.01 ± 0.97   ανιχνεύθηκε 0/10   clip 0.0000%
-exp_future τ=30  ε_excl=1.4574e-02
-    frac 0.0: z = +0.16 ± 0.94   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +2.55 ± 1.01   ανιχνεύθηκε 0/10   clip 0.0000%
-exp_future τ=300  ε_excl=4.5415e-03
-    frac 0.0: z = -0.37 ± 1.34   ανιχνεύθηκε 0/10   clip 0.0000%
-    frac 0.5: z = +2.97 ± 1.10   ανιχνεύθηκε 0/10   clip 0.0000%
+future tau=30  eps_excl=1.0932e-02
+    frac 0.0: z = -0.34 +/- 0.60   detected 0/10   clip 0.0000%
+    frac 0.5: z = +2.69 +/- 0.83   detected 0/10   clip 0.0000%
+future tau=300  eps_excl=3.5132e-03
+    frac 0.0: z = -0.07 +/- 0.85   detected 0/10   clip 0.0000%
+    frac 0.5: z = +2.69 +/- 1.02   detected 0/10   clip 0.0000%
+past tau=30  eps_excl=1.1821e-02
+    frac 0.0: z = +0.29 +/- 0.49   detected 0/10   clip 0.0000%
+    frac 0.5: z = +3.30 +/- 1.32   detected 2/10   clip 0.0000%
+past tau=300  eps_excl=3.6075e-03
+    frac 0.0: z = +0.30 +/- 1.11   detected 0/10   clip 0.0000%
+    frac 0.5: z = +3.01 +/- 0.97   detected 0/10   clip 0.0000%
+exp_future tau=30  eps_excl=1.4574e-02
+    frac 0.0: z = +0.16 +/- 0.94   detected 0/10   clip 0.0000%
+    frac 0.5: z = +2.55 +/- 1.01   detected 0/10   clip 0.0000%
+exp_future tau=300  eps_excl=4.5415e-03
+    frac 0.0: z = -0.37 +/- 1.34   detected 0/10   clip 0.0000%
+    frac 0.5: z = +2.97 +/- 1.10   detected 0/10   clip 0.0000%
 
-ΣΥΝΟΛΟ: 24 σημεία (3 πυρήνες × 2 τ × 4 επίπεδα ε)
-  ε/ε_excl = 0.0  ανιχνεύθηκε   0/60   μέσο z = -0.00
-  ε/ε_excl = 0.5  ανιχνεύθηκε   2/60   μέσο z = +2.87
-  ε/ε_excl = 1.0  ανιχνεύθηκε  39/60   μέσο z = +5.35
-  ε/ε_excl = 2.0  ανιχνεύθηκε  60/60   μέσο z = +10.61
+TOTAL: 24 points (3 kernels x 2 tau x 4 levels of eps)
+  eps/eps_excl = 0.0  detected   0/60   mean z = -0.00
+  eps/eps_excl = 0.5  detected   2/60   mean z = +2.87
+  eps/eps_excl = 1.0  detected  39/60   mean z = +5.35
+  eps/eps_excl = 2.0  detected  60/60   mean z = +10.61
 
-Αποθηκεύτηκε: meros7_power.json
+Saved: meros7_power.json

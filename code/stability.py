@@ -1,12 +1,12 @@
 """
-Σταθερότητα στους 5 παλμούς: lag test + J(k) σε κάθε γύρο.
+Stability across the 5 pulses: a lag test and J(k) in every round.
 
-ΤΟ ΕΡΩΤΗΜΑ ΔΕΝ ΕΙΝΑΙ «βρέθηκε σήμα;» αλλά «εμφανίζεται ΤΟ ΙΔΙΟ lag σε
-πολλούς παλμούς;». Τυχαίο σήμα μετακινείται από παλμό σε παλμό·
-συστηματικό μένει στο ίδιο lag.
+THE QUESTION IS NOT "was a signal found?" but "does THE SAME lag appear in
+several pulses?". A random signal moves from pulse to pulse; a systematic one
+stays at the same lag.
 
-500 ανακατέματα ανά ζεύγος: αρκούν, γιατί συγκρίνουμε ΘΕΣΕΙΣ κορυφών
-μεταξύ παλμών, όχι απόλυτη σημαντικότητα.
+500 shuffles per pair: enough, because we compare the POSITIONS of the peaks
+between pulses, not absolute significance.
 """
 import json, os
 import numpy as np
@@ -68,24 +68,24 @@ def analyse(rnd):
 def main():
     res = []
     for r in ROUNDS:
-        print(f"--- γύρος {r} ---", flush=True)
+        print(f"--- round {r} ---", flush=True)
         o = analyse(r)
         res.append(o)
-        print(f"    OA vs SB: μέγ. {o['OA vs SB']['max_sigma']:+.2f}σ @ lag "
-              f"{o['OA vs SB']['max_sigma_lag']}   πάνω από null max: "
+        print(f"    OA vs SB: max {o['OA vs SB']['max_sigma']:+.2f} sig @ lag "
+              f"{o['OA vs SB']['max_sigma_lag']}   above the null max: "
               f"{o['OA vs SB']['n_above_null_max']}", flush=True)
-        print(f"    OB vs SA: μέγ. {o['OB vs SA']['max_sigma']:+.2f}σ @ lag "
-              f"{o['OB vs SA']['max_sigma_lag']}   πάνω από null max: "
+        print(f"    OB vs SA: max {o['OB vs SA']['max_sigma']:+.2f} sig @ lag "
+              f"{o['OB vs SA']['max_sigma_lag']}   above the null max: "
               f"{o['OB vs SA']['n_above_null_max']}", flush=True)
-        print(f"    J(0) = {o['J']['J0']:+,} ({o['J']['z0']:+.2f}σ)   "
-              f"k≠0 με J>0: {o['J']['n_positive_J_nonzero']}", flush=True)
+        print(f"    J(0) = {o['J']['J0']:+,} ({o['J']['z0']:+.2f} sig)   "
+              f"k!=0 with J>0: {o['J']['n_positive_J_nonzero']}", flush=True)
 
     print("\n" + "=" * 78)
-    print("ΣΥΝΟΨΗ ΣΤΑΘΕΡΟΤΗΤΑΣ")
+    print("STABILITY SUMMARY")
     print("=" * 78)
-    print(f"{'γύρος':>7} | {'OA vs SB':>18} | {'OB vs SA':>18} | "
-          f"{'J(0)':>10} {'J/σ':>8}")
-    print(f"{'':>7} | {'μέγ.σ':>9}{'@lag':>9} | {'μέγ.σ':>9}{'@lag':>9} | ")
+    print(f"{'round':>7} | {'OA vs SB':>18} | {'OB vs SA':>18} | "
+          f"{'J(0)':>10} {'J/sig':>8}")
+    print(f"{'':>7} | {'max sig':>9}{'@lag':>9} | {'max sig':>9}{'@lag':>9} | ")
     print("-" * 78)
     for o in res:
         a, b = o["OA vs SB"], o["OB vs SA"]
@@ -93,23 +93,23 @@ def main():
               f"{b['max_sigma']:>+9.2f}{b['max_sigma_lag']:>9} | "
               f"{o['J']['J0']:>+10,} {o['J']['z0']:>+8.2f}")
 
-    print("\nΕΠΑΝΑΛΑΜΒΑΝΟΜΕΝΑ LAG;")
+    print("\nDO THE LAGS REPEAT?")
     for label in ("OA vs SB", "OB vs SA"):
         ls = [o[label]["max_sigma_lag"] for o in res]
         uniq = len(set(ls))
-        print(f"  {label}: κορυφές στα lag {ls}")
-        print(f"     -> {uniq} διαφορετικά lag σε {len(ls)} παλμούς: "
-              + ("ΜΕΤΑΚΙΝΕΙΤΑΙ = τυχαίο" if uniq >= len(ls) - 1
-                 else "ΕΠΑΝΑΛΑΜΒΑΝΕΤΑΙ — αξίζει διερεύνηση"))
+        print(f"  {label}: peaks at lags {ls}")
+        print(f"     -> {uniq} distinct lags across {len(ls)} pulses: "
+              + ("IT MOVES = random" if uniq >= len(ls) - 1
+                 else "IT REPEATS - worth investigating"))
     tot_above = sum(o[l]["n_above_null_max"] for o in res
                     for l in ("OA vs SB", "OB vs SA"))
     tot_pos = sum(o["J"]["n_positive_J_nonzero"] for o in res)
-    print(f"\n  σύνολο lag πάνω από null max (5 παλμοί × 2 ζεύγη × 111): {tot_above}")
-    print(f"  σύνολο k≠0 με J>0 (5 παλμοί × 106): {tot_pos}")
+    print(f"\n  total lags above the null max (5 pulses x 2 pairs x 111): {tot_above}")
+    print(f"  total k!=0 with J>0 (5 pulses x 106): {tot_pos}")
 
     with open("stability_results.json", "w") as f:
         json.dump(res, f, indent=2)
-    print("\nΑποθηκεύτηκε: stability_results.json")
+    print("\nSaved: stability_results.json")
 
 
 if __name__ == "__main__":

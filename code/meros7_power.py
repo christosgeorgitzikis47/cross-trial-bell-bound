@@ -1,13 +1,13 @@
 """
-ΜΕΡΟΣ 7 — ΚΑΜΠΥΛΗ ΙΣΧΥΟΣ ΓΙΑ ΤΟ FIGURE 4
+PART 7 - THE POWER CURVE FOR FIGURE 4
 
-Η επαλήθευση του Μέρους 5 έτρεξε μόνο σε ε_excl και 2·ε_excl (έτσι ζητήθηκε).
-Για το σχήμα χρειάζονται και τα ε = 0 και ε_excl/2, ώστε ο άξονας
-ε/ε_excl να έχει τέσσερα σημεία. Εδώ τρέχουν ΜΟΝΟ τα δύο που λείπουν και
-συγχωνεύονται με τα υπάρχοντα.
+The verification of Part 5 was run only at eps_excl and 2*eps_excl (as
+requested). The figure also needs eps = 0 and eps_excl/2, so that the
+eps/eps_excl axis has four points. Only those two missing levels are run
+here, and merged with what already exists.
 
-Τίποτα δεν ξαναϋπολογίζεται από όσα ήδη υπάρχουν: τα σημεία frac = 1 και 2
-έρχονται αυτούσια από το `meros5_verify.json`.
+Nothing already computed is recomputed: the frac = 1 and 2 points are taken
+verbatim from `meros5_verify.json`.
 """
 import argparse, json, math, os
 import numpy as np
@@ -45,9 +45,9 @@ def main():
     rng = np.random.default_rng(a.seed)
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 7 — τα σημεία ε = 0 και ε_excl/2 που έλειπαν")
+    print("PART 7 - the missing eps = 0 and eps_excl/2 points")
     print("=" * 78)
-    print(f"  κατώφλι z = {z_thr:.3f}   {a.reps} επαναλήψεις ανά σημείο\n")
+    print(f"  threshold z = {z_thr:.3f}   {a.reps} repetitions per point\n")
 
     out = []
     for kn in ("future", "past", "exp_future"):
@@ -57,7 +57,7 @@ def main():
             z_obs = P[kn]["z"][j]
             Wf = kernel_W(kn, kax, tau)[None, :]
             F, half = build_F_kernel(S, kn, tau, a.K)
-            print(f"{kn} τ={tau:g}  ε_excl={eps_x:.4e}", flush=True)
+            print(f"{kn} tau={tau:g}  eps_excl={eps_x:.4e}", flush=True)
             for frac in (0.0, 0.5):
                 eps = frac * eps_x
                 zs, clips = [], []
@@ -74,8 +74,8 @@ def main():
                     zs.append(T / sT)
                 zs = np.array(zs)
                 npass = int((np.abs(zs) > z_thr).sum())
-                print(f"    frac {frac:>3}: z = {zs.mean():+.2f} ± "
-                      f"{zs.std(ddof=1):.2f}   ανιχνεύθηκε {npass}/{a.reps}"
+                print(f"    frac {frac:>3}: z = {zs.mean():+.2f} +/- "
+                      f"{zs.std(ddof=1):.2f}   detected {npass}/{a.reps}"
                       f"   clip {max(clips)*100:.4f}%")
                 out.append(dict(kernel=kn, tau=tau, frac=frac, eps=eps,
                                 z_mean=float(zs.mean()),
@@ -85,25 +85,25 @@ def main():
                                 max_clip=max(clips), zs=zs.tolist()))
             del F
 
-    # --- συγχώνευση με τα υπάρχοντα frac = 1, 2 ---
+    # --- merge with the existing frac = 1, 2 ---
     for p in ver["points"]:
         out.append({k: p[k] for k in
                     ("kernel", "tau", "frac", "eps", "z_mean", "z_sd",
                      "z_sem", "n_pass", "reps", "max_clip", "zs")})
     out.sort(key=lambda r: (r["kernel"], r["tau"], r["frac"]))
 
-    print(f"\nΣΥΝΟΛΟ: {len(out)} σημεία "
-          f"(3 πυρήνες × 2 τ × 4 επίπεδα ε)")
+    print(f"\nTOTAL: {len(out)} points "
+          f"(3 kernels x 2 tau x 4 levels of eps)")
     for frac in (0.0, 0.5, 1.0, 2.0):
         sel = [r for r in out if r["frac"] == frac]
         det = sum(r["n_pass"] for r in sel)
         tot = sum(r["reps"] for r in sel)
-        print(f"  ε/ε_excl = {frac:<4} ανιχνεύθηκε {det:>3}/{tot}   "
-              f"μέσο z = {np.mean([r['z_mean'] for r in sel]):+.2f}")
+        print(f"  eps/eps_excl = {frac:<4} detected {det:>3}/{tot}   "
+              f"mean z = {np.mean([r['z_mean'] for r in sel]):+.2f}")
 
     json.dump(dict(z_thr=z_thr, reps=a.reps, points=out),
               open(os.path.join(HERE, "meros7_power.json"), "w"), indent=2)
-    print("\nΑποθηκεύτηκε: meros7_power.json")
+    print("\nSaved: meros7_power.json")
 
 
 if __name__ == "__main__":

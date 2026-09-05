@@ -1,15 +1,15 @@
 """
-Α1 — Χαρτογράφηση διαθέσιμων γύρων CURBy Q.
+A1 - Mapping the available CURBy Q rounds.
 
-ΜΟΝΟ μεταδεδομένα (`/api/curbyq/round/{N}`, ~10 KB), ΠΟΤΕ `/data` (9 MB).
-Ίδια όρια με το katevasma.py: 2 δευτ. παύση, 403/429 -> ΑΜΕΣΗ ΔΙΑΚΟΠΗ.
+METADATA ONLY (`/api/curbyq/round/{N}`, ~10 KB), NEVER `/data` (9 MB).
+The same limits as katevasma.py: a 2 second pause, 403/429 -> IMMEDIATE STOP.
 
-Χρήση:
-    python3 xartografisi.py --probe 28297 30000 40000        # σκέτα probe
-    python3 xartografisi.py --bisect-max 28297 100000        # πάνω άκρο
-    python3 xartografisi.py --bisect-min 1 28297             # κάτω άκρο
-Αποθηκεύει ό,τι βρίσκει στο xartografisi_cache.json ώστε να μην
-ξαναρωτηθεί ο server για τον ίδιο γύρο.
+Usage:
+    python3 xartografisi.py --probe 28297 30000 40000        # plain probes
+    python3 xartografisi.py --bisect-max 28297 100000        # upper end
+    python3 xartografisi.py --bisect-min 1 28297             # lower end
+Whatever it finds is stored in xartografisi_cache.json so that the server is
+never asked about the same round twice.
 """
 import argparse, json, os, subprocess, sys, time
 
@@ -62,17 +62,17 @@ def probe(rnd, cache):
     st, body = fetch_meta(rnd)
     if st in (403, 429):
         save_cache(cache)
-        sys.exit(f"ΣΤΑΜΑΤΗΜΑ: ο server επέστρεψε {st} στον γύρο {rnd}. "
-                 f"Καμία προσπάθεια παράκαμψης.")
+        sys.exit(f"STOPPING: the server returned {st} for round {rnd}. "
+                 f"No attempt to work around it.")
     if st != 200:
         rec = {"round": rnd, "ok": False, "status": st}
     else:
         try:
             stages, params = parse(body)
             ts = (stages.get("request") or {}).get("timestamp")
-            # ΠΡΟΣΟΧΗ: ανύπαρκτος γύρος -> HTTP 200 με ΚΕΝΟ πίνακα, όχι 404.
-            # «Υπάρχει» σημαίνει: έχει request timestamp ΚΑΙ randomness stage
-            # (δηλ. ολοκληρωμένος γύρος με διαθέσιμα δεδομένα).
+            # NOTE: a nonexistent round -> HTTP 200 with an EMPTY array, not
+            # 404. "Exists" means: it has a request timestamp AND a randomness
+            # stage (that is, a completed round with data available).
             ok = bool(ts) and "randomness" in stages
             rec = {"round": rnd, "ok": ok, "status": 200, "timestamp": ts,
                    "stages": stages, "parameters": params}
@@ -89,11 +89,11 @@ def probe(rnd, cache):
 def show(rec):
     if rec["ok"]:
         p = rec.get("parameters", {})
-        print(f"  γύρος {rec['round']:>7}: OK   {rec.get('timestamp')}   "
+        print(f"  round {rec['round']:>7}: OK   {rec.get('timestamp')}   "
               f"isQuantum={p.get('isQuantum')} stop={p.get('stoppingCriteria')} "
               f"nTrialsNeeded={p.get('nTrialsNeeded')}")
     else:
-        print(f"  γύρος {rec['round']:>7}: -- status={rec['status']}"
+        print(f"  round {rec['round']:>7}: -- status={rec['status']}"
               + (f"  {rec.get('error','')}" if rec.get("error") else ""))
 
 
@@ -103,7 +103,7 @@ def main():
     ap.add_argument("--bisect-max", type=int, nargs=2, metavar=("GOOD", "BAD"))
     ap.add_argument("--bisect-min", type=int, nargs=2, metavar=("BAD", "GOOD"))
     ap.add_argument("--budget", type=int, default=25,
-                    help="μέγιστα αιτήματα σε αυτό το τρέξιμο")
+                    help="maximum number of requests in this run")
     a = ap.parse_args()
 
     cache = load_cache()
@@ -112,7 +112,7 @@ def main():
     def P(r):
         if str(r) not in cache:
             if used[0] >= a.budget:
-                print(f"  (όριο {a.budget} αιτημάτων — σταμάτημα)")
+                print(f"  (budget of {a.budget} requests reached - stopping)")
                 return None
             used[0] += 1
         rec = probe(r, cache)
@@ -126,10 +126,10 @@ def main():
 
     if a.bisect_max:
         good, bad = a.bisect_max
-        print(f"Δυαδική αναζήτηση πάνω άκρου: γνωστό OK={good}, δοκιμή έως {bad}")
+        print(f"Bisecting the upper end: known OK={good}, testing up to {bad}")
         rec = P(bad)
         if rec and rec["ok"]:
-            print(f"  ! ο {bad} υπάρχει — ανέβασε το πάνω όριο")
+            print(f"  ! {bad} exists - raise the upper limit")
         else:
             while bad - good > 1:
                 mid = (good + bad) // 2
@@ -140,14 +140,14 @@ def main():
                     good = mid
                 else:
                     bad = mid
-            print(f"\n  ΜΕΓΙΣΤΟΣ ΓΥΡΟΣ = {good}   (ο {bad} δεν υπάρχει)")
+            print(f"\n  LARGEST ROUND = {good}   ({bad} does not exist)")
 
     if a.bisect_min:
         bad, good = a.bisect_min
-        print(f"Δυαδική αναζήτηση κάτω άκρου: δοκιμή από {bad}, γνωστό OK={good}")
+        print(f"Bisecting the lower end: testing from {bad}, known OK={good}")
         rec = P(bad)
         if rec and rec["ok"]:
-            print(f"  ! ο {bad} υπάρχει — κατέβασε το κάτω όριο")
+            print(f"  ! {bad} exists - lower the lower limit")
         else:
             while good - bad > 1:
                 mid = (good + bad) // 2
@@ -158,10 +158,10 @@ def main():
                     good = mid
                 else:
                     bad = mid
-            print(f"\n  ΕΛΑΧΙΣΤΟΣ ΓΥΡΟΣ = {good}   (ο {bad} δεν υπάρχει)")
+            print(f"\n  SMALLEST ROUND = {good}   ({bad} does not exist)")
 
-    print(f"\nΑιτήματα σε αυτό το τρέξιμο: {used[0]}   "
-          f"σύνολο στην cache: {len(cache)}")
+    print(f"\nRequests in this run: {used[0]}   "
+          f"total in the cache: {len(cache)}")
 
 
 if __name__ == "__main__":

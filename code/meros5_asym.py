@@ -1,42 +1,46 @@
 """
-ΜΕΡΟΣ 5 — ΑΣΥΜΜΕΤΡΟΙ ΠΥΡΗΝΕΣ (ΑΓΝΩΣΤΟ #5 της αναφοράς #6)
+PART 5 - ASYMMETRIC KERNELS (unknown #5 of report #6)
 
-Ο χάρτης της αναφοράς #6 χρησιμοποίησε ΣΥΜΜΕΤΡΙΚΟ πυρήνα W_τ(k)=exp(-k²/2τ²).
-Τα retrocausal μοντέλα (Price, Wharton) είναι future-input dependent, δηλαδή
-ΜΟΝΟΠΛΕΥΡΑ. Ένας συμμετρικός πυρήνας δεν τα αποκλείει.
+The map of report #6 used the SYMMETRIC kernel W_tau(k)=exp(-k^2/2tau^2).
+Retrocausal models (Price, Wharton) are future-input dependent, that is
+ONE-SIDED. A symmetric kernel does not exclude them.
 
-ΣΥΜΒΑΣΗ ΠΡΟΣΗΜΟΥ (κρίσιμη)
-    Το μοντέλο είναι λ(i) = λ₀(i) + ε·Σ_k W(k)·S(i+k).
-    k > 0  ->  η ρύθμιση στο ΜΕΛΛΟΝ (i+k) επηρεάζει το αποτέλεσμα στο i
+SIGN CONVENTION (critical)
+    The model is lam(i) = lam0(i) + eps*sum_k W(k)*S(i+k).
+    k > 0  ->  the setting in the FUTURE (i+k) influences the outcome at i
                = retrocausal / future-input.
-    k < 0  ->  η ρύθμιση στο ΠΑΡΕΛΘΟΝ επηρεάζει το τώρα = κανονικό αίτιο
-               (αλλά απαγορευμένο από no-signalling στα spacelike ζεύγη).
-    Το δ̂(k) που μετράει το scan() είναι ακριβώς η εξάρτηση του O(i) από το
-    S(i+k), άρα το προφίλ του δ̂ σε k είναι ο ίδιος ο πυρήνας: δ(k)=α·ε·W(k).
+    k < 0  ->  the setting in the PAST influences the present = ordinary
+               causation (but forbidden by no-signalling for spacelike
+               separated pairs).
+    The delta-hat(k) that scan() measures is exactly the dependence of O(i)
+    on S(i+k), so the profile of delta-hat in k is the kernel itself:
+    delta(k) = alpha*eps*W(k).
 
-ΟΙ ΤΕΣΣΕΡΙΣ ΠΥΡΗΝΕΣ
-    sym        exp(-k²/2τ²)              για κάθε k ≠ 0  (αναφορά #6· το k=0
-                                          εξαιρέθηκε στην αναθεώρηση 2026-09-04)
-    future     exp(-k²/2τ²) για k>0,  0 για k<=0
-    past       exp(-k²/2τ²) για k<0,  0 για k>=0
-    exp_future exp(-k/τ)    για k>0,  0 για k<=0
+THE FOUR KERNELS
+    sym        exp(-k^2/2tau^2)          for every k != 0  (report #6; k=0
+                                          was excluded in the 2026-09-04 revision)
+    future     exp(-k^2/2tau^2) for k>0,  0 for k<=0
+    past       exp(-k^2/2tau^2) for k<0,  0 for k>=0
+    exp_future exp(-k/tau)      for k>0,  0 for k<=0
 
-    Η σύμβαση του ε μένει ίδια: ε = 1 ισοδυναμεί με πλάτος πυρήνα α στην
-    κορυφή. Για τους μονόπλευρους η «κορυφή» είναι το k=+1 (ή -1), όχι το
-    k=0 — το k=0 ΔΕΝ ανήκει στο μοντέλο και δεν συνεισφέρει στο φίλτρο.
-    Αυτό είναι σημαντικό: το k=0 είναι το μόνο lag με πραγματική (κβαντική)
-    συσχέτιση, και οι μονόπλευροι πυρήνες το αγνοούν εξ ορισμού.
+    The convention for eps is unchanged: eps = 1 means a kernel amplitude of
+    alpha at the peak. For the one-sided kernels the "peak" is at k=+1 (or
+    -1), not k=0 -- k=0 does NOT belong to the model and contributes nothing
+    to the filter. This matters: k=0 is the only lag carrying genuine
+    (quantum) correlation, and the one-sided kernels ignore it by definition.
 
-ΤΟ ΣΤΑΤΙΣΤΙΚΟ — ίδιο με το ΜΕΡΟΣ 3, αλλάζει μόνο το W:
-    T(τ) = Σ_k W(k)·δ̂(k),  E[T] = α·ε·Q,  Q = Σ_k W(k)²
-    ε̂ = T/(αQ),  σ_ε = σ_T/(αQ),  ε_excl = |ε̂| + z_thr·σ_ε
+THE STATISTIC - the same as PART 3, only W changes:
+    T(tau) = sum_k W(k)*delta-hat(k),  E[T] = alpha*eps*Q,  Q = sum_k W(k)^2
+    eps-hat = T/(alpha Q),  sigma_eps = sigma_T/(alpha Q),
+    eps_excl = |eps-hat| + z_thr*sigma_eps
 
-    Αφού σ_δ(k) ≈ σταθερό, σ_T ≈ σ_δ√Q -> ε_excl ≈ z·σ_δ/(α√Q).
-    Μονόπλευρος γκαουσιανός: Q μισό του συμμετρικού -> ε_excl × √2.
-    Αυτή είναι η ΑΝΑΜΕΝΟΜΕΝΗ απάντηση· ελέγχεται αν βγαίνει.
+    Since sigma_delta(k) is roughly constant, sigma_T ~ sigma_delta*sqrt(Q),
+    so eps_excl ~ z*sigma_delta/(alpha*sqrt(Q)). A one-sided Gaussian has
+    half the Q of the symmetric one -> eps_excl times sqrt(2). That is the
+    EXPECTED answer; whether it comes out is checked.
 
-ΚΑΤΩΦΛΙ: το ίδιο z_thr = 4,848 (Bonferroni m = 40.002 της αναφοράς #5),
-όχι διορθωμένο για τους 4 πυρήνες — μένει συντηρητικό και συγκρίσιμο.
+THRESHOLD: the same z_thr = 4.848 (Bonferroni m = 40,002 of report #5), not
+corrected for the 4 kernels -- it stays conservative and comparable.
 """
 import argparse, json, math, os, time
 import numpy as np
@@ -51,18 +55,19 @@ M_BONF = 40_002
 
 KERNELS = ["sym", "future", "past", "exp_future"]
 KERNEL_LABEL = {
-    "sym":        "συμμετρικός γκαουσιανός  exp(-k²/2τ²)",
-    "future":     "μόνο μέλλον (γκαουσιανός)  k > 0",
-    "past":       "μόνο παρελθόν (γκαουσιανός)  k < 0",
-    "exp_future": "μόνο μέλλον (εκθετικός)  exp(-k/τ), k > 0",
+    "sym":        "symmetric Gaussian  exp(-k^2/2tau^2)",
+    "future":     "future only (Gaussian)  k > 0",
+    "past":       "past only (Gaussian)  k < 0",
+    "exp_future": "future only (exponential)  exp(-k/tau), k > 0",
 }
 
 
 def kernel_W(name, k, tau):
-    """W(k) για δοσμένο πυρήνα. k: πίνακας ακεραίων (float), tau: float."""
-    # k = 0 ΕΞΑΙΡΕΙΤΑΙ από ΟΛΟΥΣ τους πυρήνες (αναθεώρηση 2026-09-04): ο όρος
-    # k = 0 είναι η ρύθμιση του ΙΔΙΟΥ trial (no-signalling, Πίνακας 3), όχι
-    # cross-trial. Οι μονόπλευροι το απέκλειαν ήδη· τώρα και ο συμμετρικός.
+    """W(k) for a given kernel. k: array of integers (float), tau: float."""
+    # k = 0 is EXCLUDED from ALL kernels (revision 2026-09-04): the k = 0
+    # term is the setting of the SAME trial (no-signalling, Table 3), not
+    # cross-trial. The one-sided kernels already excluded it; now so does
+    # the symmetric one.
     if name == "sym":
         return np.where(k != 0, np.exp(-k ** 2 / (2.0 * tau ** 2)), 0.0)
     if name == "future":
@@ -95,7 +100,7 @@ def main():
     SA, SB, OA, OB = d['SA'], d['SB'], d['OA'], d['OB']
     n = len(SA)
 
-    # ίδιο πλέγμα με τη #6, + τα 30 και 300 όπου γίνεται η επαλήθευση
+    # the same grid as #6, plus 30 and 300 where the verification is done
     taus = np.round(np.logspace(0, 4, a.n_tau)).astype(int)
     taus = np.unique(np.concatenate([taus, [30, 300]])).astype(float)
 
@@ -106,12 +111,12 @@ def main():
     z_thr = float(math.sqrt(chi2.ppf(1 - p_thr, 1)))
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 5 — ΧΑΡΤΗΣ ΑΠΟΚΛΕΙΣΜΟΥ ΜΕ ΑΣΥΜΜΕΤΡΟΥΣ ΠΥΡΗΝΕΣ")
+    print("PART 5 - EXCLUSION MAP WITH ASYMMETRIC KERNELS")
     print("=" * 78)
-    print(f"  n = {n:,}   K = ±{a.K:,}   τ: {len(taus)} τιμές")
-    print(f"  z_thr = {z_thr:.3f} (Bonferroni m = {M_BONF:,}, ίδιο με #5/#6)")
-    print("\n  Q(τ) ανά πυρήνα (κόψιμο στο ±K συμπεριλαμβάνεται):")
-    hdr = "    " + f"{'τ':>7}" + "".join(f"{k:>13}" for k in KERNELS) + \
+    print(f"  n = {n:,}   K = +/-{a.K:,}   tau: {len(taus)} values")
+    print(f"  z_thr = {z_thr:.3f} (Bonferroni m = {M_BONF:,}, same as #5/#6)")
+    print("\n  Q(tau) per kernel (the truncation at +/-K is included):")
+    hdr = "    " + f"{'tau':>7}" + "".join(f"{k:>13}" for k in KERNELS) + \
           f"{'fut/sym':>10}{'exp/sym':>10}"
     print(hdr)
     for j, t in enumerate(taus):
@@ -139,16 +144,17 @@ def main():
         ks, n11, A1, B1, nk, ferr = scan(o, s1, a.K)
         MI, delta = mi_and_delta(n11, A1, B1, nk)
         sd = sigma_delta(A1, B1, nk)
-        print(f"  σάρωση {len(ks):,} lag σε {time.time()-t0:.1f}s   "
-              f"σφάλμα FFT {ferr:.1e}")
+        print(f"  scanned {len(ks):,} lags in {time.time()-t0:.1f}s   "
+              f"FFT error {ferr:.1e}")
 
-        # συμμετρία του ΘΟΡΥΒΟΥ: μέσο δ̂ στα k>0 vs k<0 (διαγνωστικό)
+        # symmetry of the NOISE: mean delta-hat at k>0 vs k<0 (diagnostic)
         pos = delta[ks > 0]; neg = delta[ks < 0]
-        print(f"  δ̂ μέσος k>0: {pos.mean():+.3e}   k<0: {neg.mean():+.3e}   "
-              f"(σ/√N = {sd.mean()/math.sqrt(len(pos)):.3e})")
+        print(f"  delta-hat mean k>0: {pos.mean():+.3e}   k<0: "
+              f"{neg.mean():+.3e}   "
+              f"(sigma/sqrt(N) = {sd.mean()/math.sqrt(len(pos)):.3e})")
 
-        # --- εμπειρικό null του T(τ) ανά πυρήνα, ΕΝΑΣ βρόχος ανακατεμάτων ---
-        print(f"  εμπειρικό null με {a.shuffles} ανακατέματα ρυθμίσεων…",
+        # --- empirical null of T(tau) per kernel, ONE shuffling loop ---
+        print(f"  empirical null from {a.shuffles} setting shuffles...",
               flush=True)
         sh = s1.copy()
         Tnull = {k: np.empty((a.shuffles, len(taus))) for k in KERNELS}
@@ -160,9 +166,9 @@ def main():
             for kn in KERNELS:
                 Tnull[kn][i] = Wmats[kn] @ ds
             if i == 0:
-                print(f"    (~{(time.time()-t0)*a.shuffles/60:.1f} λεπτά)",
+                print(f"    (~{(time.time()-t0)*a.shuffles/60:.1f} minutes)",
                       flush=True)
-        print(f"    ολοκληρώθηκε σε {(time.time()-t0)/60:.1f} λεπτά")
+        print(f"    finished in {(time.time()-t0)/60:.1f} minutes")
 
         pair_out = {}
         for kn in KERNELS:
@@ -171,7 +177,7 @@ def main():
             sT_ana = np.sqrt(Wm ** 2 @ sd ** 2)
             ratio = sT_emp / sT_ana
             null_mean = (Tnull[kn].mean(axis=0) / sT_emp).mean()
-            sT = np.maximum(sT_emp, sT_ana)          # συντηρητικό
+            sT = np.maximum(sT_emp, sT_ana)          # conservative
 
             T = Wm @ delta
             z = T / sT
@@ -181,18 +187,18 @@ def main():
             nab = int((np.abs(z) > z_thr).sum())
 
             print(f"\n  --- {kn}: {KERNEL_LABEL[kn]}")
-            print(f"      σ_T εμπ/αναλ: μέσος {ratio.mean():.4f} "
+            print(f"      sigma_T emp/ana: mean {ratio.mean():.4f} "
                   f"[{ratio.min():.4f}, {ratio.max():.4f}]   "
-                  f"null κέντρο {null_mean:+.3f}σ")
-            print(f"      {'τ':>7} {'Q':>10} {'z':>7} {'ε_excl':>11} "
-                  f"{'×sym':>7}")
+                  f"null centre {null_mean:+.3f} sigma")
+            print(f"      {'tau':>7} {'Q':>10} {'z':>7} {'eps_excl':>11} "
+                  f"{'x sym':>7}")
             for j, t in enumerate(taus):
                 r = eps_excl[j] / (pair_out['sym']['eps_excl'][j]
                                    if kn != 'sym' else eps_excl[j])
                 print(f"      {t:>7g} {Q[j]:>10.1f} {z[j]:>7.2f} "
                       f"{eps_excl[j]:>11.4e} {r:>7.3f}")
-            print(f"      |z| > {z_thr:.2f} σε {nab}/{len(taus)} τ   "
-                  f"max|z| = {np.abs(z).max():.2f} στο τ = "
+            print(f"      |z| > {z_thr:.2f} at {nab}/{len(taus)} tau   "
+                  f"max|z| = {np.abs(z).max():.2f} at tau = "
                   f"{taus[int(np.argmax(np.abs(z)))]:g}")
 
             pair_out[kn] = dict(
@@ -210,7 +216,7 @@ def main():
         print()
 
     json.dump(out, open(os.path.join(HERE, "meros5_asym.json"), "w"), indent=2)
-    print("Αποθηκεύτηκε: meros5_asym.json + meros5_delta_*.npz")
+    print("Saved: meros5_asym.json + meros5_delta_*.npz")
 
 
 if __name__ == "__main__":

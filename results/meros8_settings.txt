@@ -1,29 +1,29 @@
 ==============================================================================
-ΜΕΡΟΣ 8 — ΣΥΣΧΕΤΙΣΗ ΡΥΘΜΙΣΕΩΝ ΚΑΙ ΦΑΝΤΑΣΤΙΚΟ ΣΗΜΑ
+PART 8 - SETTING CORRELATION AND THE PHANTOM SIGNAL
 ==============================================================================
-  n = 15,000,000   |k| ≤ 10,000   τυπικό σφάλμα του ρ: 1/√n = 2.582e-04
-  κατώφλι 4,848σ  ->  |ρ| > 1.252e-03
+  n = 15,000,000   |k| <= 10,000   standard error of rho: 1/sqrt(n) = 2.582e-04
+  threshold 4.848 sigma  ->  |rho| > 1.252e-03
 
-  ΣΥΣΧΕΤΙΣΕΙΣ (Pearson, ±1 κωδικοποίηση):
-  Corr(S_A(i), S_B(i+k))     max |ρ| = 1.246e-03 στο lag   -9438   ( 4.83σ)   |ρ| > 4,848σ σε 0 lag
-  Corr(S_A(i), S_A(i+k)), k≠0 max |ρ| = 9.683e-04 στο lag    -635   ( 3.75σ)   |ρ| > 4,848σ σε 0 lag
-  Corr(S_B(i), S_B(i+k)), k≠0 max |ρ| = 1.104e-03 στο lag   +9301   ( 4.28σ)   |ρ| > 4,848σ σε 0 lag
+  CORRELATIONS (Pearson, +/-1 encoding):
+  Corr(S_A(i), S_B(i+k))     max |rho| = 1.246e-03 at lag   -9438   ( 4.83 sigma)   |rho| > 4.848 sigma at 0 lags
+  Corr(S_A(i), S_A(i+k)), k!=0 max |rho| = 9.683e-04 at lag    -635   ( 3.75 sigma)   |rho| > 4.848 sigma at 0 lags
+  Corr(S_B(i), S_B(i+k)), k!=0 max |rho| = 1.104e-03 at lag   +9301   ( 4.28 sigma)   |rho| > 4.848 sigma at 0 lags
 
-  ΑΜΟΙΒΑΙΑ ΠΛΗΡΟΦΟΡΙΑ I(S_A(i) ; S_B(i+k)):
-    κατώφλι (ίδιο Bonferroni, m = 40.002): MI = 1.1301e-06 bits/trial  (G = 23.50)
-    μέγιστο MI = 1.1206e-06 στο lag -9438   G = 23.29  (√G = 4.83σ)
-    lag πάνω από το κατώφλι: 0 / 20,001
+  MUTUAL INFORMATION I(S_A(i) ; S_B(i+k)):
+    threshold (same Bonferroni, m = 40,002): MI = 1.1301e-06 bits/trial  (G = 23.50)
+    largest MI = 1.1206e-06 at lag -9438   G = 23.29  (sqrt(G) = 4.83 sigma)
+    lags above the threshold: 0 / 20,001
 
 ==============================================================================
-ΦΑΝΤΑΣΤΙΚΟ ΣΗΜΑ:  δ_phantom(k) = δ_A · ρ(k)
+PHANTOM SIGNAL:  delta_phantom(k) = delta_A * rho(k)
 ==============================================================================
-  μέγιστο |δ_phantom| = 2.445e-06 στο lag -9438
-  τυπικό σφάλμα του δ̂ ανά lag (μέσο σ_δ) = 2.142e-05
-  -> το φανταστικό είναι 0.114× το σφάλμα ενός lag
-  για σύγκριση, το μέγιστο παρατηρούμενο |δ̂| = 8.162e-05
+  largest |delta_phantom| = 2.445e-06 at lag -9438
+  standard error of delta-hat per lag (mean sigma_delta) = 2.142e-05
+  -> the phantom is 0.114x the error of one lag
+  for comparison, the largest observed |delta-hat| = 8.162e-05
 
-  ΠΕΡΑΣΜΕΝΟ ΑΠΟ ΤΟ MATCHED FILTER:  ε_phantom(τ) = Σ W·ρ / Q
-    πυρήνας            τ    ε_phantom       ε_excl      λόγος
+  PASSED THROUGH THE MATCHED FILTER:  eps_phantom(tau) = sum W*rho / Q
+    kernel           tau  eps_phantom     eps_excl      ratio
     sym                1    2.514e-04    7.559e-02     0.0033
     sym               10    4.547e-05    1.533e-02     0.0030
     sym              100    1.319e-05    4.277e-03     0.0031
@@ -45,10 +45,10 @@
     exp_future      1000    4.614e-07    2.613e-03     0.0002
     exp_future     10000    3.874e-06    8.230e-04     0.0047
 
-  ΧΕΙΡΟΤΕΡΟΣ λόγος ε_phantom/ε_excl σε 104 σημεία: 0.0073
-  -> το φανταστικό σήμα είναι 138× ΚΑΤΩ από το όριο στο δυσμενέστερο σημείο
+  WORST ratio eps_phantom/eps_excl over 104 points: 0.0073
+  -> the phantom signal is 138x BELOW the bound at its least favourable point
 
 ==============================================================================
-ΕΤΥΜΗΓΟΡΙΑ: ΚΑΜΙΑ συσχέτιση ρυθμίσεων πάνω από το κατώφλι
+VERDICT: NO setting correlation above the threshold
 ==============================================================================
-Αποθηκεύτηκε: meros8_settings.json + meros8_rho.npz
+Saved: meros8_settings.json + meros8_rho.npz

@@ -1,12 +1,12 @@
 ==============================================================================
-ΜΕΡΟΣ 13 — I(O ; ΙΣΟΤΙΜΙΑ ΡΥΘΜΙΣΕΩΝ) ΣΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ
+PART 13 - I(O ; SETTING PARITY) ON THE TEN PULSES
 ==============================================================================
-  |k| <= 10,000   κατώφλι z = 4.8476  (G = 23.499)
-  κανένα lag δεν είναι θετικός έλεγχος — αναμένεται παντού μηδέν
+  |k| <= 10,000   threshold z = 4.8476  (G = 23.499)
+  no lag is a positive control - zero is expected everywhere
 
-  βαθμονόμηση: μέσος G σε 200 ανακατέματα = 1.025 (θεωρία 1.000), max = 11.75
+  calibration: mean G over 200 shuffles = 1.025 (theory 1.000), max = 11.75
 
-    γύρος κανάλι        P(ισοτιμία)       max MI   σε lag     √G  >κατώφλι
+    round channel         P(parity)       max MI   at lag    sqG   >thresh
      1000 OA vs par(SB)     0.49997   9.1959e-07    -7828   4.37         0
      1000 OB vs par(SA)     0.50003   7.6559e-07    -2071   3.99         0
     15000 OA vs par(SB)     0.49983   7.3040e-07    -7920   3.90         0
@@ -28,7 +28,7 @@
     28297 OA vs par(SB)     0.50016   9.7390e-07    -1777   4.50         0
     28297 OB vs par(SA)     0.49996   7.8779e-07    +9239   4.05         0
 
-  ΣΥΝΟΛΟ πάνω από το κατώφλι: 0 / 400,020 (20 κανάλια × 20,001 lag)
-  μέγιστο √G σε όλο το σύνολο: 4.50σ
+  TOTAL above the threshold: 0 / 400,020 (20 channels x 20,001 lags)
+  largest sqrt(G) anywhere: 4.50 sigma
 
-Αποθηκεύτηκε: meros13_parity.json
+Saved: meros13_parity.json

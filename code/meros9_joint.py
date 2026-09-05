@@ -1,23 +1,24 @@
 """
-ΜΕΡΟΣ 9 — ΚΟΙΝΟ ΟΡΙΟ ΑΠΟ ΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ
+PART 9 - JOINT BOUND FROM THE TEN PULSES
 
-ΔΕΝ συγκολλάμε δεδομένα. Οι παλμοί απέχουν μήνες και το α τους διαφέρει 20%·
-μια ενιαία ακολουθία θα ήταν λάθος αντικείμενο. Αντί γι' αυτό:
+We do NOT splice data. The pulses are months apart and their alpha differs by
+20%; a single concatenated sequence would be the wrong object. Instead:
 
-    για κάθε παλμό p:   ε̂_p = T_p/(α_p Q),   σ_p = σ_T,p/(α_p Q)
-    κοινή εκτίμηση:     ε̂_joint = Σ (ε̂_p/σ_p²) / Σ (1/σ_p²)
-                        σ_joint  = 1/√( Σ 1/σ_p² )
-    κοινό όριο:         ε_excl_joint = |ε̂_joint| + z_thr·σ_joint
+    for each pulse p:  eps-hat_p = T_p/(alpha_p Q),
+                       sigma_p = sigma_T,p/(alpha_p Q)
+    joint estimate:    eps-hat_joint = sum (eps-hat_p/sigma_p^2)
+                                       / sum (1/sigma_p^2)
+                       sigma_joint = 1/sqrt( sum 1/sigma_p^2 )
+    joint bound:       eps_excl_joint = |eps-hat_joint| + z_thr*sigma_joint
 
-Βάρη αντίστροφης διασποράς, με το ΔΙΚΟ ΤΟΥ α σε κάθε παλμό. Αυτό είναι η
-βέλτιστη γραμμική συνδυαστική εκτίμηση όταν οι παλμοί είναι ανεξάρτητοι, και
-είναι ανεκτικό στο ότι το α αλλάζει: παλμός με μικρό α έχει μεγάλο σ_p και
-βαραίνει λιγότερο.
+Inverse-variance weights, with each pulse's OWN alpha. This is the best linear
+combined estimate when the pulses are independent, and it tolerates a varying
+alpha: a pulse with small alpha has a large sigma_p and counts for less.
 
-Αναμενόμενο κέρδος αν όλοι οι παλμοί ήταν ισοδύναμοι: √10 = 3,16. Στην πράξη
-λιγότερο, γιατί το α (άρα η ευαισθησία) διαφέρει.
+Expected gain if all pulses were equivalent: sqrt(10) = 3.16. In practice less,
+because alpha (hence the sensitivity) varies.
 
-Το σ_T,p βγαίνει όπως και στον χάρτη: max(εμπειρικό από ανακατέματα, διωνυμικό).
+sigma_T,p is obtained as in the map: max(empirical from shuffles, binomial).
 """
 import argparse, json, math, os, sys, time
 import numpy as np
@@ -48,13 +49,14 @@ def main():
     Wmats = {kn: build_filters(kn, taus, a.K) for kn in KERNELS}
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 9 — ΚΟΙΝΟ ΟΡΙΟ ΑΠΟ ΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ")
+    print("PART 9 - JOINT BOUND FROM THE TEN PULSES")
     print("=" * 78)
-    print(f"  {len(a.rounds)} παλμοί × 2 ζεύγη × {a.shuffles} ανακατέματα")
-    print(f"  z_thr = {z_thr:.3f}   τ: {len(taus)} τιμές   K = ±{a.K:,}\n")
+    print(f"  {len(a.rounds)} pulses x 2 pairs x {a.shuffles} shuffles")
+    print(f"  z_thr = {z_thr:.3f}   tau: {len(taus)} values   "
+          f"K = +/-{a.K:,}\n")
 
     rng = np.random.default_rng(a.seed)
-    per_pulse = {}          # [pair][kernel] -> λίστα ανά παλμό
+    per_pulse = {}          # [pair][kernel] -> one entry per pulse
     t_start = time.time()
 
     for ri, rnd in enumerate(a.rounds):
@@ -100,12 +102,12 @@ def main():
 
         el = time.time() - t0
         left = (len(a.rounds) - ri - 1) * el / 60
-        print(f"  γύρος {rnd}: {el/60:.1f} λεπτά   (απομένουν ~{left:.0f})",
+        print(f"  round {rnd}: {el/60:.1f} minutes   (~{left:.0f} left)",
               flush=True)
 
-    # ---------------- συνδυασμός ----------------
+    # ---------------- combination ----------------
     print("\n" + "=" * 78)
-    print("ΣΥΝΔΥΑΣΜΟΣ ΜΕ ΒΑΡΗ ΑΝΤΙΣΤΡΟΦΗΣ ΔΙΑΣΠΟΡΑΣ")
+    print("COMBINATION WITH INVERSE-VARIANCE WEIGHTS")
     print("=" * 78)
     out = {"rounds": a.rounds, "taus": taus.tolist(), "z_thr": z_thr,
            "shuffles": a.shuffles, "per_pulse": per_pulse, "joint": {}}
@@ -113,8 +115,8 @@ def main():
     for label in per_pulse:
         out["joint"][label] = {}
         print(f"\n--- {label} ---")
-        print(f"  {'πυρήνας':<12} {'τ':>7} {'ε_excl(28297)':>14} "
-              f"{'ε_excl(joint)':>14} {'κέρδος':>8} {'z_joint':>8}")
+        print(f"  {'kernel':<12} {'tau':>7} {'eps_ex(28297)':>14} "
+              f"{'eps_ex(joint)':>14} {'gain':>8} {'z_joint':>8}")
         for kn in KERNELS:
             E = np.array([p["eps_hat"] for p in per_pulse[label][kn]])
             S = np.array([p["sigma"] for p in per_pulse[label][kn]])
@@ -144,20 +146,20 @@ def main():
     zs = np.array([z for l in out["joint"] for k in KERNELS
                    for z in out["joint"][l][k]["z"]])
     print("\n" + "=" * 78)
-    print(f"  |z_joint| > {z_thr:.3f} σε {nab} / "
-          f"{2*len(KERNELS)*len(taus)} σημεία")
-    print(f"  μέγιστο |z_joint| = {np.abs(zs).max():.2f}")
-    print(f"  κέρδος ε_excl(28297)/ε_excl(joint): μέσο {gains.mean():.2f}  "
-          f"εύρος [{gains.min():.2f}, {gains.max():.2f}]   "
-          f"(ιδανικό √10 = 3,16)")
+    print(f"  |z_joint| > {z_thr:.3f} at {nab} / "
+          f"{2*len(KERNELS)*len(taus)} points")
+    print(f"  largest |z_joint| = {np.abs(zs).max():.2f}")
+    print(f"  gain eps_excl(28297)/eps_excl(joint): mean {gains.mean():.2f}  "
+          f"range [{gains.min():.2f}, {gains.max():.2f}]   "
+          f"(ideal sqrt(10) = 3.16)")
     out["n_above_total"] = nab
     out["gain_mean"] = float(gains.mean())
     out["max_abs_z"] = float(np.abs(zs).max())
-    print(f"  συνολικός χρόνος: {(time.time()-t_start)/60:.0f} λεπτά")
+    print(f"  total time: {(time.time()-t_start)/60:.0f} minutes")
 
     json.dump(out, open(os.path.join(HERE, "meros9_joint.json"), "w"),
               indent=2)
-    print("\nΑποθηκεύτηκε: meros9_joint.json")
+    print("\nSaved: meros9_joint.json")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,18 @@
 """
-ΜΕΡΟΣ 6.4 — ΤΟ α ΣΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ (ένσταση peer review #4)
+PART 6.4 - alpha ACROSS THE TEN PULSES (peer review objection #4)
 
-Ο περιορισμός #1 έλεγε «το α βαθμονομήθηκε στον 28297 και δεν είναι σταθερά
-του dataset». Σωστό αλλά αόριστο. Εδώ γίνεται αριθμός.
+Limitation #1 said "alpha was calibrated on 28297 and is not a constant of
+the dataset". True but vague. Here it becomes a number.
 
-    α = δ(0) = (r₂ − r₁)/2,  r_s = ρυθμός click με ρύθμιση s, ΙΔΙΟ ζεύγος.
+    alpha = delta(0) = (r2 - r1)/2,  r_s = click rate under setting s,
+    SAME pair.
 
-Υπολογίζεται από τα ωμά αρχεία και για τους δέκα παλμούς, χωριστά για Alice
-(OA vs SA) και Bob (OB vs SB). Δίνεται εύρος, μέσος, sd.
+It is computed from the raw files for all ten pulses, separately for Alice
+(OA vs SA) and Bob (OB vs SB). Range, mean and sd are reported.
 
-ΓΙΑΤΙ ΜΕΤΡΑΕΙ: ε_excl ∝ 1/α. Παλμός με μικρότερο α δίνει χαλαρότερο όριο
-στο ίδιο n. Η διασπορά του α είναι άμεσα η αβεβαιότητα μεταφοράς του χάρτη
-σε άλλον παλμό.
+WHY IT MATTERS: eps_excl is proportional to 1/alpha. A pulse with smaller
+alpha gives a looser bound at the same n. The spread of alpha is directly
+the uncertainty in transferring the map to another pulse.
 """
 import json, math, os, sys
 import numpy as np
@@ -23,11 +24,11 @@ from load_curby import read_file                                  # noqa: E402
 
 ROUNDS = [1000, 15000, 22000, 23000, 26000,
           28293, 28294, 28295, 28296, 28297]
-GROUP = {r: ("απλωμένοι" if r < 28000 else "διαδοχικοί") for r in ROUNDS}
+GROUP = {r: ("spread" if r < 28000 else "consecutive") for r in ROUNDS}
 
 
 def rates(O, S):
-    """r₁, r₂, n₁, n₂ για τον 2×2 του lag 0."""
+    """r1, r2, n1, n2 for the lag-0 2x2 table."""
     m1 = (S == 1)
     n1 = int(m1.sum()); n2 = int(len(S) - n1)
     k1 = int(O[m1].sum()); k2 = int(O.sum() - k1)
@@ -36,10 +37,10 @@ def rates(O, S):
 
 def main():
     print("=" * 78)
-    print("ΜΕΡΟΣ 6.4 — ΤΟ α ΣΕ ΚΑΘΕΝΑΝ ΑΠΟ ΤΟΥΣ 10 ΠΑΛΜΟΥΣ")
+    print("PART 6.4 - alpha IN EACH OF THE 10 PULSES")
     print("=" * 78)
-    print(f"  {'γύρος':>7} {'ομάδα':>11} {'p₀(A)':>9} {'r₁(A)':>10} "
-          f"{'r₂(A)':>10} {'α(A)':>11} {'α(B)':>11} {'r₂/r₁(A)':>9}")
+    print(f"  {'round':>7} {'group':>12} {'p0(A)':>9} {'r1(A)':>10} "
+          f"{'r2(A)':>10} {'alpha(A)':>11} {'alpha(B)':>11} {'r2/r1(A)':>9}")
 
     res = []
     for r in ROUNDS:
@@ -56,11 +57,11 @@ def main():
         aB = (rB2 - rB1) / 2.0
         p0A = (kA1 + kA2) / n
         p0B = (kB1 + kB2) / n
-        # τυπικό σφάλμα του α από τη διωνυμική
+        # standard error of alpha from the binomial
         seA = 0.5 * math.sqrt(rA1 * (1 - rA1) / nA1 + rA2 * (1 - rA2) / nA2)
         seB = 0.5 * math.sqrt(rB1 * (1 - rB1) / nB1 + rB2 * (1 - rB2) / nB2)
 
-        print(f"  {r:>7} {GROUP[r]:>11} {p0A:>9.5f} {rA1:>10.6f} "
+        print(f"  {r:>7} {GROUP[r]:>12} {p0A:>9.5f} {rA1:>10.6f} "
               f"{rA2:>10.6f} {aA:>11.4e} {aB:>11.4e} {rA2/rA1:>9.4f}")
         res.append(dict(round=r, group=GROUP[r], n=n, n_raw=n_raw,
                         r1_A=rA1, r2_A=rA2, alpha_A=aA, se_alpha_A=seA,
@@ -74,28 +75,28 @@ def main():
     p0A = np.array([x["p0_A"] for x in res])
 
     print("\n" + "-" * 78)
-    for nm, v in (("α Alice", aA), ("α Bob", aB)):
-        print(f"  {nm}: μέσος {v.mean():.4e}  sd {v.std(ddof=1):.4e} "
+    for nm, v in (("alpha Alice", aA), ("alpha Bob", aB)):
+        print(f"  {nm}: mean {v.mean():.4e}  sd {v.std(ddof=1):.4e} "
               f"({100*v.std(ddof=1)/v.mean():.1f}%)   "
-              f"εύρος [{v.min():.4e}, {v.max():.4e}]  "
+              f"range [{v.min():.4e}, {v.max():.4e}]  "
               f"max/min = {v.max()/v.min():.3f}")
-    print(f"  τυπικό σφάλμα ΜΕΤΡΗΣΗΣ ανά παλμό: ~{seA.mean():.2e} "
-          f"({100*seA.mean()/aA.mean():.2f}%) -> η διασπορά είναι "
-          f"{aA.std(ddof=1)/seA.mean():.0f}× μεγαλύτερη, άρα ΠΡΑΓΜΑΤΙΚΗ")
-    print(f"  p₀ Alice: εύρος [{p0A.min():.5f}, {p0A.max():.5f}]  "
-          f"({100*p0A.min():.3f}% – {100*p0A.max():.3f}%)")
+    print(f"  MEASUREMENT standard error per pulse: ~{seA.mean():.2e} "
+          f"({100*seA.mean()/aA.mean():.2f}%) -> the spread is "
+          f"{aA.std(ddof=1)/seA.mean():.0f}x larger, hence REAL")
+    print(f"  p0 Alice: range [{p0A.min():.5f}, {p0A.max():.5f}]  "
+          f"({100*p0A.min():.3f}% - {100*p0A.max():.3f}%)")
 
     a28297 = [x for x in res if x["round"] == 28297][0]["alpha_A"]
-    print(f"\n  Ο χάρτης χρησιμοποιεί α(28297) = {a28297:.4e}.")
-    print(f"  Επειδή ε_excl ∝ 1/α, μεταφορά του χάρτη σε άλλον παλμό αλλάζει")
-    print(f"  το όριο κατά τον λόγο α(28297)/α(παλμού):")
-    print(f"    {'γύρος':>7} {'α(A)':>11} {'α(28297)/α':>11}")
+    print(f"\n  The map uses alpha(28297) = {a28297:.4e}.")
+    print(f"  Since eps_excl is proportional to 1/alpha, transferring the map")
+    print(f"  to another pulse changes the bound by alpha(28297)/alpha(pulse):")
+    print(f"    {'round':>7} {'alpha(A)':>11} {'a(28297)/a':>11}")
     for x in res:
         print(f"    {x['round']:>7} {x['alpha_A']:>11.4e} "
               f"{a28297/x['alpha_A']:>11.3f}")
     fac = a28297 / aA
-    print(f"\n  -> το ε_excl σε άλλον παλμό θα ήταν {fac.min():.2f}× έως "
-          f"{fac.max():.2f}× αυτού του χάρτη (μόνο λόγω του α, με ίδιο n).")
+    print(f"\n  -> eps_excl on another pulse would be {fac.min():.2f}x to "
+          f"{fac.max():.2f}x that of this map (from alpha alone, same n).")
 
     json.dump(dict(rounds=res,
                    alpha_A_mean=float(aA.mean()), alpha_A_sd=float(aA.std(ddof=1)),
@@ -106,7 +107,7 @@ def main():
                    transfer_factor_min=float(fac.min()),
                    transfer_factor_max=float(fac.max())),
               open(os.path.join(HERE, "meros6_alpha10.json"), "w"), indent=2)
-    print("\nΑποθηκεύτηκε: meros6_alpha10.json")
+    print("\nSaved: meros6_alpha10.json")
 
 
 if __name__ == "__main__":

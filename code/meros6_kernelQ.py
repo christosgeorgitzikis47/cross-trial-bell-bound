@@ -1,21 +1,22 @@
 """
-ΜΕΡΟΣ 6.3 — ΓΕΝΙΚΕΥΣΗ ΠΥΡΗΝΑ (ένσταση peer review #3: «γιατί γκαουσιανός;»)
+PART 6.3 - GENERALISING THE KERNEL (peer review objection #3: "why Gaussian?")
 
-ΙΣΧΥΡΙΣΜΟΣ: το όριο εξαρτάται από τον πυρήνα ΜΟΝΟ μέσω του
-    Q = Σ_k W(k)²   (με W κανονικοποιημένο ώστε max W = 1)
+CLAIM: the bound depends on the kernel ONLY through
+    Q = sum_k W(k)^2   (with W normalised so that max W = 1)
 
-γιατί:
-    ε_excl = |T|/(αQ) + z·σ_T/(αQ)   και   σ_T = √(Σ W(k)²σ_δ(k)²) ≈ σ̄_δ·√Q
-    -> ο θορυβώδης όρος γίνεται  z·σ̄_δ/(α·√Q)  ∝ 1/√Q
-       ΚΑΙ ΤΙΠΟΤΑ ΑΛΛΟ από τον πυρήνα δεν επιβιώνει.
+because:
+    eps_excl = |T|/(alpha Q) + z*sigma_T/(alpha Q)  and
+    sigma_T = sqrt(sum W(k)^2 sigma_delta(k)^2) ~ mean(sigma_delta)*sqrt(Q)
+    -> the noise term becomes z*mean(sigma_delta)/(alpha*sqrt(Q)),
+       proportional to 1/sqrt(Q), AND NOTHING ELSE about the kernel survives.
 
-Αν αυτό επαληθεύεται αριθμητικά στους 4 πυρήνες × 26 τ × 2 ζεύγη, τότε ο
-πίνακας Q -> ε_excl διαβάζεται από ΟΠΟΙΟΝΔΗΠΟΤΕ με δικό του σχήμα πυρήνα:
-υπολογίζει το Q του, διαβάζει το όριο.
+If that is verified numerically over 4 kernels x 26 tau x 2 pairs, then the
+Q -> eps_excl table can be read by ANYONE with a kernel shape of their own:
+compute its Q, read off the bound.
 
-Ο έλεγχος γίνεται στον ΘΟΡΥΒΩΔΗ όρο, όχι στο ε_excl συνολικά: το |ε̂| είναι
-η τυχαία παρατήρηση αυτού του dataset (|z| ≤ 2,4), δεν είναι ιδιότητα του
-πυρήνα. Δίνεται και αυτό, για να φαίνεται πόσο μετράει.
+The check is made on the NOISE term, not on eps_excl as a whole: |eps-hat| is
+the random draw of this particular dataset (|z| <= 2.4), not a property of the
+kernel. It is reported too, so that its size is visible.
 """
 import json, math, os
 import numpy as np
@@ -28,7 +29,7 @@ def main():
     taus = np.array(m5["taus"])
     z_thr = m5["z_thr"]
     print("=" * 78)
-    print("ΜΕΡΟΣ 6.3 — ε_excl ∝ 1/√Q ;")
+    print("PART 6.3 - IS eps_excl PROPORTIONAL TO 1/sqrt(Q)?")
     print("=" * 78)
 
     rows = []
@@ -37,9 +38,9 @@ def main():
             P = m5["pairs"][pair][kn]
             Q = np.array(P["Q"]); sT = np.array(P["sigma_T"])
             T = np.array(P["T"])
-            eps_noise = z_thr * sT / (alpha * Q)          # ο θορυβώδης όρος
+            eps_noise = z_thr * sT / (alpha * Q)          # the noise term
             eps_hat = np.abs(T) / (alpha * Q)
-            c = eps_noise * np.sqrt(Q)                    # πρέπει ≈ σταθερό
+            c = eps_noise * np.sqrt(Q)                    # should be ~constant
             for j in range(len(taus)):
                 rows.append(dict(pair=pair, kernel=kn, tau=float(taus[j]),
                                  Q=float(Q[j]), eps_noise=float(eps_noise[j]),
@@ -49,12 +50,13 @@ def main():
                                  eps_excl=float(P["eps_excl"][j])))
 
     c = np.array([r["c"] for r in rows])
-    print(f"  c = ε_noise·√Q σε {len(rows)} σημεία (4 πυρήνες × 26 τ × 2 ζεύγη)")
-    print(f"    μέσος {c.mean():.5f}   sd {c.std(ddof=1):.5f} "
+    print(f"  c = eps_noise*sqrt(Q) at {len(rows)} points "
+          f"(4 kernels x 26 tau x 2 pairs)")
+    print(f"    mean {c.mean():.5f}   sd {c.std(ddof=1):.5f} "
           f"({100*c.std(ddof=1)/c.mean():.2f}%)   "
-          f"εύρος [{c.min():.5f}, {c.max():.5f}]")
+          f"range [{c.min():.5f}, {c.max():.5f}]")
 
-    print("\n  ανά πυρήνα και ζεύγος (μέσος c ± sd):")
+    print("\n  per kernel and pair (mean c +/- sd):")
     for pair in ("OA vs SB", "OB vs SA"):
         for kn in m5["kernels"]:
             v = np.array([r["c"] for r in rows
@@ -62,54 +64,58 @@ def main():
             v10 = np.array([r["c"] for r in rows
                             if r["pair"] == pair and r["kernel"] == kn
                             and r["tau"] >= 10])
-            print(f"    {pair}  {kn:<11} {v.mean():.5f} ± {v.std(ddof=1):.5f}"
-                  f"    (τ ≥ 10: {v10.mean():.5f} ± {v10.std(ddof=1):.5f})")
+            print(f"    {pair}  {kn:<11} {v.mean():.5f} +/- {v.std(ddof=1):.5f}"
+                  f"    (tau >= 10: {v10.mean():.5f} +/- {v10.std(ddof=1):.5f})")
 
-    # πόσο από τη διασπορά οφείλεται στα μικρά τ (υποδειγματοληψία του πυρήνα)
+    # how much of the spread comes from small tau (undersampling the kernel)
     big = np.array([r["c"] for r in rows if r["tau"] >= 10])
-    print(f"\n  μόνο τ ≥ 10 ({len(big)} σημεία): μέσος {big.mean():.5f}  "
+    print(f"\n  tau >= 10 only ({len(big)} points): mean {big.mean():.5f}  "
           f"sd {100*big.std(ddof=1)/big.mean():.2f}%")
     sml = np.array([r["c"] for r in rows if r["tau"] < 10])
-    print(f"  μόνο τ < 10  ({len(sml)} σημεία): μέσος {sml.mean():.5f}  "
+    print(f"  tau < 10 only  ({len(sml)} points): mean {sml.mean():.5f}  "
           f"sd {100*sml.std(ddof=1)/sml.mean():.2f}%   "
-          f"(εκεί ο πυρήνας έχει λίγα σημεία και το σ_δ(k) δεν είναι σταθερό)")
+          f"(there the kernel rests on few points and sigma_delta(k) is not "
+          f"constant)")
 
-    # ---- ο πίνακας για χρήση από τρίτους ----
-    # για τον πίνακα χρήσης: ΠΛΗΡΕΣ ε_excl·√Q (μαζί με τον όρο |ε̂|), max
+    # ---- the table for third parties ----
+    # for the usable table: the FULL eps_excl*sqrt(Q) (including the |eps-hat|
+    # term), taken at its maximum
     cf = np.array([r["c_full"] for r in rows])
     cf10 = np.array([r["c_full"] for r in rows if r["tau"] >= 10])
     c_ref = float(cf10.mean())
     c_hi = float(cf10.max())
-    print(f"\n  c_full ΟΛΑ τα σημεία: μέσος {cf.mean():.5f}  max {cf.max():.5f}"
-          f"   [το max έρχεται από τ = 1, όπου ο μονόπλευρος πυρήνας έχει"
-          f" Q = 0,37]")
-    print(f"  c_full σε τ ≥ 10 ({len(cf10)} σημεία): μέσος {cf10.mean():.5f}"
+    print(f"\n  c_full over ALL points: mean {cf.mean():.5f}  "
+          f"max {cf.max():.5f}"
+          f"   [the max comes from tau = 1, where the one-sided kernel has"
+          f" Q = 0.37]")
+    print(f"  c_full at tau >= 10 ({len(cf10)} points): mean {cf10.mean():.5f}"
           f"  max {cf10.max():.5f}  sd {100*cf10.std(ddof=1)/cf10.mean():.2f}%")
     print("\n" + "=" * 78)
-    print("ΠΙΝΑΚΑΣ  Q -> ε_excl   (c = max του ε_excl·√Q σε τ ≥ 10)")
+    print("TABLE  Q -> eps_excl   (c = max of eps_excl*sqrt(Q) at tau >= 10)")
     print("=" * 78)
-    print(f"  ε_excl(Q) = c/√Q  με c = {c_hi:.5f}  "
-          f"(μέσος {c_ref:.5f}· χρησιμοποιείται ο ΜΕΓΙΣΤΟΣ σε 208 σημεία,")
-    print(f"  ώστε ο πίνακας να μην υπόσχεται ποτέ αυστηρότερο όριο από το "
-          f"μετρημένο)")
-    print(f"  ΠΡΟΣΟΧΗ 1: το Q υπολογίζεται με W κανονικοποιημένο σε max W = 1,")
-    print(f"  και αθροίζεται στο ίδιο παράθυρο |k| ≤ 10.000.")
-    print(f"  ΠΡΟΣΟΧΗ 2: για Q < 3 (πυρήνας σε 1-2 lag) η σχέση 1/√Q δεν")
-    print(f"  ελέγχθηκε — εκεί διαβάζεται ο μετρημένος χάρτης, όχι ο τύπος.\n")
-    print(f"    {'Q':>10} {'ε_excl':>12}   {'παράδειγμα πυρήνα':<38}")
-    ex = {1: "δ(k−k₀), ένα μόνο lag",
-          2: "δύο lag ίσου βάρους",
-          10: "γκαουσιανός τ ≈ 5,6 / εκθετικός τ ≈ 20",
-          100: "γκαουσιανός τ ≈ 56 / τετράγωνο 100 lag",
-          1000: "γκαουσιανός τ ≈ 564 / εκθετικός τ ≈ 2.000",
-          10000: "γκαουσιανός τ ≈ 5.642"}
+    print(f"  eps_excl(Q) = c/sqrt(Q)  with c = {c_hi:.5f}  "
+          f"(mean {c_ref:.5f}; the MAXIMUM over 208 points is used,")
+    print(f"  so that the table never promises a tighter bound than was "
+          f"measured)")
+    print(f"  NOTE 1: Q is computed with W normalised to max W = 1, and summed")
+    print(f"  over the same window |k| <= 10,000.")
+    print(f"  NOTE 2: for Q < 3 (a kernel on 1-2 lags) the 1/sqrt(Q) relation")
+    print(f"  was not tested -- there one reads the measured map, not the "
+          f"formula.\n")
+    print(f"    {'Q':>10} {'eps_excl':>12}   {'example kernel':<38}")
+    ex = {1: "delta(k-k0), a single lag",
+          2: "two lags of equal weight",
+          10: "Gaussian tau ~ 5.6 / exponential tau ~ 20",
+          100: "Gaussian tau ~ 56 / square over 100 lags",
+          1000: "Gaussian tau ~ 564 / exponential tau ~ 2,000",
+          10000: "Gaussian tau ~ 5,642"}
     for Qv in (1, 2, 3, 10, 30, 100, 300, 1000, 3000, 10000):
         print(f"    {Qv:>10} {c_hi/math.sqrt(Qv):>12.4e}   {ex.get(Qv,''):<38}")
 
-    # έλεγχος: ο πίνακας αναπαράγει τα πραγματικά ε_excl;
-    print("\n  Έλεγχος στον πραγματικό χάρτη (OA vs SB, τ ≥ 10):")
-    print(f"    {'πυρήνας':<12} {'τ':>7} {'Q':>9} {'ε_excl(πίνακας)':>16} "
-          f"{'ε_excl(μετρημένο)':>18} {'λόγος':>7}")
+    # check: does the table reproduce the real eps_excl?
+    print("\n  Check against the real map (OA vs SB, tau >= 10):")
+    print(f"    {'kernel':<12} {'tau':>7} {'Q':>9} {'eps_excl(table)':>16} "
+          f"{'eps_excl(measured)':>18} {'ratio':>7}")
     for kn in m5["kernels"]:
         for tv in (10, 100, 1000, 10000):
             r = [x for x in rows if x["pair"] == "OA vs SB"
@@ -130,7 +136,7 @@ def main():
                                     10000)},
                    points=rows),
               open(os.path.join(HERE, "meros6_kernelQ.json"), "w"), indent=2)
-    print("\nΑποθηκεύτηκε: meros6_kernelQ.json")
+    print("\nSaved: meros6_kernelQ.json")
 
 
 if __name__ == "__main__":

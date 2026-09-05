@@ -1,42 +1,42 @@
 ==============================================================================
-ΕΠΑΛΗΘΕΥΣΗ ΤΟΥ ΧΑΡΤΗ ΜΕ ΕΝΕΣΗ  (ζεύγος OA vs SB)
+VERIFYING THE MAP BY INJECTION  (pair OA vs SB)
 ==============================================================================
-  κατώφλι z = 4.848   10 επαναλήψεις ανά σημείο
+  threshold z = 4.848   10 repetitions per point
 
-τ = 3   ε_excl (παρεμβολή) = 3.1125e-02   Q = 4.3
-         ε = 0  ε = 0.0000e+00  clip 0.0000%   z = -0.46 ± 0.37  (πρόβλεψη +0.00, απόκλιση -1.2σ)   ανιχνεύθηκε: 0/10
-      ε_excl/2  ε = 1.5563e-02  clip 0.0000%   z = +2.41 ± 0.33  (πρόβλεψη +2.88, απόκλιση -1.4σ)   ανιχνεύθηκε: 0/10
-        ε_excl  ε = 3.1125e-02  clip 0.0000%   z = +6.48 ± 0.24  (πρόβλεψη +5.75, απόκλιση +3.0σ)   ανιχνεύθηκε: 10/10
-      2·ε_excl  ε = 6.2251e-02  clip 0.0000%   z = +12.23 ± 0.26  (πρόβλεψη +11.50, απόκλιση +2.8σ)   ανιχνεύθηκε: 10/10
+tau = 3   eps_excl (interpolated) = 3.1125e-02   Q = 4.3
+       eps = 0  eps = 0.0000e+00  clip 0.0000%   z = -0.46 +/- 0.37  (predicted +0.00, deviation -1.2 sigma)   detected: 0/10
+    eps_excl/2  eps = 1.5563e-02  clip 0.0000%   z = +2.41 +/- 0.33  (predicted +2.88, deviation -1.4 sigma)   detected: 0/10
+      eps_excl  eps = 3.1125e-02  clip 0.0000%   z = +6.48 +/- 0.24  (predicted +5.75, deviation +3.0 sigma)   detected: 10/10
+    2*eps_excl  eps = 6.2251e-02  clip 0.0000%   z = +12.23 +/- 0.26  (predicted +11.50, deviation +2.8 sigma)   detected: 10/10
 
-τ = 30   ε_excl (παρεμβολή) = 8.5067e-03   Q = 52.2
-         ε = 0  ε = 0.0000e+00  clip 0.0000%   z = +0.37 ± 0.19  (πρόβλεψη +0.00, απόκλιση +1.9σ)   ανιχνεύθηκε: 0/10
-      ε_excl/2  ε = 4.2534e-03  clip 0.0000%   z = +2.75 ± 0.34  (πρόβλεψη +2.73, απόκλιση +0.1σ)   ανιχνεύθηκε: 0/10
-        ε_excl  ε = 8.5067e-03  clip 0.0000%   z = +5.57 ± 0.28  (πρόβλεψη +5.46, απόκλιση +0.4σ)   ανιχνεύθηκε: 9/10
-      2·ε_excl  ε = 1.7013e-02  clip 0.0000%   z = +11.05 ± 0.32  (πρόβλεψη +10.93, απόκλιση +0.4σ)   ανιχνεύθηκε: 10/10
+tau = 30   eps_excl (interpolated) = 8.5067e-03   Q = 52.2
+       eps = 0  eps = 0.0000e+00  clip 0.0000%   z = +0.37 +/- 0.19  (predicted +0.00, deviation +1.9 sigma)   detected: 0/10
+    eps_excl/2  eps = 4.2534e-03  clip 0.0000%   z = +2.75 +/- 0.34  (predicted +2.73, deviation +0.1 sigma)   detected: 0/10
+      eps_excl  eps = 8.5067e-03  clip 0.0000%   z = +5.57 +/- 0.28  (predicted +5.46, deviation +0.4 sigma)   detected: 9/10
+    2*eps_excl  eps = 1.7013e-02  clip 0.0000%   z = +11.05 +/- 0.32  (predicted +10.93, deviation +0.4 sigma)   detected: 10/10
 
-τ = 300   ε_excl (παρεμβολή) = 2.5330e-03   Q = 530.7
-         ε = 0  ε = 0.0000e+00  clip 0.0000%   z = +0.33 ± 0.52  (πρόβλεψη +0.00, απόκλιση +0.6σ)   ανιχνεύθηκε: 0/10
-      ε_excl/2  ε = 1.2665e-03  clip 0.0000%   z = +2.89 ± 0.50  (πρόβλεψη +2.55, απόκλιση +0.7σ)   ανιχνεύθηκε: 2/10
-        ε_excl  ε = 2.5330e-03  clip 0.0000%   z = +5.64 ± 0.23  (πρόβλεψη +5.10, απόκλιση +2.3σ)   ανιχνεύθηκε: 9/10
-      2·ε_excl  ε = 5.0660e-03  clip 0.0000%   z = +11.12 ± 0.26  (πρόβλεψη +10.19, απόκλιση +3.5σ)   ανιχνεύθηκε: 10/10
+tau = 300   eps_excl (interpolated) = 2.5330e-03   Q = 530.7
+       eps = 0  eps = 0.0000e+00  clip 0.0000%   z = +0.33 +/- 0.52  (predicted +0.00, deviation +0.6 sigma)   detected: 0/10
+    eps_excl/2  eps = 1.2665e-03  clip 0.0000%   z = +2.89 +/- 0.50  (predicted +2.55, deviation +0.7 sigma)   detected: 2/10
+      eps_excl  eps = 2.5330e-03  clip 0.0000%   z = +5.64 +/- 0.23  (predicted +5.10, deviation +2.3 sigma)   detected: 9/10
+    2*eps_excl  eps = 5.0660e-03  clip 0.0000%   z = +11.12 +/- 0.26  (predicted +10.19, deviation +3.5 sigma)   detected: 10/10
 
-τ = 3000   ε_excl (παρεμβολή) = 7.9136e-04   Q = 5316.3
-         ε = 0  ε = 0.0000e+00  clip 0.0000%   z = -0.35 ± 0.35  (πρόβλεψη +0.00, απόκλιση -1.0σ)   ανιχνεύθηκε: 0/10
-      ε_excl/2  ε = 3.9568e-04  clip 0.0000%   z = +3.21 ± 0.45  (πρόβλεψη +2.64, απόκλιση +1.3σ)   ανιχνεύθηκε: 1/10
-        ε_excl  ε = 7.9136e-04  clip 0.0000%   z = +5.84 ± 0.30  (πρόβλεψη +5.29, απόκλιση +1.8σ)   ανιχνεύθηκε: 9/10
-      2·ε_excl  ε = 1.5827e-03  clip 0.0000%   z = +10.90 ± 0.35  (πρόβλεψη +10.57, απόκλιση +0.9σ)   ανιχνεύθηκε: 10/10
+tau = 3000   eps_excl (interpolated) = 7.9136e-04   Q = 5316.3
+       eps = 0  eps = 0.0000e+00  clip 0.0000%   z = -0.35 +/- 0.35  (predicted +0.00, deviation -1.0 sigma)   detected: 0/10
+    eps_excl/2  eps = 3.9568e-04  clip 0.0000%   z = +3.21 +/- 0.45  (predicted +2.64, deviation +1.3 sigma)   detected: 1/10
+      eps_excl  eps = 7.9136e-04  clip 0.0000%   z = +5.84 +/- 0.30  (predicted +5.29, deviation +1.8 sigma)   detected: 9/10
+    2*eps_excl  eps = 1.5827e-03  clip 0.0000%   z = +10.90 +/- 0.35  (predicted +10.57, deviation +0.9 sigma)   detected: 10/10
 
 ==============================================================================
-ΕΤΥΜΗΓΟΡΙΑ
+VERDICT
 ==============================================================================
-  βαθμονόμηση: μέγιστη απόκλιση του z από την πρόβλεψη 3.5σ  -> ΟΧΙ
-  2·ε_excl -> ανιχνεύεται ΠΑΝΤΑ: ΝΑΙ
-  ε = 0    -> ΔΕΝ ανιχνεύεται ΠΟΤΕ: ΝΑΙ
-    (ισχύς στο ίδιο το ε_excl, τ=3: 10/10 — αναμένεται ~50-70%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, τ=30: 9/10 — αναμένεται ~50-70%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, τ=300: 9/10 — αναμένεται ~50-70%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, τ=3000: 9/10 — αναμένεται ~50-70%, ΔΕΝ είναι κριτήριο)
-  Ο ΧΑΡΤΗΣ ΕΠΑΛΗΘΕΥΕΤΑΙ: ΟΧΙ
+  calibration: largest deviation of z from the prediction 3.5 sigma  -> NO
+  2*eps_excl -> ALWAYS detected: YES
+  eps = 0    -> NEVER detected: YES
+    (power at the bound itself, tau=3: 10/10 -- ~50-70% expected, NOT a criterion)
+    (power at the bound itself, tau=30: 9/10 -- ~50-70% expected, NOT a criterion)
+    (power at the bound itself, tau=300: 9/10 -- ~50-70% expected, NOT a criterion)
+    (power at the bound itself, tau=3000: 9/10 -- ~50-70% expected, NOT a criterion)
+  THE MAP IS VERIFIED: NO
 
-Αποθηκεύτηκε: meros3_verify.json
+Saved: meros3_verify.json

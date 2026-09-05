@@ -1,29 +1,29 @@
---- γύρος 28293 ---
-    OA vs SB: μέγ. +8.49σ @ lag 28   πάνω από null max: 1
-    OB vs SA: μέγ. +5.18σ @ lag 14   πάνω από null max: 0
-    J(0) = +2,218 (+14.35σ)   k≠0 με J>0: 0
---- γύρος 28294 ---
-    OA vs SB: μέγ. +3.53σ @ lag 21   πάνω από null max: 0
-    OB vs SA: μέγ. +3.04σ @ lag -50   πάνω από null max: 0
-    J(0) = +1,870 (+12.13σ)   k≠0 με J>0: 0
---- γύρος 28295 ---
-    OA vs SB: μέγ. +2.18σ @ lag 13   πάνω από null max: 0
-    OB vs SA: μέγ. +5.71σ @ lag -36   πάνω από null max: 1
-    J(0) = +2,050 (+13.26σ)   k≠0 με J>0: 0
---- γύρος 28296 ---
-    OA vs SB: μέγ. +2.59σ @ lag 41   πάνω από null max: 0
-    OB vs SA: μέγ. +6.47σ @ lag 49   πάνω από null max: 0
-    J(0) = +2,184 (+14.20σ)   k≠0 με J>0: 0
---- γύρος 28297 ---
-    OA vs SB: μέγ. +4.24σ @ lag -6   πάνω από null max: 0
-    OB vs SA: μέγ. +5.52σ @ lag 44   πάνω από null max: 0
-    J(0) = +1,816 (+11.72σ)   k≠0 με J>0: 0
+--- round 28293 ---
+    OA vs SB: max +8.49 sig @ lag 28   above the null max: 1
+    OB vs SA: max +5.18 sig @ lag 14   above the null max: 0
+    J(0) = +2,218 (+14.35 sig)   k!=0 with J>0: 0
+--- round 28294 ---
+    OA vs SB: max +3.53 sig @ lag 21   above the null max: 0
+    OB vs SA: max +3.04 sig @ lag -50   above the null max: 0
+    J(0) = +1,870 (+12.13 sig)   k!=0 with J>0: 0
+--- round 28295 ---
+    OA vs SB: max +2.18 sig @ lag 13   above the null max: 0
+    OB vs SA: max +5.71 sig @ lag -36   above the null max: 1
+    J(0) = +2,050 (+13.26 sig)   k!=0 with J>0: 0
+--- round 28296 ---
+    OA vs SB: max +2.59 sig @ lag 41   above the null max: 0
+    OB vs SA: max +6.47 sig @ lag 49   above the null max: 0
+    J(0) = +2,184 (+14.20 sig)   k!=0 with J>0: 0
+--- round 28297 ---
+    OA vs SB: max +4.24 sig @ lag -6   above the null max: 0
+    OB vs SA: max +5.52 sig @ lag 44   above the null max: 0
+    J(0) = +1,816 (+11.72 sig)   k!=0 with J>0: 0
 
 ==============================================================================
-ΣΥΝΟΨΗ ΣΤΑΘΕΡΟΤΗΤΑΣ
+STABILITY SUMMARY
 ==============================================================================
-  γύρος |           OA vs SB |           OB vs SA |       J(0)      J/σ
-        |     μέγ.σ     @lag |     μέγ.σ     @lag | 
+  round |           OA vs SB |           OB vs SA |       J(0)    J/sig
+        |   max sig     @lag |   max sig     @lag | 
 ------------------------------------------------------------------------------
   28293 |     +8.49       28 |     +5.18       14 |     +2,218   +14.35
   28294 |     +3.53       21 |     +3.04      -50 |     +1,870   +12.13
@@ -31,13 +31,13 @@
   28296 |     +2.59       41 |     +6.47       49 |     +2,184   +14.20
   28297 |     +4.24       -6 |     +5.52       44 |     +1,816   +11.72
 
-ΕΠΑΝΑΛΑΜΒΑΝΟΜΕΝΑ LAG;
-  OA vs SB: κορυφές στα lag [28, 21, 13, 41, -6]
-     -> 5 διαφορετικά lag σε 5 παλμούς: ΜΕΤΑΚΙΝΕΙΤΑΙ = τυχαίο
-  OB vs SA: κορυφές στα lag [14, -50, -36, 49, 44]
-     -> 5 διαφορετικά lag σε 5 παλμούς: ΜΕΤΑΚΙΝΕΙΤΑΙ = τυχαίο
+DO THE LAGS REPEAT?
+  OA vs SB: peaks at lags [28, 21, 13, 41, -6]
+     -> 5 distinct lags across 5 pulses: IT MOVES = random
+  OB vs SA: peaks at lags [14, -50, -36, 49, 44]
+     -> 5 distinct lags across 5 pulses: IT MOVES = random
 
-  σύνολο lag πάνω από null max (5 παλμοί × 2 ζεύγη × 111): 2
-  σύνολο k≠0 με J>0 (5 παλμοί × 106): 0
+  total lags above the null max (5 pulses x 2 pairs x 111): 2
+  total k!=0 with J>0 (5 pulses x 106): 0
 
-Αποθηκεύτηκε: stability_results.json
+Saved: stability_results.json

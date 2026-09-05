@@ -1,15 +1,15 @@
 """
-ΑΝΩ ΟΡΙΟ σε παραβίαση measurement independence.
+UPPER BOUND on a violation of measurement independence.
 
-Μέθοδος: ένεση τεχνητής συσχέτισης αποτελέσματος–ΜΕΛΛΟΝΤΙΚΗΣ ρύθμισης.
-Με πιθανότητα ε, το OA[i] αντιγράφει το SB[i+k] (ως 0/1). Σαρώνουμε το ε
-και βρίσκουμε το μικρότερο που ανιχνεύεται πάνω από το null max.
+Method: inject an artificial outcome-to-FUTURE-setting correlation. With
+probability eps, OA[i] copies SB[i+k] (as 0/1). We scan eps and find the
+smallest value detected above the null max.
 
-Αποτέλεσμα: «αποκλείουμε παραβίαση measurement independence πάνω από ε_min».
+Result: "we exclude a violation of measurement independence above eps_min".
 
-ΠΡΟΣΟΧΗ: η ένεση αλλάζει το περιθώριο του OA (από 0,69% προς 50% κατά ε),
-οπότε το null ΞΑΝΑΥΠΟΛΟΓΙΖΕΤΑΙ για κάθε ε. Αλλιώς θα μετρούσαμε τη
-μετατόπιση του περιθωρίου, όχι τη συσχέτιση.
+NOTE: the injection changes the margin of OA (from 0.69% towards 50% as eps
+grows), so the null is RECOMPUTED for every eps. Otherwise we would be
+measuring the shift of the margin, not the correlation.
 """
 import argparse, json
 import numpy as np
@@ -19,7 +19,7 @@ N_NULL = 200
 
 
 def inject(OA, SB, k, eps, rng):
-    """Με πιθανότητα eps: OA[i] <- (SB[i+k]==2). Επιστρέφει ευθυγραμμισμένα o,s."""
+    """With probability eps: OA[i] <- (SB[i+k]==2). Returns aligned o,s."""
     o, s = align(OA, SB, k)
     o = o.copy()
     hit = rng.random(len(o)) < eps
@@ -53,41 +53,41 @@ def main():
 
     d = np.load(a.path)
     OA, SB = d['OA'], d['SB']
-    print(f"Trials: {len(OA):,}   ρυθμός click OA: {OA.mean()*100:.4f}%")
-    print(f"null ανά σημείο: {a.nulls} ανακατέματα\n")
+    print(f"Trials: {len(OA):,}   OA click rate: {OA.mean()*100:.4f}%")
+    print(f"null per point: {a.nulls} shuffles\n")
 
     results = {}
     for k in (1, 10, 100):
         print("=" * 74)
-        print(f"k = {k}   (OA[i] αντιγράφει SB[i+{k}] με πιθανότητα ε)")
+        print(f"k = {k}   (OA[i] copies SB[i+{k}] with probability eps)")
         print("=" * 74)
-        print(f"{'ε':>10} {'MI':>12} {'null max':>12} {'σ':>9} {'ρυθμός OA':>10} {'ανιχν.':>8}")
+        print(f"{'eps':>10} {'MI':>12} {'null max':>12} {'sig':>9} {'OA rate':>10} {'detect':>8}")
         rows = []
-        # χονδρική σάρωση
+        # coarse scan
         grid = [1e-6, 3e-6, 1e-5, 3e-5, 1e-4, 3e-4, 1e-3]
         first = None
         for eps in grid:
             m, mu, mx, sd, ok, rate = detect(OA, SB, k, eps, a.nulls, 1000 + k)
             sig = (m - mu) / sd
             print(f"{eps:>10.1e} {m:12.4e} {mx:12.4e} {sig:>+9.1f} "
-                  f"{rate*100:>9.4f}% {('ΝΑΙ' if ok else '-'):>8}")
+                  f"{rate*100:>9.4f}% {('YES' if ok else '-'):>8}")
             rows.append({"eps": eps, "mi": float(m), "null_max": float(mx),
                          "sigma": float(sig), "detected": ok, "oa_rate": rate})
             if ok and first is None:
                 first = eps
                 break
 
-        # εκλέπτυνση με διχοτόμηση ανάμεσα στο τελευταίο «όχι» και το πρώτο «ναι»
+        # refine by bisection between the last "no" and the first "yes"
         if first is not None:
             lo = max([r["eps"] for r in rows if not r["detected"]], default=first / 10)
             hi = first
-            print(f"\n  εκλέπτυνση ανάμεσα σε {lo:.2e} και {hi:.2e}:")
+            print(f"\n  refining between {lo:.2e} and {hi:.2e}:")
             for _ in range(5):
-                mid = (lo * hi) ** 0.5          # γεωμετρικό μέσο
+                mid = (lo * hi) ** 0.5          # geometric mean
                 m, mu, mx, sd, ok, rate = detect(OA, SB, k, mid, a.nulls, 2000 + k)
                 sig = (m - mu) / sd
                 print(f"{mid:>10.2e} {m:12.4e} {mx:12.4e} {sig:>+9.1f} "
-                      f"{rate*100:>9.4f}% {('ΝΑΙ' if ok else '-'):>8}")
+                      f"{rate*100:>9.4f}% {('YES' if ok else '-'):>8}")
                 rows.append({"eps": mid, "mi": float(m), "null_max": float(mx),
                              "sigma": float(sig), "detected": ok, "oa_rate": rate})
                 if ok:
@@ -95,26 +95,26 @@ def main():
                 else:
                     lo = mid
             eps_min = hi
-            print(f"\n  ε_min ≈ {eps_min:.2e}   (ανάμεσα σε {lo:.2e} και {hi:.2e})")
+            print(f"\n  eps_min ~ {eps_min:.2e}   (between {lo:.2e} and {hi:.2e})")
         else:
             eps_min = None
-            print(f"\n  ΚΑΜΙΑ ανίχνευση μέχρι ε = {grid[-1]:.1e}")
+            print(f"\n  NO detection up to eps = {grid[-1]:.1e}")
         results[f"k={k}"] = {"rows": rows, "eps_min": eps_min}
         print()
 
     print("=" * 74)
-    print("ΣΥΝΟΨΗ — ΑΝΩ ΟΡΙΟ")
+    print("SUMMARY - THE UPPER BOUND")
     print("=" * 74)
     for k in (1, 10, 100):
         e = results[f"k={k}"]["eps_min"]
-        s = f"{e:.2e}" if e else "δεν βρέθηκε"
-        print(f"  k={k:<4} ε_min = {s}")
-    print("\nΕρμηνεία: αποκλείεται παραβίαση measurement independence με ένταση")
-    print("πάνω από το ε_min, στο αντίστοιχο lag.")
+        s = f"{e:.2e}" if e else "not found"
+        print(f"  k={k:<4} eps_min = {s}")
+    print("\nReading: a violation of measurement independence stronger than")
+    print("eps_min is excluded, at the corresponding lag.")
 
     with open("lag_limit_results.json", "w") as f:
         json.dump(results, f, indent=2)
-    print("\nΑποθηκεύτηκε: lag_limit_results.json")
+    print("\nSaved: lag_limit_results.json")
 
 
 if __name__ == "__main__":

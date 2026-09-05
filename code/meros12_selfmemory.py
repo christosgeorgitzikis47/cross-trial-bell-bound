@@ -1,18 +1,18 @@
 """
-ΜΕΡΟΣ 12 — SINGLE-PARTY MEMORY: I(O_A(i) ; S_A(i+k)) ΚΑΙ I(O_B(i) ; S_B(i+k))
+PART 12 - SINGLE-PARTY MEMORY: I(O_A(i) ; S_A(i+k)) AND I(O_B(i) ; S_B(i+k))
 
-Μέχρι τώρα το I(O ; S) σε lag != 0 μετριόταν μόνο ΔΙΑΣΤΑΥΡΟΥΜΕΝΑ
-(O_A vs S_B). Η μνήμη της ΙΔΙΑΣ συσκευής — το αποτέλεσμα της Alice έναντι
-της ρύθμισης της Alice σε άλλο trial — είχε ελεγχθεί μόνο ως deadtime
-(|k| = 1) και μόνο στον 28297. Εδώ: πλήρης σάρωση 20.001 lag, και στα δύο
-same-party κανάλια, ΣΕ ΟΛΟΥΣ τους δέκα παλμούς.
+So far I(O ; S) at lag != 0 was measured only ACROSS the wings (O_A vs S_B).
+The memory of the SAME device -- Alice's outcome against Alice's setting at
+another trial -- had been checked only as deadtime (|k| = 1) and only on
+round 28297. Here: a full scan of 20,001 lags, in both same-party channels,
+on ALL ten pulses.
 
-ΜΕΘΟΔΟΛΟΓΙΑ: ίδια με το §6.1 — G = 2 n ln2 MI ~ χ²(1), κατώφλι το ίδιο
-z_thr = 4,848 (Bonferroni m = 40.002) από το meros5_asym.json.
+METHOD: as in section 6.1 -- G = 2 n ln2 MI ~ chi^2(1), with the same
+threshold z_thr = 4.848 (Bonferroni m = 40,002) taken from meros5_asym.json.
 
-k = 0 ΕΙΝΑΙ ΘΕΤΙΚΟΣ ΕΛΕΓΧΟΣ: εκεί ζει η συνηθισμένη κβαντομηχανική
-(92,2σ στον 28297) και εξαιρείται από την καταμέτρηση. Ό,τι περάσει το
-κατώφλι σε k != 0 το γράφουμε ΠΡΩΤΟ και ΣΤΑΜΑΤΑΜΕ.
+k = 0 IS THE POSITIVE CONTROL: ordinary quantum mechanics lives there
+(92.2 sigma on round 28297) and it is excluded from the count. Anything that
+crosses the threshold at k != 0 is written FIRST and we STOP.
 """
 import json, math, os
 import numpy as np
@@ -33,11 +33,11 @@ def main():
     g_thr = z_thr ** 2
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 12 — SINGLE-PARTY MEMORY ΣΕ ΟΛΟΥΣ ΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ")
+    print("PART 12 - SINGLE-PARTY MEMORY ON ALL TEN PULSES")
     print("=" * 78)
-    print(f"  |k| <= {K:,}   κατώφλι z = {z_thr:.4f}  (G = {g_thr:.3f})\n")
-    print(f"  {'γύρος':>7} {'κανάλι':<11} {'k=0 √G':>8} "
-          f"{'max MI (k!=0)':>14} {'σε lag':>8} {'√G':>6} {'>κατώφλι':>9}")
+    print(f"  |k| <= {K:,}   threshold z = {z_thr:.4f}  (G = {g_thr:.3f})\n")
+    print(f"  {'round':>7} {'channel':<11} {'k=0 sqG':>8} "
+          f"{'max MI (k!=0)':>14} {'at lag':>8} {'sqG':>6} {'>thresh':>9}")
 
     rows = []
     n_bad_total = 0
@@ -55,11 +55,11 @@ def main():
             s1 = (s == 1).astype(np.int8)
             ks, n11, A1, B1, nk, ferr = scan(o, s1, K)
             if ferr > 0.1:
-                raise SystemExit(f"FFT σφάλμα στρογγυλοποίησης {ferr}")
+                raise SystemExit(f"FFT rounding error {ferr}")
             MI, _ = mi_and_delta(n11, A1, B1, nk)
             G = 2 * nk * LN2 * MI
 
-            i0 = K                       # k = 0: θετικός έλεγχος
+            i0 = K                       # k = 0: the positive control
             nz = np.ones(len(ks), bool); nz[i0] = False
             above = (G > g_thr) & nz
             n_above = int(above.sum())
@@ -71,7 +71,7 @@ def main():
             if n_above:
                 hits = [(int(ks[i]), float(MI[i]), float(math.sqrt(G[i])))
                         for i in np.where(above)[0]]
-                print(f"    *** ΠΑΝΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ: {hits} ***")
+                print(f"    *** ABOVE THE THRESHOLD: {hits} ***")
             rows.append(dict(
                 round=rnd, pair=label, n=n, mi_threshold=float(mi_thr),
                 k0_mi=float(MI[i0]), k0_G=float(G[i0]),
@@ -84,13 +84,13 @@ def main():
                 fft_err=float(ferr)))
         del SA, SB, OA, OB
 
-    n_tests = len(rows) * (2 * K)        # k != 0 ανά κανάλι
-    print(f"\n  ΣΥΝΟΛΟ πάνω από το κατώφλι: {n_bad_total} / {n_tests:,} "
-          f"({len(rows)} κανάλια × {2*K:,} μη μηδενικά lag)")
+    n_tests = len(rows) * (2 * K)        # k != 0 per channel
+    print(f"\n  TOTAL above the threshold: {n_bad_total} / {n_tests:,} "
+          f"({len(rows)} channels x {2*K:,} nonzero lags)")
     mx = max(r["max_sqrtG_nonzero"] for r in rows)
-    print(f"  μέγιστο √G σε k != 0 σε όλο το σύνολο: {mx:.2f}σ")
+    print(f"  largest sqrt(G) at k != 0 anywhere: {mx:.2f} sigma")
     if n_bad_total:
-        print("\n  *** ΣΤΑΜΑΤΑ: βρέθηκε single-party μνήμη ***")
+        print("\n  *** STOP: single-party memory found ***")
 
     out = {"z_thr": z_thr, "g_thr": g_thr, "K": K,
            "n_tests_nonzero": n_tests, "n_above_total": n_bad_total,
@@ -98,7 +98,7 @@ def main():
            "clean": bool(n_bad_total == 0), "rows": rows}
     json.dump(out, open(os.path.join(HERE, "meros12_selfmemory.json"), "w"),
               indent=2)
-    print("\nΑποθηκεύτηκε: meros12_selfmemory.json")
+    print("\nSaved: meros12_selfmemory.json")
 
 
 if __name__ == "__main__":

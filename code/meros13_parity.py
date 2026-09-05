@@ -1,22 +1,23 @@
 """
-ΜΕΡΟΣ 13 — ΣΥΝΑΡΤΗΣΟΕΙΔΗ ΠΟΛΛΩΝ ΡΥΘΜΙΣΕΩΝ: ΤΟ ΤΕΣΤ ΙΣΟΤΙΜΙΑΣ
+PART 13 - FUNCTIONALS OF SEVERAL SETTINGS: THE PARITY TEST
 
-Κενό εύρους που εντόπισε ο έλεγχος: όλα τα τεστ του paper είναι περιθωριακά
-ανά lag — εξάρτηση του O από ΣΥΝΑΡΤΗΣΟΕΙΔΗ πολλών ρυθμίσεων με μηδενικά
-πρώτα περιθώρια (π.χ. ισοτιμία S(i+k)·S(i+k+1)) θα ήταν αόρατη.
+A gap in coverage the audit identified: every test in the paper is marginal
+per lag, so a dependence of O on a FUNCTIONAL of several settings with
+vanishing first marginals (for example the parity S(i+k)*S(i+k+1)) would be
+invisible.
 
-Εδώ: η ακολουθία-γινόμενο γειτονικών ρυθμίσεων είναι κι αυτή δυαδική,
-P(i) = [S(i) == S(i+1)], άρα η ίδια FFT μηχανή σαρώνει
-    I(O_A(i) ; P_B(i+k))  και  I(O_B(i) ; P_A(i+k))
-για κάθε |k| <= 10.000, ΚΑΙ στους δέκα παλμούς.
+Here: the product sequence of adjacent settings is itself binary,
+P(i) = [S(i) == S(i+1)], so the same FFT machinery scans
+    I(O_A(i) ; P_B(i+k))  and  I(O_B(i) ; P_A(i+k))
+for every |k| <= 10,000, on ALL ten pulses.
 
-ΔΕΝ υπάρχει θετικός έλεγχος στο k=0: η ισοτιμία είναι ανεξάρτητη από το
-S(i) μεμονωμένα (το S(i+1) είναι ομοιόμορφο και ανεξάρτητο), οπότε ΟΛΑ τα
-lag, και το 0, αναμένονται μηδενικά. Η μηχανή έχει ήδη επαληθευτεί στο
-ΜΕΡΟΣ 12· εδώ προστίθεται μικρή βαθμονόμηση χ²(1) με ανακατέματα.
+There is NO positive control at k=0: the parity is independent of S(i) on its
+own (S(i+1) is uniform and independent), so ALL lags, including 0, are
+expected to be null. The machinery was already verified in PART 12; a small
+chi^2(1) calibration by shuffling is added here.
 
-Κατώφλι: το ίδιο z = 4,848 (Bonferroni m = 40.002, δανεικό όπως παντού).
-Ό,τι περάσει το κατώφλι γράφεται ΠΡΩΤΟ και ΣΤΑΜΑΤΑΜΕ.
+Threshold: the same z = 4.848 (Bonferroni m = 40,002, borrowed as everywhere).
+Anything crossing the threshold is written FIRST and we STOP.
 """
 import json, math, os
 import numpy as np
@@ -33,7 +34,7 @@ ROUNDS = [1000, 15000, 22000, 23000, 26000, 28293, 28294, 28295, 28296, 28297]
 
 
 def parity(S):
-    """P(i) = 1 αν S(i) == S(i+1), αλλιώς 0. Μήκος n-1."""
+    """P(i) = 1 if S(i) == S(i+1), else 0. Length n-1."""
     return (S[:-1] == S[1:]).astype(np.int8)
 
 
@@ -43,12 +44,12 @@ def main():
     g_thr = z_thr ** 2
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 13 — I(O ; ΙΣΟΤΙΜΙΑ ΡΥΘΜΙΣΕΩΝ) ΣΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ")
+    print("PART 13 - I(O ; SETTING PARITY) ON THE TEN PULSES")
     print("=" * 78)
-    print(f"  |k| <= {K:,}   κατώφλι z = {z_thr:.4f}  (G = {g_thr:.3f})")
-    print("  κανένα lag δεν είναι θετικός έλεγχος — αναμένεται παντού μηδέν\n")
+    print(f"  |k| <= {K:,}   threshold z = {z_thr:.4f}  (G = {g_thr:.3f})")
+    print("  no lag is a positive control - zero is expected everywhere\n")
 
-    # ---- βαθμονόμηση χ²(1) της ισοτιμίας σε έναν παλμό ----
+    # ---- chi^2(1) calibration of the parity on one pulse ----
     data, _ = read_file(os.path.join(DATA, "curby_round_28297.bin"))
     OA0 = (data['OA'] > 0).astype(np.int8)[:-1]
     PB0 = parity(data['SB'].astype(np.int8))
@@ -60,14 +61,14 @@ def main():
     for i in range(200):
         rng.shuffle(sh)
         g[i] = 2 * n0 * LN2 * mi(OA0, sh)
-    print(f"  βαθμονόμηση: μέσος G σε 200 ανακατέματα = {g.mean():.3f} "
-          f"(θεωρία 1.000), max = {g.max():.2f}")
+    print(f"  calibration: mean G over 200 shuffles = {g.mean():.3f} "
+          f"(theory 1.000), max = {g.max():.2f}")
     if not 0.8 < g.mean() < 1.2:
-        raise SystemExit("Η βαθμονόμηση χ²(1) απέτυχε για την ισοτιμία.")
+        raise SystemExit("The chi^2(1) calibration failed for the parity.")
     del OA0, PB0, sh
 
-    print(f"\n  {'γύρος':>7} {'κανάλι':<13} {'P(ισοτιμία)':>11} "
-          f"{'max MI':>12} {'σε lag':>8} {'√G':>6} {'>κατώφλι':>9}")
+    print(f"\n  {'round':>7} {'channel':<13} {'P(parity)':>11} "
+          f"{'max MI':>12} {'at lag':>8} {'sqG':>6} {'>thresh':>9}")
 
     rows = []
     n_bad = 0
@@ -85,7 +86,7 @@ def main():
                             ("OB vs par(SA)", OB[:-1], parity(SA))]:
             ks, n11, A1, B1, nk, ferr = scan(o, s, K)
             if ferr > 0.1:
-                raise SystemExit(f"FFT σφάλμα στρογγυλοποίησης {ferr}")
+                raise SystemExit(f"FFT rounding error {ferr}")
             MI, _ = mi_and_delta(n11, A1, B1, nk)
             G = 2 * nk * LN2 * MI
             above = G > g_thr
@@ -98,7 +99,7 @@ def main():
             if n_above:
                 hits = [(int(ks[i]), float(MI[i]), float(math.sqrt(G[i])))
                         for i in np.where(above)[0]]
-                print(f"    *** ΠΑΝΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ: {hits} ***")
+                print(f"    *** ABOVE THE THRESHOLD: {hits} ***")
             rows.append(dict(round=rnd, pair=label, n=n,
                              parity_rate=float(s.mean()),
                              mi_threshold=float(mi_thr),
@@ -112,11 +113,11 @@ def main():
 
     n_tests = len(rows) * (2 * K + 1)
     mx = max(r["max_sqrtG"] for r in rows)
-    print(f"\n  ΣΥΝΟΛΟ πάνω από το κατώφλι: {n_bad} / {n_tests:,} "
-          f"({len(rows)} κανάλια × {2*K+1:,} lag)")
-    print(f"  μέγιστο √G σε όλο το σύνολο: {mx:.2f}σ")
+    print(f"\n  TOTAL above the threshold: {n_bad} / {n_tests:,} "
+          f"({len(rows)} channels x {2*K+1:,} lags)")
+    print(f"  largest sqrt(G) anywhere: {mx:.2f} sigma")
     if n_bad:
-        print("\n  *** ΣΤΑΜΑΤΑ: βρέθηκε εξάρτηση από ισοτιμία ***")
+        print("\n  *** STOP: a dependence on the parity was found ***")
 
     out = {"z_thr": z_thr, "g_thr": g_thr, "K": K,
            "calibration_mean_G": float(g.mean()),
@@ -124,7 +125,7 @@ def main():
            "max_sqrtG_overall": mx, "clean": bool(n_bad == 0), "rows": rows}
     json.dump(out, open(os.path.join(HERE, "meros13_parity.json"), "w"),
               indent=2)
-    print("\nΑποθηκεύτηκε: meros13_parity.json")
+    print("\nSaved: meros13_parity.json")
 
 
 if __name__ == "__main__":

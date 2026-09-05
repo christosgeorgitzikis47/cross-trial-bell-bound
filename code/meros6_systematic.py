@@ -1,27 +1,29 @@
 """
-ΜΕΡΟΣ 6.2 — ΤΟ ΣΥΣΤΗΜΑΤΙΚΟ +3…7% (ένσταση peer review #2)
+PART 6.2 - WHERE THE +3 TO 7% SYSTEMATIC COMES FROM (peer review objection #2)
 
-Η ΥΠΟΨΙΑ (από το review): το σ_T του χάρτη βγαίνει από ανακατέματα των
-ΠΡΑΓΜΑΤΙΚΩΝ δεδομένων, που έχουν αυτοσυσχέτιση αποτελεσμάτων (deadtime στο
-lag ±1). Τα ΕΝΕΜΕΝΑ αποτελέσματα είναι φρέσκο Bernoulli, χωρίς αυτή την
-αυτοσυσχέτιση. Λιγότερος θόρυβος -> μεγαλύτερο z.
+THE SUSPICION (from the review): the sigma_T of the map comes from shuffles of
+the REAL data, which carry outcome autocorrelation (deadtime at lag +/-1). The
+INJECTED outcomes are fresh Bernoulli, without that autocorrelation. Less
+noise -> larger z.
 
-ΓΙΑΤΙ ΕΙΝΑΙ ΣΩΣΤΟΣ Ο ΜΗΧΑΝΙΣΜΟΣ (αλγεβρικά, πριν τη μέτρηση)
-    Var(T) = ΣΣ W(k)W(k') Cov(δ̂(k), δ̂(k')).
-    Με τυχαία μετάθεση των ρυθμίσεων, Cov(s_a, s_b) = p(1−p) μόνο για a = b.
-    Ο όρος a = b απαιτεί i+k = j+k', δηλαδή j = i + (k−k'), και δίνει
-        Cov(δ̂(k), δ̂(k')) ∝ Σ_i O_i·O_{i+(k−k')}
-    = ακριβώς η ΑΥΤΟΣΥΣΧΕΤΙΣΗ ΤΩΝ ΑΠΟΤΕΛΕΣΜΑΤΩΝ στο lag k−k'.
-    Το αναλυτικό σ_T υποθέτει ότι αυτοί οι όροι είναι μηδέν. Άρα:
-    αυτοσυσχέτιση στο O -> εμπειρικό σ_T > αναλυτικό. Ακριβώς ό,τι βλέπουμε.
+WHY THE MECHANISM IS THE RIGHT ONE (algebraically, before measuring)
+    Var(T) = sum sum W(k)W(k') Cov(delta-hat(k), delta-hat(k')).
+    Under a random permutation of the settings, Cov(s_a, s_b) = p(1-p) only
+    for a = b. The a = b term requires i+k = j+k', that is j = i + (k-k'),
+    and gives
+        Cov(delta-hat(k), delta-hat(k')) ~ sum_i O_i*O_{i+(k-k')}
+    = exactly the AUTOCORRELATION OF THE OUTCOMES at lag k-k'.
+    The analytic sigma_T assumes those terms vanish. Therefore:
+    autocorrelation in O -> empirical sigma_T > analytic. Exactly what we see.
 
-ΤΙ ΜΕΤΡΙΕΤΑΙ ΕΔΩ
-  (α) αυτοσυσχέτιση του ΠΡΑΓΜΑΤΙΚΟΥ OA/OB σε lag 1…5,
-  (β) η ίδια στα ΕΝΕΜΕΝΑ (φρέσκο Bernoulli),
-  (γ) σ_T εμπειρικό/αναλυτικό με ανακατέματα των ΕΝΕΜΕΝΩΝ δεδομένων
-      — αν ο μηχανισμός είναι σωστός, εδώ ο λόγος πρέπει να πέσει στο 1,
-        ενώ στα πραγματικά είναι > 1,
-  (δ) η αποσύνθεση του συστηματικού: z_μετρ/z_προβλ έναντι σ_T(χάρτη)/σ_T(αναλυτικό).
+WHAT IS MEASURED HERE
+  (a) autocorrelation of the REAL OA/OB at lags 1 to 5,
+  (b) the same on the INJECTED data (fresh Bernoulli),
+  (c) sigma_T empirical/analytic from shuffles of the INJECTED data
+      -- if the mechanism is right, the ratio should fall to 1 here,
+         while on the real data it is > 1,
+  (d) the decomposition of the systematic: z_meas/z_pred against
+      sigma_T(map)/sigma_T(analytic).
 """
 import argparse, json, math, os
 import numpy as np
@@ -35,7 +37,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def autocorr_binary(x, lags):
-    """Pearson r του δυαδικού x σε δοσμένα lag, με σφάλμα ~1/√n."""
+    """Pearson r of the binary x at given lags, with error ~1/sqrt(n)."""
     xf = x.astype(np.float64)
     p = xf.mean(); v = p * (1 - p)
     out = {}
@@ -46,7 +48,7 @@ def autocorr_binary(x, lags):
 
 
 def sigma_T_ratio(O, s1, Wmat, K, shuffles, rng):
-    """εμπειρικό/αναλυτικό σ_T για δοσμένα φίλτρα, με ανακατέματα ρυθμίσεων."""
+    """empirical/analytic sigma_T for given filters, by shuffling settings."""
     _, n11, A1, B1, nk, _ = scan(O, s1, K)
     sd = sigma_delta(A1, B1, nk)
     sT_ana = np.sqrt(Wmat ** 2 @ sd ** 2)
@@ -87,22 +89,22 @@ def main():
     kax = np.arange(-a.K, a.K + 1, dtype=np.float64)
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 6.2 — ΑΠΟ ΠΟΥ ΕΡΧΕΤΑΙ ΤΟ ΣΥΣΤΗΜΑΤΙΚΟ")
+    print("PART 6.2 - WHERE THE SYSTEMATIC COMES FROM")
     print("=" * 78)
 
-    # ---------- (α) αυτοσυσχέτιση των πραγματικών αποτελεσμάτων ----------
+    # ---------- (a) autocorrelation of the real outcomes ----------
     lags = [1, 2, 3, 4, 5]
     acA, se = autocorr_binary(OA, lags)
     acB, _ = autocorr_binary(OB, lags)
-    print(f"\n(α) Αυτοσυσχέτιση ΠΡΑΓΜΑΤΙΚΩΝ αποτελεσμάτων (σφάλμα ±{se:.2e}):")
-    print(f"    {'lag':>5} {'OA':>12} {'σ':>7} {'OB':>12} {'σ':>7}")
+    print(f"\n(a) Autocorrelation of the REAL outcomes (error +/-{se:.2e}):")
+    print(f"    {'lag':>5} {'OA':>12} {'sig':>7} {'OB':>12} {'sig':>7}")
     for L in lags:
         print(f"    {L:>5} {acA[L]:>12.3e} {acA[L]/se:>7.1f} "
               f"{acB[L]:>12.3e} {acB[L]/se:>7.1f}")
     out = {"autocorr_real_OA": acA, "autocorr_real_OB": acB, "se_autocorr": se,
            "cases": {}}
 
-    # ---------- (β)+(γ) ανά περίπτωση ----------
+    # ---------- (b)+(c) per case ----------
     for case in a.cases:
         kn, tv = case.split(":")
         tau = float(tv)
@@ -111,7 +113,7 @@ def main():
         Wmat = kernel_W(kn, kax, tau)[None, :]
 
         print("\n" + "-" * 78)
-        print(f"ΠΕΡΙΠΤΩΣΗ {kn}, τ = {tau:g}   (ένεση στο ε_excl = {eps:.4e})")
+        print(f"CASE {kn}, tau = {tau:g}   (injection at eps_excl = {eps:.4e})")
         print("-" * 78)
 
         F, half = build_F_kernel(S, kn, tau, a.K)
@@ -120,21 +122,21 @@ def main():
         del F
 
         aci, _ = autocorr_binary(Oinj, lags)
-        print(f"(β) αυτοσυσχέτιση ΕΝΕΜΕΝΩΝ: " +
-              "  ".join(f"lag{L} {aci[L]:+.2e} ({aci[L]/se:+.1f}σ)"
+        print(f"(b) autocorrelation of the INJECTED: " +
+              "  ".join(f"lag{L} {aci[L]:+.2e} ({aci[L]/se:+.1f} sig)"
                         for L in lags))
 
-        print(f"(γ) σ_T με {a.shuffles} ανακατέματα…", flush=True)
+        print(f"(c) sigma_T from {a.shuffles} shuffles...", flush=True)
         e_r, a_r, ratio_real = sigma_T_ratio(OA, SB1, Wmat, a.K, a.shuffles, rng)
         e_i, a_i, ratio_inj = sigma_T_ratio(Oinj, SB1, Wmat, a.K, a.shuffles, rng)
-        print(f"    ΠΡΑΓΜΑΤΙΚΑ δεδομένα:  εμπειρικό/αναλυτικό = "
+        print(f"    REAL data:      empirical/analytic = "
               f"{ratio_real[0]:.4f}")
-        print(f"    ΕΝΕΜΕΝΑ δεδομένα:     εμπειρικό/αναλυτικό = "
+        print(f"    INJECTED data:  empirical/analytic = "
               f"{ratio_inj[0]:.4f}")
-        print(f"    (χάρτης, 400 ανακατέματα: "
+        print(f"    (the map, 400 shuffles: "
               f"{P[kn]['sigma_T_emp'][j]/P[kn]['sigma_T_ana'][j]:.4f})")
         se_ratio = 1.0 / math.sqrt(2 * (a.shuffles - 1))
-        print(f"    στατιστικό σφάλμα του λόγου: ±{se_ratio:.4f}")
+        print(f"    statistical error of the ratio: +/-{se_ratio:.4f}")
         out["cases"][case] = dict(
             tau=tau, kernel=kn, eps=eps,
             autocorr_injected={str(k): v for k, v in aci.items()},
@@ -143,12 +145,12 @@ def main():
             se_ratio=se_ratio)
         del Oinj
 
-    # ---------- (δ) αποσύνθεση του συστηματικού ----------
+    # ---------- (d) decomposition of the systematic ----------
     print("\n" + "=" * 78)
-    print("(δ) ΑΠΟΣΥΝΘΕΣΗ: z_μετρ/z_προβλ  έναντι  σ_T(χάρτη)/σ_T(αναλυτικό)")
+    print("(d) DECOMPOSITION: z_meas/z_pred  against  sT(map)/sT(analytic)")
     print("=" * 78)
-    print(f"  {'πυρήνας':<11}{'τ':>6}{'×ε':>4}{'z_μ/z_π':>10}"
-          f"{'σT_χαρτ/σT_αν':>15}{'υπόλοιπο':>10}{'sem':>8}")
+    print(f"  {'kernel':<11}{'tau':>6}{'xeps':>5}{'zm/zp':>10}"
+          f"{'sTmap/sTana':>14}{'residual':>10}{'sem':>8}")
     resid = []
     for p in ver["points"]:
         j = int(np.argmin(np.abs(taus - p["tau"])))
@@ -163,15 +165,15 @@ def main():
     v = np.array([x[0] for x in resid])
     w = np.array([x[1] for x in resid])
     sem_mean = float(np.sqrt((w ** 2).sum()) / len(w))
-    print(f"\n  μέσο υπόλοιπο μετά την αφαίρεση του σ_T: "
-          f"{v.mean():.4f} ± {sem_mean:.4f}  "
-          f"({100*(v.mean()-1):+.1f}% ± {100*sem_mean:.1f}%)")
-    print(f"  -> {'ΣΥΜΒΑΤΟ ΜΕ ΤΟ 1' if abs(v.mean()-1) < 2*sem_mean else 'ΟΧΙ συμβατό με το 1'}")
+    print(f"\n  mean residual after removing sigma_T: "
+          f"{v.mean():.4f} +/- {sem_mean:.4f}  "
+          f"({100*(v.mean()-1):+.1f}% +/- {100*sem_mean:.1f}%)")
+    print(f"  -> {'CONSISTENT WITH 1' if abs(v.mean()-1) < 2*sem_mean else 'NOT consistent with 1'}")
     out["decomposition"] = dict(residual_mean=float(v.mean()),
                                 residual_sem=sem_mean,
                                 explained_by_sigma_T=True)
     json.dump(out, open(os.path.join(HERE, a.out + ".json"), "w"), indent=2)
-    print(f"\nΑποθηκεύτηκε: {a.out}.json")
+    print(f"\nSaved: {a.out}.json")
 
 
 if __name__ == "__main__":

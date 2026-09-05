@@ -1,29 +1,29 @@
 """
-Το κοφτερό τεστ: συσχέτιση αποτελέσματος με ΜΕΛΛΟΝΤΙΚΗ ρύθμιση.
+The sharp test: correlation of an outcome with a FUTURE setting.
 
-Η υπόθεση: αν το μέλλον επηρεάζει το παρόν, το αποτέλεσμα στο trial i
-συσχετίζεται με τη ρύθμιση στο trial i+k για k > 0.
+The hypothesis: if the future influences the present, the outcome at trial i
+is correlated with the setting at trial i+k for k > 0.
 
-Το k=0 στο ζεύγος OA vs SA ΠΡΕΠΕΙ να ανάβει — αυτή είναι η κανονική
-κβαντομηχανική. Θετικός έλεγχος: αν δεν ανάβει, η φόρτωση είναι λάθος.
+k=0 in the pair OA vs SA MUST fire -- that is ordinary quantum mechanics. A
+positive control: if it does not fire, the loading is wrong.
 
-ΠΡΟΣΟΧΗ — DEADTIME: αναμένεται ψευδές σήμα στο lag ±1 από deadtime του
-ανιχνευτή (ένα click επηρεάζει την επόμενη χρονοθυρίδα). ΔΕΝ είναι
-ανακάλυψη. Ενδιαφέρον μόνο αν επιμένει σε |lag| >= 3.
+NOTE - DEADTIME: a spurious signal at lag +/-1 is expected from detector
+deadtime (a click affects the next time slot). It is NOT a discovery. It is
+interesting only if it persists at |lag| >= 3.
 
-Χρήση:  python3 lag_test.py curby_28297.npz
+Usage:  python3 lag_test.py curby_28297.npz
 """
 import argparse
 import numpy as np
 
 LAGS = [-1000, -100, -10, -3, -1, 0, 1, 3, 10, 100, 1000]
 N_SHUFFLE = 100
-NS = 3          # οι ρυθμίσεις παίρνουν τιμές {1,2} -> δείκτες 0..2
+NS = 3          # the settings take values {1,2} -> indices 0..2
 
 
 def mi(o, s, ns=NS):
-    """Αμοιβαία πληροφορία σε bits. bincount αντί για np.add.at (9x γρηγορότερο,
-    ταυτόσημο αποτέλεσμα)."""
+    """Mutual information in bits. bincount instead of np.add.at (9x faster,
+    identical result)."""
     c = np.bincount(o.astype(np.intp) * ns + s.astype(np.intp),
                     minlength=2 * ns).reshape(2, ns).astype(float)
     j = c / c.sum()
@@ -43,8 +43,8 @@ def align(outcome, setting, lag):
 
 
 def null_distribution(o, s, n_shuffle=N_SHUFFLE, seed=0):
-    """Ανακατεύουμε τις ΡΥΘΜΙΣΕΙΣ -> καταστρέφεται κάθε συσχέτιση, τα
-    περιθώρια μένουν ΑΚΡΙΒΩΣ ίδια. Το σωστό «τίποτα»."""
+    """We shuffle the SETTINGS -> every correlation is destroyed while the
+    margins stay EXACTLY the same. The right kind of nothing."""
     rng = np.random.default_rng(seed)
     sh = s.copy()
     vals = np.empty(n_shuffle)
@@ -62,16 +62,16 @@ def main():
 
     d = np.load(a.path)
     SA, SB, OA, OB = d['SA'], d['SB'], d['OA'], d['OB']
-    print(f"Trials: {len(SA):,}   ρυθμός click A={OA.mean()*100:.4f}% "
+    print(f"Trials: {len(SA):,}   click rate A={OA.mean()*100:.4f}% "
           f"B={OB.mean()*100:.4f}%\n")
 
-    # same_party=True -> lag 0 ΠΡΕΠΕΙ να ανάβει (κανονική κβαντομηχανική).
-    # same_party=False -> lag 0 ΔΕΝ πρέπει να ανάβει: αυτό είναι no-signalling,
-    # το αποτέλεσμα του ενός δεν εξαρτάται από τη ρύθμιση του ΑΛΛΟΥ.
-    pairs = [("OA vs SA  [ΘΕΤΙΚΟΣ ΕΛΕΓΧΟΣ]", OA, SA, True),
-             ("OA vs SB  [το πραγματικό ερώτημα]", OA, SB, False),
-             ("OB vs SA  [το πραγματικό ερώτημα]", OB, SA, False),
-             ("OB vs SB  [ΘΕΤΙΚΟΣ ΕΛΕΓΧΟΣ]", OB, SB, True)]
+    # same_party=True  -> lag 0 MUST fire (ordinary quantum mechanics).
+    # same_party=False -> lag 0 must NOT fire: that is no-signalling, one
+    # party's outcome does not depend on the OTHER party's setting.
+    pairs = [("OA vs SA  [POSITIVE CONTROL]", OA, SA, True),
+             ("OA vs SB  [the real question]", OA, SB, False),
+             ("OB vs SA  [the real question]", OB, SA, False),
+             ("OB vs SB  [POSITIVE CONTROL]", OB, SB, True)]
 
     results = {}
     for label, out, st, same_party in pairs:
@@ -79,7 +79,7 @@ def main():
         print(label)
         print("=" * 78)
         print(f"{'lag':>6} {'MI (bits)':>12} {'null mean':>12} {'null max':>12} "
-              f"{'σ πάνω':>9} {'σήμα?':>7}")
+              f"{'sig above':>9} {'signal?':>8}")
         print("-" * 66)
         rows = []
         for k in LAGS:
@@ -91,43 +91,43 @@ def main():
             hit = m > nd.max()
             note = ""
             if k == 0:
-                note = (" <- πρέπει ΝΑΙ" if same_party
-                        else " <- no-signalling: πρέπει '-'")
+                note = (" <- must be YES" if same_party
+                        else " <- no-signalling: must be '-'")
             elif abs(k) == 1 and hit:
                 note = " <- deadtime;"
             print(f"{k:>6} {m:12.4e} {nd.mean():12.4e} {nd.max():12.4e} "
-                  f"{sig:>+9.1f} {('ΝΑΙ' if hit else '-'):>7}{note}")
+                  f"{sig:>+9.1f} {('YES' if hit else '-'):>8}{note}")
             rows.append({"lag": k, "mi": m, "null_mean": float(nd.mean()),
                          "null_max": float(nd.max()), "null_sd": float(sd),
                          "sigma": float(sig), "hit": bool(hit)})
         results[label] = rows
         print()
 
-    # --- κρίση deadtime ---
+    # --- deadtime verdict ---
     print("=" * 78)
-    print("ΕΛΕΓΧΟΣ DEADTIME")
+    print("DEADTIME CHECK")
     print("=" * 78)
     for label, rows in results.items():
-        if "ΘΕΤΙΚΟΣ" in label:
+        if "POSITIVE" in label:
             continue
         near = [r for r in rows if abs(r["lag"]) == 1 and r["hit"]]
         far = [r for r in rows if abs(r["lag"]) >= 3 and r["hit"]]
         if not near and not far:
-            print(f"  {label:34s} καθαρό — κανένα σήμα")
+            print(f"  {label:34s} clean - no signal")
         elif near and not far:
-            print(f"  {label:34s} σήμα ΜΟΝΟ στο lag ±1 -> deadtime, ΟΧΙ ανακάλυψη")
+            print(f"  {label:34s} signal ONLY at lag +/-1 -> deadtime, NOT a discovery")
         elif far:
             lags = [r["lag"] for r in far]
-            print(f"  {label:34s} ΣΗΜΑ ΣΕ |lag|>=3: {lags}  <-- ΑΞΙΖΕΙ ΔΙΕΡΕΥΝΗΣΗ")
+            print(f"  {label:34s} SIGNAL AT |lag|>=3: {lags}  <-- WORTH INVESTIGATING")
 
-    print("\nΠΩΣ ΔΙΑΒΑΖΕΤΑΙ:")
-    print("  Το lag=0 στο OA vs SA πρέπει να δείχνει ΝΑΙ. Αν όχι -> bug.")
-    print("  Σήμα στο lag ±1 = deadtime ανιχνευτή. Αναμενόμενο, όχι ανακάλυψη.")
-    print("  Σήμα σε |lag| >= 3 ανάμεσα σε outcome και ΑΠΟΜΑΚΡΥΣΜΕΝΗ ρύθμιση")
-    print("  θα ήταν παραβίαση measurement independence.")
+    print("\nHOW TO READ THIS:")
+    print("  lag=0 in OA vs SA must show YES. If not -> a bug.")
+    print("  A signal at lag +/-1 is detector deadtime. Expected, not a find.")
+    print("  A signal at |lag| >= 3 between an outcome and a DISTANT setting")
+    print("  would be a violation of measurement independence.")
 
     np.save("lag_results.npy", results, allow_pickle=True)
-    print("\nΑποθηκεύτηκε: lag_results.npy")
+    print("\nSaved: lag_results.npy")
 
 
 if __name__ == '__main__':

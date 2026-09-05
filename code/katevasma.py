@@ -1,12 +1,12 @@
 """
-Κατέβασμα ωμών δεδομένων CURBy beacon — με ΑΥΣΤΗΡΑ όρια.
+Download raw CURBy beacon data - under STRICT limits.
 
-  * μία λήψη τη φορά, παύση 2 δευτ. ανάμεσα
-  * ΣΚΛΗΡΟ ΟΡΙΟ 5 αρχείων ανά τρέξιμο (--max)
-  * 403/429 -> ΑΜΕΣΗ ΔΙΑΚΟΠΗ, καμία προσπάθεια παράκαμψης
-  * manifest.json: round, url, μέγεθος, sha256, ημερομηνία λήψης
+  * one download at a time, a 2 second pause between them
+  * a HARD LIMIT of 5 files per run (--max)
+  * 403/429 -> IMMEDIATE STOP, no attempt to work around it
+  * manifest.json: round, url, size, sha256, download date
 
-Χρήση:  python3 katevasma.py --rounds 28297 28296 28295 28294 28293
+Usage:  python3 katevasma.py --rounds 28297 28296 28295 28294 28293
 """
 import argparse, hashlib, json, os, subprocess, sys, time
 from datetime import datetime, timezone
@@ -21,14 +21,14 @@ MANIFEST = os.path.join(HERE, "manifest.json")
 
 
 def decompress_if_needed(raw):
-    """Ο server (Cloudflare) σερβίρει cached απαντήσεις ως zstd ή gzip, και το
-    libcurl 8.7.1 δεν αποκωδικοποιεί zstd. Ανιχνεύουμε από τα μαγικά bytes
-    και αποσυμπιέζουμε μόνοι μας. Τα ΩΜΑ ΔΕΔΟΜΕΝΑ (/data) έρχονται ασυμπίεστα
-    και δεν περνούν από εδώ."""
+    """The server (Cloudflare) serves cached responses as zstd or gzip, and
+    libcurl 8.7.1 does not decode zstd. We detect the format from the magic
+    bytes and decompress it ourselves. The RAW DATA (/data) arrives
+    uncompressed and does not pass through here."""
     if raw[:4] == b"\x28\xb5\x2f\xfd":                     # zstd
         r = subprocess.run(["zstd", "-dc"], input=raw, capture_output=True)
         if r.returncode != 0:
-            raise RuntimeError("αποτυχία αποσυμπίεσης zstd: "
+            raise RuntimeError("zstd decompression failed: "
                                + r.stderr.decode("utf-8", "replace")[:200])
         return r.stdout
     if raw[:2] == b"\x1f\x8b":                             # gzip
@@ -38,11 +38,11 @@ def decompress_if_needed(raw):
 
 
 def fetch(path, out_path=None):
-    """Επιστρέφει (status, bytes|None). Γράφει σε αρχείο αν δοθεί out_path.
+    """Returns (status, bytes|None). Writes to a file if out_path is given.
 
-    ΔΕΝ χρησιμοποιείται --compressed: το libcurl διαφημίζει κωδικοποιήσεις
-    που δεν μπορεί να αποκωδικοποιήσει (br/zstd) και σκάει με σφάλμα 56.
-    Αντ' αυτού παίρνουμε ό,τι στείλει ο server και αποσυμπιέζουμε εμείς."""
+    --compressed is NOT used: libcurl advertises encodings it cannot decode
+    (br/zstd) and then fails with error 56. Instead we take whatever the
+    server sends and decompress it ourselves."""
     cmd = ["curl", "-sS", "-A", UA, "--max-time", "180",
            "-w", "%{http_code}"]
     if out_path:
@@ -80,24 +80,24 @@ def main():
     n = min(args.max, HARD_LIMIT)
     rounds = args.rounds[:n]
     if len(args.rounds) > n:
-        print(f"ΠΡΟΣΟΧΗ: ζητήθηκαν {len(args.rounds)}, το σκληρό όριο είναι {n}. "
-              f"Κατεβαίνουν μόνο: {rounds}")
+        print(f"NOTE: {len(args.rounds)} requested, the hard limit is {n}. "
+              f"Only these will be downloaded: {rounds}")
 
     man = load_manifest()
     have = {p["round"] for p in man["pulses"]}
 
     for i, rnd in enumerate(rounds):
         if rnd in have:
-            print(f"[{i+1}/{len(rounds)}] γύρος {rnd}: υπάρχει ήδη, παράλειψη")
+            print(f"[{i+1}/{len(rounds)}] round {rnd}: already present, skipped")
             continue
 
-        # --- 1. μεταδεδομένα (μικρό JSON) ---
+        # --- 1. metadata (a small JSON) ---
         st, body = fetch(f"/api/curbyq/round/{rnd}")
         if st in (403, 429):
-            sys.exit(f"\nΣΤΑΜΑΤΗΜΑ: ο server επέστρεψε {st} στα μεταδεδομένα του "
-                     f"γύρου {rnd}. Καμία προσπάθεια παράκαμψης.")
+            sys.exit(f"\nSTOPPING: the server returned {st} for the metadata "
+                     f"of round {rnd}. No attempt to work around it.")
         if st != 200:
-            print(f"[{i+1}] γύρος {rnd}: μεταδεδομένα status={st}, παράλειψη")
+            print(f"[{i+1}] round {rnd}: metadata status={st}, skipped")
             continue
         meta = json.loads(body)
         params, stages = {}, {}
@@ -110,21 +110,21 @@ def main():
                 params = p.get("parameters", {})
         time.sleep(PAUSE)
 
-        # --- 2. ωμά δεδομένα ---
+        # --- 2. raw data ---
         fname = f"curby_round_{rnd}.bin"
         fpath = os.path.join(HERE, fname)
         url = f"/api/curbyq/round/{rnd}/data"
-        print(f"[{i+1}/{len(rounds)}] γύρος {rnd}: κατέβασμα…", end=" ", flush=True)
+        print(f"[{i+1}/{len(rounds)}] round {rnd}: downloading...", end=" ", flush=True)
         st, err = fetch(url, out_path=fpath)
         if st in (403, 429):
             if os.path.exists(fpath):
                 os.remove(fpath)
-            sys.exit(f"\nΣΤΑΜΑΤΗΜΑ: ο server επέστρεψε {st} στον γύρο {rnd}. "
-                     f"Καμία προσπάθεια παράκαμψης.")
+            sys.exit(f"\nSTOPPING: the server returned {st} for round {rnd}. "
+                     f"No attempt to work around it.")
         if st != 200:
             if os.path.exists(fpath):
                 os.remove(fpath)
-            print(f"status={st}, παράλειψη")
+            print(f"status={st}, skipped")
             continue
 
         size = os.path.getsize(fpath)
@@ -152,7 +152,7 @@ def main():
             time.sleep(PAUSE)
 
     total = sum(p["bytes"] for p in man["pulses"])
-    print(f"\nΣύνολο στο manifest: {len(man['pulses'])} παλμοί, "
+    print(f"\nTotal in the manifest: {len(man['pulses'])} pulses, "
           f"{total/1e6:.1f} MB")
     print(f"Manifest: {MANIFEST}")
 

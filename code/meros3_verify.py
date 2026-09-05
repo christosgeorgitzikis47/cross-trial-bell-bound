@@ -1,34 +1,33 @@
 """
-ΜΕΡΟΣ 3, ΒΗΜΑ 6 — ΕΠΑΛΗΘΕΥΣΗ ΤΟΥ ΧΑΡΤΗ ΜΕ ΕΝΕΣΗ
+PART 3, STEP 6 - VERIFYING THE MAP BY INJECTION
 
-Χωρίς αυτό ο χάρτης είναι αριθμητική άσκηση. Ενίουμε σήμα ΑΚΡΙΒΩΣ στο
-ε_excl(τ) που δηλώνει ο χάρτης, και στο μισό του, και ελέγχουμε ότι το
-matched filter συμπεριφέρεται όπως υπόσχεται:
+Without this the map is an arithmetic exercise. We inject a signal EXACTLY at
+the eps_excl(tau) the map states, and at half of it, and check that the
+matched filter behaves as promised:
 
-ΠΟΙΟ ΕΙΝΑΙ ΤΟ ΣΩΣΤΟ ΚΡΙΤΗΡΙΟ (διόρθωση προηγούμενης εκδοχής)
-    Το ε_excl είναι ΑΝΩ ΟΡΙΟ ΕΜΠΙΣΤΟΣΥΝΗΣ, όχι όριο ισχύος. Εξ ορισμού,
-    σήμα ΑΚΡΙΒΩΣ στο ε_excl ανιχνεύεται μόνο τις μισές φορές (το z
-    κατανέμεται γύρω από το κατώφλι με sd 1). Το «ανιχνεύεται πάντα» θα
-    ήταν ΛΑΘΟΣ απαίτηση. Το σωστό τεστ είναι ποσοτικό:
+WHAT THE RIGHT CRITERION IS (correcting an earlier version)
+    eps_excl is a CONFIDENCE UPPER BOUND, not a power threshold. By
+    construction a signal EXACTLY at eps_excl is detected only half the time
+    (z is distributed about the threshold with sd 1). "Always detected" would
+    be the WRONG requirement. The right test is quantitative:
 
-        E[z] = frac · ( z_thr + |z_obs(τ)| )
+        E[z] = frac * ( z_thr + |z_obs(tau)| )
 
-    (το συνθετικό O δεν κληρονομεί το z_obs των πραγματικών δεδομένων —
-     είναι φρέσκο Bernoulli — αλλά το ε_excl το περιέχει μέσω του |ε̂|)
+    (the synthetic O does not inherit the z_obs of the real data -- it is
+     fresh Bernoulli -- but eps_excl contains it through |eps-hat|)
 
-    frac = 0    -> E[z] = 0        , 0% ανίχνευση
-    frac = 0,5  -> E[z] ≈ 2,7      , ~2% ανίχνευση
-    frac = 1    -> E[z] ≈ 5,4      , ~50-70% ανίχνευση
-    frac = 2    -> E[z] ≈ 10,8     , ~100% ανίχνευση
+    frac = 0    -> E[z] = 0     , 0% detection
+    frac = 0.5  -> E[z] ~ 2.7   , ~2% detection
+    frac = 1    -> E[z] ~ 5.4   , ~50-70% detection
+    frac = 2    -> E[z] ~ 10.8  , ~100% detection
 
-    ΠΕΡΝΑΕΙ αν το μετρημένο μέσο z συμφωνεί με το E[z] εντός 3 τυπικών
-    σφαλμάτων του μέσου, ΚΑΙ το frac=2 ανιχνεύεται πάντα, ΚΑΙ το frac=0
-    ποτέ.
+    It PASSES if the measured mean z agrees with E[z] to within 3 standard
+    errors of the mean, AND frac=2 is always detected, AND frac=0 never is.
 
-Πολλαπλά seeds ανά σημείο: η ένεση είναι τυχαία, ένα δείγμα δεν λέει
-τίποτα. Αναφέρεται μέσος ± sd του z.
+Several seeds per point: the injection is random and one sample says
+nothing. The mean and sd of z are reported.
 
-Το clipping ελέγχεται και εδώ (τα ε είναι μικρά, αναμένεται μηδενικό).
+Clipping is checked here too (the eps values are small, so zero is expected).
 """
 import argparse, json, math, os
 import numpy as np
@@ -68,13 +67,13 @@ def main():
     rng = np.random.default_rng(a.seed)
 
     print("=" * 78)
-    print("ΕΠΑΛΗΘΕΥΣΗ ΤΟΥ ΧΑΡΤΗ ΜΕ ΕΝΕΣΗ  (ζεύγος OA vs SB)")
+    print("VERIFYING THE MAP BY INJECTION  (pair OA vs SB)")
     print("=" * 78)
-    print(f"  κατώφλι z = {z_thr:.3f}   {a.reps} επαναλήψεις ανά σημείο\n")
+    print(f"  threshold z = {z_thr:.3f}   {a.reps} repetitions per point\n")
 
     res = []
     for tau in a.taus:
-        # ε_excl και z_obs στο τ αυτό: γραμμική παρεμβολή σε log-log
+        # eps_excl and z_obs at this tau: linear interpolation in log-log
         eps_x = float(np.exp(np.interp(math.log(tau), np.log(grid),
                                        np.log(eps_grid))))
         Q, _ = kernel_Q([tau], a.K)
@@ -82,11 +81,12 @@ def main():
         Qv = float(Q[0])
 
         F, _, _, _ = build_F(S, tau)
-        print(f"τ = {tau:g}   ε_excl (παρεμβολή) = {eps_x:.4e}   Q = {Qv:.1f}")
+        print(f"tau = {tau:g}   eps_excl (interpolated) = {eps_x:.4e}   "
+              f"Q = {Qv:.1f}")
 
         z_obs = float(np.interp(math.log(tau), np.log(grid), z_obs_grid))
-        for frac, name in [(0.0, "ε = 0"), (0.5, "ε_excl/2"),
-                           (1.0, "ε_excl"), (2.0, "2·ε_excl")]:
+        for frac, name in [(0.0, "eps = 0"), (0.5, "eps_excl/2"),
+                           (1.0, "eps_excl"), (2.0, "2*eps_excl")]:
             eps = frac * eps_x
             zs, clips = [], []
             for r in range(a.reps):
@@ -105,10 +105,11 @@ def main():
             passed = int((np.abs(zs) > z_thr).sum())
             sem = zs.std(ddof=1) / math.sqrt(a.reps)
             dev = (zs.mean() - z_pred) / sem if sem > 0 else 0.0
-            print(f"    {name:>10}  ε = {eps:.4e}  clip {max(clips)*100:.4f}%   "
-                  f"z = {zs.mean():+.2f} ± {sem:.2f}  "
-                  f"(πρόβλεψη {z_pred:+.2f}, απόκλιση {dev:+.1f}σ)   "
-                  f"ανιχνεύθηκε: {passed}/{a.reps}")
+            print(f"    {name:>10}  eps = {eps:.4e}  "
+                  f"clip {max(clips)*100:.4f}%   "
+                  f"z = {zs.mean():+.2f} +/- {sem:.2f}  "
+                  f"(predicted {z_pred:+.2f}, deviation {dev:+.1f} sigma)   "
+                  f"detected: {passed}/{a.reps}")
             res.append(dict(tau=tau, frac=frac, eps=eps,
                             z_mean=float(zs.mean()),
                             z_sd=float(zs.std(ddof=1)), z_sem=float(sem),
@@ -119,28 +120,28 @@ def main():
         del F
 
     print("=" * 78)
-    print("ΕΤΥΜΗΓΟΡΙΑ")
+    print("VERDICT")
     print("=" * 78)
     worst = max(abs(r["dev_sigma"]) for r in res if r["frac"] > 0)
     ok_cal = worst < 3.0
     ok_hi = all(r["n_pass"] == r["reps"] for r in res if r["frac"] == 2.0)
     ok_z0 = all(r["n_pass"] == 0 for r in res if r["frac"] == 0.0)
-    print(f"  βαθμονόμηση: μέγιστη απόκλιση του z από την πρόβλεψη "
-          f"{worst:.1f}σ  -> {'ΝΑΙ' if ok_cal else 'ΟΧΙ'}")
-    print(f"  2·ε_excl -> ανιχνεύεται ΠΑΝΤΑ: {'ΝΑΙ' if ok_hi else 'ΟΧΙ'}")
-    print(f"  ε = 0    -> ΔΕΝ ανιχνεύεται ΠΟΤΕ: {'ΝΑΙ' if ok_z0 else 'ΟΧΙ'}")
+    print(f"  calibration: largest deviation of z from the prediction "
+          f"{worst:.1f} sigma  -> {'YES' if ok_cal else 'NO'}")
+    print(f"  2*eps_excl -> ALWAYS detected: {'YES' if ok_hi else 'NO'}")
+    print(f"  eps = 0    -> NEVER detected: {'YES' if ok_z0 else 'NO'}")
     for r in res:
         if r["frac"] == 1.0:
-            print(f"    (ισχύς στο ίδιο το ε_excl, τ={r['tau']:g}: "
-                  f"{r['n_pass']}/{r['reps']} — αναμένεται ~50-70%, "
-                  f"ΔΕΝ είναι κριτήριο)")
-    print(f"  Ο ΧΑΡΤΗΣ ΕΠΑΛΗΘΕΥΕΤΑΙ: "
-          f"{'ΝΑΙ' if (ok_cal and ok_hi and ok_z0) else 'ΟΧΙ'}")
+            print(f"    (power at the bound itself, tau={r['tau']:g}: "
+                  f"{r['n_pass']}/{r['reps']} -- ~50-70% expected, "
+                  f"NOT a criterion)")
+    print(f"  THE MAP IS VERIFIED: "
+          f"{'YES' if (ok_cal and ok_hi and ok_z0) else 'NO'}")
 
     json.dump(dict(z_thr=z_thr, points=res, worst_dev_sigma=worst,
                    verified=bool(ok_cal and ok_hi and ok_z0)),
               open(os.path.join(HERE, "meros3_verify.json"), "w"), indent=2)
-    print("\nΑποθηκεύτηκε: meros3_verify.json")
+    print("\nSaved: meros3_verify.json")
 
 
 if __name__ == "__main__":

@@ -1,12 +1,15 @@
 """
-ΕΛΕΓΧΟΣ ΕΣΩΤΕΡΙΚΩΝ ΠΑΡΑΠΟΜΠΩΝ ΤΟΥ PAPER
+CHECK OF THE PAPER'S INTERNAL CROSS-REFERENCES
 
-Κάθε «§N», «§N.M», «Figure N», «Table N», «Appendix X», «Limitation N» και
-«[n]» πρέπει να δείχνει σε κάτι που υπάρχει. Ο έλεγχος γίνεται με script και
-όχι με το μάτι, επειδή οι αναριθμήσεις (6.4 -> 6.5, §7.1 -> Limitation 1)
-είναι ακριβώς εκεί που ξεφεύγουν οι σπασμένες παραπομπές.
+Every "section N", "section N.M", "Figure N", "Table N", "Appendix X",
+"Limitation N" and "[n]" must point at something that exists. The check is
+done by script and not by eye, because renumberings (6.4 -> 6.5, 7.1 ->
+Limitation 1) are exactly where broken references slip through.
 
-Χρήση:  python3 code/check_refs.py [paper/paper_en.md ...]
+The Greek alternatives kept in the regular expressions below are there so the
+same checker also works on a Greek rendering of the paper.
+
+Usage:  python3 code/check_refs.py [paper/paper_en.md ...]
 """
 import re, sys, os
 
@@ -21,7 +24,7 @@ def check(path):
     body = s[:body_end]
     bad = []
 
-    # --- τι υπάρχει ---
+    # --- what exists ---
     secs = set(re.findall(r"^## (\d+)\. ", body, re.M))
     subs = set(re.findall(r"^### (\d+\.\d+) ", body, re.M))
     figs = set(re.findall(r"^\*\*(?:Figure|Σχήμα) (\d+)\.\*\*", body, re.M))
@@ -35,51 +38,51 @@ def check(path):
     n_lim = len(re.findall(r"^\d+\. ", lims.group(1), re.M)) if lims else 0
     refs = set(re.findall(r"^\[(\d+)\]", s[body_end:], re.M))
 
-    # --- τι παραπέμπεται ---
+    # --- what is referenced ---
     for m in re.finditer(r"§(\d+)\.(\d+)", body):
         if f"{m.group(1)}.{m.group(2)}" not in subs:
-            bad.append(f"§{m.group(1)}.{m.group(2)} — δεν υπάρχει υποενότητα")
+            bad.append(f"section {m.group(1)}.{m.group(2)} - no such subsection")
     for m in re.finditer(r"§(\d+)(?!\.\d)", body):
         if m.group(1) not in secs:
-            bad.append(f"§{m.group(1)} — δεν υπάρχει ενότητα")
+            bad.append(f"section {m.group(1)} - no such section")
     for m in re.finditer(r"\*\*(?:Figure|Σχήμα) (\d+)\*\*|"
                          r"(?:Figure|Σχήμα) (\d+)", body):
         n = m.group(1) or m.group(2)
         if n not in figs:
-            bad.append(f"Figure {n} — δεν υπάρχει λεζάντα")
+            bad.append(f"Figure {n} - no such caption")
     for m in re.finditer(r"(?:Table|Πίνακα[ς]?) (\d+)", body):
         if m.group(1) not in tabs:
-            bad.append(f"Table {m.group(1)} — δεν υπάρχει τόσος πίνακας")
+            bad.append(f"Table {m.group(1)} - there are not that many tables")
     for m in re.finditer(r"(?:Appendix ([A-Z])|Παράρτημα ([ΑΒΓΔ]))(?![α-ωa-z])",
                          body):
         g = m.group(1) or m.group(2)
         if g not in apps:
-            bad.append(f"Appendix/Παράρτημα {g} — δεν υπάρχει")
+            bad.append(f"Appendix {g} - does not exist")
     for m in re.finditer(r"(?:Limitation|Περιορισμ[όό]) (\d+)", body):
         if not (1 <= int(m.group(1)) <= n_lim):
-            bad.append(f"Limitation {m.group(1)} — υπάρχουν {n_lim}")
+            bad.append(f"Limitation {m.group(1)} - there are {n_lim}")
     cited = {n for grp in re.findall(r"\[([\d,\s]+)\]", body)
              for n in grp.split(",") if n.strip().isdigit()}
     cited = {c.strip() for c in cited}
     for c in sorted(cited - refs, key=int):
-        if int(c) > 1:            # τα {0,1} σύνολα δεν είναι παραπομπές
-            bad.append(f"[{c}] — παραπομπή χωρίς εγγραφή")
+        if int(c) > 1:            # the {0,1} sets are not citations
+            bad.append(f"[{c}] - cited but not listed")
     orphan = sorted(refs - cited, key=int)
 
     print(f"--- {os.path.basename(path)} ---")
-    print(f"  ενότητες {sorted(secs, key=int)}")
-    print(f"  υποενότητες {sorted(subs)}")
-    print(f"  σχήματα {sorted(figs, key=int)} · πίνακες {len(tabs)} · "
-          f"παραρτήματα {sorted(apps)} · περιορισμοί {n_lim} · "
-          f"αναφορές {len(refs)}")
-    print(f"  ορφανές αναφορές (στη λίστα, χωρίς παραπομπή): "
-          f"{orphan if orphan else 'καμία'}")
+    print(f"  sections {sorted(secs, key=int)}")
+    print(f"  subsections {sorted(subs)}")
+    print(f"  figures {sorted(figs, key=int)} - tables {len(tabs)} - "
+          f"appendices {sorted(apps)} - limitations {n_lim} - "
+          f"references {len(refs)}")
+    print(f"  orphan references (listed but never cited): "
+          f"{orphan if orphan else 'none'}")
     if bad:
-        print("  ΣΠΑΣΜΕΝΕΣ ΠΑΡΑΠΟΜΠΕΣ:")
+        print("  BROKEN REFERENCES:")
         for b in sorted(set(bad)):
             print("   ", b)
     else:
-        print("  ΚΑΜΙΑ ΣΠΑΣΜΕΝΗ ΠΑΡΑΠΟΜΠΗ")
+        print("  NO BROKEN REFERENCES")
     return len(bad)
 
 

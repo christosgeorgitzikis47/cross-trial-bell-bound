@@ -1,39 +1,39 @@
 """
-ΒΗΜΑ Β — ΠΛΗΡΗΣ ΣΑΡΩΣΗ κάθε lag στο -10.000 … +10.000 (20.001 τιμές).
+STEP B - FULL SCAN of every lag from -10,000 to +10,000 (20,001 values).
 
-Αντικαθιστά τη δήλωση «στα 111 ελεγμένα lag» με «για ΚΑΘΕ |k| <= 10.000».
+Replaces the claim "over the 111 lags tested" with "for EVERY |k| <= 10,000".
 
 --------------------------------------------------------------------------
-ΔΥΟ ΤΕΧΝΙΚΑ ΣΗΜΕΙΑ, ΚΑΙ ΤΑ ΔΥΟ ΕΠΑΛΗΘΕΥΟΝΤΑΙ ΜΕΣΑ ΣΤΟ ΣΚΡΙΠΤ
+TWO TECHNICAL POINTS, BOTH VERIFIED INSIDE THE SCRIPT
 --------------------------------------------------------------------------
 
-1. ΤΟ BONFERRONI ΚΑΤΩΦΛΙ ΔΕΝ ΒΓΑΙΝΕΙ ΕΜΠΕΙΡΙΚΑ.
-   20.001 lag x 2 ζεύγη = 40.002 υποθέσεις -> χρειάζεται το
-   99,999875ο εκατοστημόριο του null. Με 2.000 ανακατέματα το ακρότατο
-   που υπάρχει είναι το ~99,95ο· θα χρειάζονταν ~800.000 ανακατέματα.
+1. THE BONFERRONI THRESHOLD CANNOT BE OBTAINED EMPIRICALLY.
+   20,001 lags x 2 pairs = 40,002 hypotheses -> it needs the 99.999875th
+   percentile of the null. With 2,000 shuffles the most extreme value
+   available is about the 99.95th; some 800,000 shuffles would be needed.
 
-   Αντ' αυτού: αναλυτική βαθμονόμηση. Υπό H0 ο πίνακας είναι 2x2
-   (αποτέλεσμα {0,1} x ρύθμιση {1,2}), άρα df = 1 και
+   Instead: an analytic calibration. Under H0 the table is 2x2
+   (outcome {0,1} x setting {1,2}), so df = 1 and
 
-       G = 2 * n * ln2 * MI   ~   χ²(1)
+       G = 2 * n * ln2 * MI   ~   chi^2(1)
 
-   -> κατώφλι σε κλειστό τύπο, χωρίς ανακατέματα.
-   ΕΠΑΛΗΘΕΥΣΗ (--validate-null): χτίζουμε 2.000 ανακατέματα και ελέγχουμε
-   ότι το G τους όντως ακολουθεί χ²(1) — μέσος 1, διασπορά 2, KS, ουρές.
-   Αν δεν ταιριάζει, ΔΕΝ χρησιμοποιείται.
+   -> a closed-form threshold, with no shuffling.
+   VERIFICATION (--validate-null): we build 2,000 shuffles and check that
+   their G really does follow chi^2(1) -- mean 1, variance 2, KS, tails.
+   If it does not fit, it is NOT used.
 
-   Το Bonferroni ισχύει χωρίς υπόθεση ανεξαρτησίας — και τα 40.002 lag
-   είναι συσχετισμένα (μοιράζονται δεδομένα), αλλά αυτό το κάνει
-   ΣΥΝΤΗΡΗΤΙΚΟ, όχι άκυρο.
+   Bonferroni holds without an independence assumption. The 40,002 lags are
+   correlated (they share data), but that makes the correction CONSERVATIVE,
+   not invalid.
 
-2. ΤΑΧΥΤΗΤΑ: 40.002 απευθείας MI ~ 1 ώρα. Οι μετρήσεις κάθε lag είναι
-   διασταυρούμενη συσχέτιση, άρα βγαίνουν ΟΛΕΣ ΜΑΖΙ με FFT:
+2. SPEED: 40,002 direct MI evaluations take about an hour. The counts at each
+   lag form a cross-correlation, so they all come out AT ONCE by FFT:
 
-       N11(k) = Σ_i o[i] * s1[i+k]        s1 = (setting == 1)
+       N11(k) = sum_i o[i] * s1[i+k]        s1 = (setting == 1)
 
-   Τα υπόλοιπα τρία κελιά βγαίνουν από τα περιθώρια, που είναι αθροίσματα
-   προθέματος. ΕΠΑΛΗΘΕΥΣΗ: 20 τυχαία lag συγκρίνονται με απευθείας
-   υπολογισμό· διαφορά != 0 -> διακοπή.
+   The other three cells follow from the margins, which are prefix sums.
+   VERIFICATION: 20 random lags are compared against a direct computation;
+   any difference != 0 aborts the run.
 """
 import argparse, json, math, os
 import numpy as np
@@ -49,23 +49,24 @@ LN2 = math.log(2.0)
 
 # ------------------------------------------------------------------ counts
 def n11_all_lags(o, s1, K):
-    """N11(k) = Σ_i o[i]*s1[i+k] για κάθε k στο [-K, +K], με ΕΝΑ FFT ζεύγος.
+    """N11(k) = sum_i o[i]*s1[i+k] for every k in [-K, +K], with ONE pair of
+    FFTs.
 
-    Μηδενικό γέμισμα σε μήκος >= n+K ώστε η κυκλική συσχέτιση να ΤΑΥΤΙΖΕΤΑΙ
-    με τη γραμμική στα lag που μας ενδιαφέρουν (καμία αναδίπλωση)."""
+    Zero-padded to a length >= n+K so that the circular correlation COINCIDES
+    with the linear one at the lags of interest (no wraparound)."""
     n = len(o)
     L = next_fast_len(n + K + 1)
     O = rfft(o.astype(np.float64), L)
     S = rfft(s1.astype(np.float64), L)
     R = irfft(np.conjugate(O) * S, L)
-    pos = R[:K + 1]                 # k = 0 … +K
-    neg = R[L - K:]                 # k = -K … -1
-    c = np.concatenate([neg, pos])  # k = -K … +K
+    pos = R[:K + 1]                 # k = 0 ... +K
+    neg = R[L - K:]                 # k = -K ... -1
+    c = np.concatenate([neg, pos])  # k = -K ... +K
     return np.rint(c).astype(np.int64), float(np.abs(c - np.rint(c)).max())
 
 
 def margins(o, s1, K):
-    """A1(k) = #{o=1}, B1(k) = #{s=1}, n_k, στα ίδια ευθυγραμμισμένα δείγματα."""
+    """A1(k) = #{o=1}, B1(k) = #{s=1}, n_k, over the same aligned samples."""
     n = len(o)
     ks = np.arange(-K, K + 1)
     co = np.concatenate([[0], np.cumsum(o, dtype=np.int64)])
@@ -75,12 +76,12 @@ def margins(o, s1, K):
     B1 = np.empty(len(ks), np.int64)
     for j, k in enumerate(ks):
         if k >= 0:
-            # δείκτες o: 0 … n-k-1 ;  δείκτες s: k … n-1
+            # indices of o: 0 ... n-k-1 ;  of s: k ... n-1
             A1[j] = co[n - k]
             B1[j] = tot_s - cs[k]
         else:
             m = -k
-            # δείκτες o: m … n-1 ;  δείκτες s: 0 … n-m-1
+            # indices of o: m ... n-1 ;  of s: 0 ... n-m-1
             A1[j] = tot_o - co[m]
             B1[j] = cs[n - m]
     nk = n - np.abs(ks)
@@ -88,7 +89,7 @@ def margins(o, s1, K):
 
 
 def mi_from_counts(n11, A1, B1, nk):
-    """MI σε bits από τον πίνακα 2x2, διανυσματικά για όλα τα lag."""
+    """MI in bits from the 2x2 table, vectorised over all lags."""
     n11 = n11.astype(np.float64); A1 = A1.astype(np.float64)
     B1 = B1.astype(np.float64);   nk = nk.astype(np.float64)
     cells = np.stack([n11, A1 - n11, B1 - n11, nk - A1 - B1 + n11])   # 11,12,01,02
@@ -99,9 +100,9 @@ def mi_from_counts(n11, A1, B1, nk):
     return np.nansum(t, axis=0)
 
 
-# ----------------------------------------------------------------- χ² null
+# --------------------------------------------------------------- chi^2 null
 def validate_chi2(o, s, n_shuffle, seed=777):
-    """Ελέγχει ότι G = 2n ln2 MI των ανακατεμένων δεδομένων ~ χ²(1)."""
+    """Checks that G = 2n ln2 MI of the shuffled data follows chi^2(1)."""
     rng = np.random.default_rng(seed)
     sh = s.copy()
     n = len(o)
@@ -140,23 +141,23 @@ def main():
     n = len(SA)
     n_lags = 2 * a.K + 1
     n_tests = n_lags * 2
-    print(f"Παλμός: {a.path}")
-    print(f"Trials: {n:,}   lag: {n_lags:,} ανά ζεύγος   "
-          f"ΣΥΝΟΛΟ ΥΠΟΘΕΣΕΩΝ: {n_tests:,}\n")
+    print(f"Pulse: {a.path}")
+    print(f"Trials: {n:,}   lags: {n_lags:,} per pair   "
+          f"TOTAL HYPOTHESES: {n_tests:,}\n")
 
-    # ---------------- κατώφλι Bonferroni, αναλυτικά ----------------
+    # ---------------- Bonferroni threshold, analytic ----------------
     alpha = 0.05
     p_thr = alpha / n_tests
     g_thr = float(chi2.ppf(1 - p_thr, 1))
     print("=" * 78)
-    print("ΚΑΤΩΦΛΙ BONFERRONI ΓΙΑ ΤΟΝ ΝΕΟ ΑΡΙΘΜΟ ΥΠΟΘΕΣΕΩΝ")
+    print("BONFERRONI THRESHOLD FOR THE NEW NUMBER OF HYPOTHESES")
     print("=" * 78)
-    print(f"  υποθέσεις m           = {n_tests:,}   (ήταν 222 στα 111 lag)")
-    print(f"  α                     = {alpha}")
-    print(f"  ανά υπόθεση p         = α/m = {p_thr:.4e}")
-    print(f"  χ²(1) κατώφλι         = {g_thr:.4f}")
-    print(f"  -> MI κατώφλι         = {g_thr/(2*n*LN2):.4e} bits/trial  (στο n={n:,})")
-    print(f"  (για σύγκριση: το κατώφλι των 222 υποθέσεων ήταν 7,0e-07)\n")
+    print(f"  hypotheses m          = {n_tests:,}   (was 222 over 111 lags)")
+    print(f"  alpha                 = {alpha}")
+    print(f"  p per hypothesis      = alpha/m = {p_thr:.4e}")
+    print(f"  chi^2(1) threshold    = {g_thr:.4f}")
+    print(f"  -> MI threshold       = {g_thr/(2*n*LN2):.4e} bits/trial  (at n={n:,})")
+    print(f"  (for comparison: the 222-hypothesis threshold was 7.0e-07)\n")
 
     rng_chk = np.random.default_rng(12345)
     out = {"n": n, "K": a.K, "n_lags": n_lags, "n_tests": n_tests,
@@ -168,30 +169,31 @@ def main():
         print(label)
         print("=" * 78)
 
-        # --- 1. επαλήθευση της χ²(1) βαθμονόμησης πάνω σε πραγματικό null ---
-        print(f"  επαλήθευση χ²(1) με {a.shuffles} ανακατέματα…", flush=True)
+        # --- 1. verify the chi^2(1) calibration on a real null ---
+        print(f"  validating chi^2(1) with {a.shuffles} shuffles...",
+              flush=True)
         v = validate_chi2(o_full, s_full, a.shuffles)
-        print(f"    μέσος G   {v['mean']:.4f}  (θεωρία 1)     "
-              f"διασπορά {v['var']:.4f}  (θεωρία 2)")
-        print(f"    διάμεσος  {v['q50']:.4f} / {v['q50_theory']:.4f}    "
+        print(f"    mean G    {v['mean']:.4f}  (theory 1)     "
+              f"variance {v['var']:.4f}  (theory 2)")
+        print(f"    median    {v['q50']:.4f} / {v['q50_theory']:.4f}    "
               f"q90 {v['q90']:.3f} / {v['q90_theory']:.3f}    "
               f"q99 {v['q99']:.3f} / {v['q99_theory']:.3f}")
-        print(f"    q99,9     {v['q999']:.3f} / {v['q999_theory']:.3f}    "
-              f"max {v['max']:.3f} / {v['max_theory']:.3f} (αναμ.)")
+        print(f"    q99.9     {v['q999']:.3f} / {v['q999_theory']:.3f}    "
+              f"max {v['max']:.3f} / {v['max_theory']:.3f} (expected)")
         print(f"    KS: D = {v['ks_stat']:.4f}, p = {v['ks_p']:.3f}  -> "
-              + ("ΤΑΙΡΙΑΖΕΙ" if v['ks_p'] > 0.01 else "ΔΕΝ ΤΑΙΡΙΑΖΕΙ"))
+              + ("FITS" if v['ks_p'] > 0.01 else "DOES NOT FIT"))
         if v['ks_p'] <= 0.01:
-            raise SystemExit("Η χ²(1) βαθμονόμηση ΑΠΕΡΡΙΦΘΗ — μη συνεχίσεις.")
+            raise SystemExit("The chi^2(1) calibration was REJECTED - stop.")
 
-        # --- 2. πλήρης σάρωση με FFT ---
-        print(f"  σάρωση {n_lags:,} lag με FFT…", flush=True)
+        # --- 2. full scan by FFT ---
+        print(f"  scanning {n_lags:,} lags by FFT...", flush=True)
         s1 = (s_full == 1).astype(np.int8)
         n11, ferr = n11_all_lags(o_full, s1, a.K)
         ks, A1, B1, nk = margins(o_full, s1, a.K)
-        print(f"    μέγιστο σφάλμα στρογγυλοποίησης FFT: {ferr:.2e}  "
-              + ("(ασφαλές)" if ferr < 0.1 else "(ΥΨΗΛΟ)"))
+        print(f"    largest FFT rounding error: {ferr:.2e}  "
+              + ("(safe)" if ferr < 0.1 else "(HIGH)"))
 
-        # --- 3. επαλήθευση FFT έναντι απευθείας υπολογισμού ---
+        # --- 3. verify the FFT against a direct computation ---
         picks = np.unique(np.concatenate([
             [-a.K, -1, 0, 1, a.K],
             rng_chk.integers(-a.K, a.K + 1, a.checks)]))
@@ -203,45 +205,45 @@ def main():
             if direct != n11[j] or len(oo) != nk[j] or int((oo == 1).sum()) != A1[j] \
                     or int((ss == 1).sum()) != B1[j]:
                 bad += 1
-                print(f"    ΔΙΑΦΩΝΙΑ στο lag {k}: FFT {n11[j]} vs απευθείας {direct}")
-        print(f"    επαλήθευση σε {len(picks)} lag: "
-              + ("ΟΛΑ ΤΑΥΤΙΖΟΝΤΑΙ" if bad == 0 else f"{bad} ΔΙΑΦΩΝΙΕΣ"))
+                print(f"    DISAGREEMENT at lag {k}: FFT {n11[j]} vs direct {direct}")
+        print(f"    verified at {len(picks)} lags: "
+              + ("ALL MATCH" if bad == 0 else f"{bad} DISAGREEMENTS"))
         if bad:
-            raise SystemExit("Η FFT διαφώνησε με τον απευθείας υπολογισμό.")
+            raise SystemExit("The FFT disagreed with the direct computation.")
 
         # --- 4. MI, G, p ---
         MI = mi_from_counts(n11, A1, B1, nk)
         G = 2 * nk * LN2 * MI
         above = G > g_thr
         i_max = int(np.argmax(G))
-        # σ ως προς το εμπειρικό null, για συνέχεια με την προηγούμενη αναφορά
+        # sigma against the empirical null, for continuity with the earlier report
         sig = (MI - v["null_mi_mean"]) / v["null_mi_sd"]
 
-        print(f"\n    ΜΕΓΙΣΤΟ σε {n_lags:,} lag:")
-        print(f"      lag             = {int(ks[i_max]):+,}")
-        print(f"      MI              = {MI[i_max]:.4e} bits/trial")
-        print(f"      G               = {G[i_max]:.3f}   (κατώφλι {g_thr:.3f})")
-        print(f"      p (χ²(1))       = {chi2.sf(G[i_max], 1):.3e}   "
-              f"(κατώφλι {p_thr:.3e})")
-        print(f"      σ πάνω από null = {sig[i_max]:+.2f}")
-        print(f"      -> {'ΠΑΝΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ' if above[i_max] else 'ΚΑΤΩ ΑΠΟ ΤΟ ΚΑΤΩΦΛΙ'}"
-              f"  ({MI[i_max]/(g_thr/(2*n*LN2))*100:.0f}% του κατωφλιού)")
-        print(f"    lag πάνω από το κατώφλι: {int(above.sum())} / {n_lags:,}")
+        print(f"\n    LARGEST over {n_lags:,} lags:")
+        print(f"      lag              = {int(ks[i_max]):+,}")
+        print(f"      MI               = {MI[i_max]:.4e} bits/trial")
+        print(f"      G                = {G[i_max]:.3f}   (threshold {g_thr:.3f})")
+        print(f"      p (chi^2(1))     = {chi2.sf(G[i_max], 1):.3e}   "
+              f"(threshold {p_thr:.3e})")
+        print(f"      sigma above null = {sig[i_max]:+.2f}")
+        print(f"      -> {'ABOVE THE THRESHOLD' if above[i_max] else 'BELOW THE THRESHOLD'}"
+              f"  ({MI[i_max]/(g_thr/(2*n*LN2))*100:.0f}% of the threshold)")
+        print(f"    lags above the threshold: {int(above.sum())} / {n_lags:,}")
         if above.any():
             hit = [(int(ks[i]), float(MI[i]), float(G[i])) for i in np.where(above)[0]]
             print(f"      -> {hit[:20]}")
-        # πόσα θα περιμέναμε από τύχη σε αυτό το κατώφλι
-        print(f"    (αναμενόμενα από τύχη σε όλο το πείραμα: "
-              f"{n_tests*p_thr:.3f} = α = {alpha})")
+        # how many we would expect by chance at this threshold
+        print(f"    (expected by chance across the whole experiment: "
+              f"{n_tests*p_thr:.3f} = alpha = {alpha})")
 
-        # πού πέφτουν τα 111 παλιά lag μέσα στο νέο πλήρες σύνολο
+        # where the 111 old lags fall inside the new full set
         old_lags = list(range(-50, 51)) + [-10000, -3000, -1000, -300, -100,
                                            100, 300, 1000, 3000, 10000]
         oi = np.array([int(k) + a.K for k in old_lags if abs(k) <= a.K])
         i_old = oi[int(np.argmax(MI[oi]))]
         rank = int((MI > MI[i_old]).sum()) + 1
-        print(f"    παλιό μέγιστο (στα 111 ελεγμένα lag): MI = {MI[i_old]:.4e} "
-              f"στο lag {int(ks[i_old]):+,}  -> κατάταξη {rank} μέσα στα {n_lags:,}")
+        print(f"    old maximum (over the 111 tested lags): MI = {MI[i_old]:.4e} "
+              f"at lag {int(ks[i_old]):+,}  -> rank {rank} among {n_lags:,}")
 
         out["pairs"][label] = {
             "chi2_validation": v,
@@ -262,18 +264,18 @@ def main():
 
     mx = max(p["max_mi"] for p in out["pairs"].values())
     print("=" * 78)
-    print("ΤΟ ΟΡΙΟ ΓΙΑ ΚΑΘΕ |k| <= 10.000")
+    print("THE BOUND FOR EVERY |k| <= 10,000")
     print("=" * 78)
-    print(f"  μέγιστο παρατηρούμενο MI σε {n_tests:,} υποθέσεις: {mx:.4e} bits/trial")
-    print(f"  κατώφλι Bonferroni:                              "
+    print(f"  largest observed MI over {n_tests:,} hypotheses: {mx:.4e} bits/trial")
+    print(f"  Bonferroni threshold:                          "
           f"{g_thr/(2*n*LN2):.4e} bits/trial")
-    print(f"  -> MI(αποτέλεσμα ; ρύθμιση σε lag k) < "
-          f"{g_thr/(2*n*LN2):.2e} bits/trial για ΚΑΘΕ |k| <= {a.K:,}")
+    print(f"  -> MI(outcome ; setting at lag k) < "
+          f"{g_thr/(2*n*LN2):.2e} bits/trial for EVERY |k| <= {a.K:,}")
     out["max_mi_overall"] = mx
     out["mi_threshold"] = g_thr / (2 * n * LN2)
     json.dump(out, open(os.path.join(HERE, "full_scan_results.json"), "w"),
               indent=2)
-    print(f"\nΑποθηκεύτηκε: full_scan_results.json  + full_scan_*.npz")
+    print(f"\nSaved: full_scan_results.json  + full_scan_*.npz")
 
 
 if __name__ == "__main__":

@@ -2,19 +2,24 @@ r"""
 paper/paper_en.md  ->  paper/georgitzikis_2026_cross_trial_bell_bound.pdf
                        (arXiv-style preprint)
 
-ΤΙ ΚΑΝΕΙ
-    1. Προεπεξεργασία του markdown: κάθε σύμβολο unicode γίνεται ΠΡΑΓΜΑΤΙΚΑ
-       μαθηματικά LaTeX ($\tau$, $\varepsilon$, $10^{-6}$, $\hat\delta$ …),
-       οι εξισώσεις γίνονται αριθμημένα equation environments, τα σχήματα
-       γίνονται floats με το ΔΙΑΝΥΣΜΑΤΙΚΟ pdf.
-    2. pandoc: markdown -> LaTeX (πίνακες σε booktabs).
-    3. pdflatex ×3 (για references/floats).
+WHAT IT DOES
+    1. Preprocess the markdown: every unicode symbol becomes REAL LaTeX maths
+       ($\tau$, $\varepsilon$, $10^{-6}$, $\hat\delta$ ...), the display
+       equations become numbered equation environments, and the figures become
+       floats using the VECTOR pdf.
+    2. pandoc: markdown -> LaTeX (tables in booktabs).
+    3. pdflatex x3 (for references and floats).
 
-ΤΟ ΠΕΡΙΕΧΟΜΕΝΟ ΤΟΥ PAPER ΔΕΝ ΑΛΛΑΖΕΙ. Μόνο η στοιχειοθεσία.
+THE CONTENT OF THE PAPER DOES NOT CHANGE. Only the typesetting.
 
-Έλεγχος: μετά τη μετατροπή σαρώνεται ό,τι έμεινε εκτός ASCII και
-αναφέρεται· το pdflatex (όχι xelatex) θα σκάλωνε σε unicode, οπότε ο
-έλεγχος είναι και μηχανικός.
+Check: after the conversion, whatever is left outside ASCII is scanned and
+reported. pdflatex (not xelatex) would choke on unicode, so the check is
+mechanical as well.
+
+Note: the Greek letters that appear below in the GREEK table, in the regular
+expressions and in the EQUATIONS / INLINE_EXACT source strings are FUNCTIONAL.
+They are the symbols of the paper and the exact source text to be matched, and
+must not be translated.
 """
 import os, re, shutil, subprocess, sys
 
@@ -25,8 +30,8 @@ BUILD = os.path.join(ROOT, "paper", "_build")
 os.makedirs(BUILD, exist_ok=True)
 
 # --------------------------------------------------------------------------
-# 1. Οι εξισώσεις: ρητή αντιστοίχιση πηγής -> LaTeX, ώστε να μη μαντεύει
-#    τίποτα ο αυτόματος μετατροπέας στα σημεία που μετράνε.
+# 1. The equations: an explicit source -> LaTeX mapping, so that the
+#    automatic converter guesses nothing where it matters.
 # --------------------------------------------------------------------------
 EQUATIONS = [
     ("> **p(i) = p₀(S_own(i)) + α · ε · Σ_k W_τ(k) · S_other(i+k)**",
@@ -78,7 +83,7 @@ EQUATIONS = [
      "eberhard-lag"),
 ]
 
-# «κουτιωμένα» αποτελέσματα
+# "boxed" results
 BOXED = [
     ("> **I(O ; S at lag k) < 1.13 × 10⁻⁶ bits per trial for every |k| ≤ 10,000,\n"
      "> at family-wise α = 0.05**",
@@ -92,7 +97,7 @@ BOXED = [
      "bound2"),
 ]
 
-# πολυσύμβολες inline εκφράσεις που θέλουν χειροκίνητη απόδοση
+# multi-symbol inline expressions that need a hand-written rendering
 INLINE_EXACT = [
     ("> **Q(τ) = Σ_k W_τ(k)²**, summed over the scan window |k| ≤ 10,000",
      "\\begin{equation}\nQ(\\tau) \\;=\\; \\sum_{|k|\\le 10{,}000} "
@@ -261,10 +266,10 @@ PROTECT = re.compile(r"(\$\$.*?\$\$|\$[^$\n]*\$|\\[a-zA-Z]+(?:\{[^{}]*\})*)")
 
 
 def code_spans(t):
-    """`code` -> \texttt{code}, με escape των ειδικών χαρακτήρων LaTeX."""
+    """`code` -> \texttt{code}, escaping the special LaTeX characters."""
     def one(m):
         c = m.group(1)
-        # μέσα σε \texttt το math δεν έχει νόημα: το βέλος ξαναγίνεται ASCII
+        # inside \texttt maths is meaningless: the arrow goes back to ASCII
         c = c.replace(r"$\rightarrow$", "->").replace(r"$\to$", "->")
         for a, b in (("\\", r"\textbackslash{}"), ("_", r"\_"), ("#", r"\#"),
                      ("%", r"\%"), ("&", r"\&"), ("$", r"\$")):
@@ -280,59 +285,59 @@ def apply_exact(t):
 
 
 def convert_inline(t):
-    """Μετατροπή ΜΟΝΟ στα κομμάτια που δεν είναι ήδη LaTeX.
+    """Convert ONLY the parts that are not already LaTeX.
 
-    Ό,τι έχει ήδη γίνει math από τους ρητούς πίνακες (INLINE_EXACT,
-    EQUATIONS) περνάει άθικτο — αλλιώς ο αυτόματος κανόνας ξαναδουλεύει
-    πάνω στο δικό του αποτέλεσμα και το σπάει."""
+    Anything already turned into maths by the explicit tables (INLINE_EXACT,
+    EQUATIONS) passes through untouched -- otherwise the automatic rule would
+    run again over its own output and break it."""
     return "".join(part if (part.startswith("$") or part.startswith("\\"))
                    else _convert_plain(part)
                    for part in PROTECT.split(t))
 
 
 def _convert_plain(t):
-    # 1. επιστημονική σημειογραφία:  1.13 × 10⁻⁶
+    # 1. scientific notation:  1.13 x 10^-6
     def sci(m):
         mant, exp = m.group(1), "".join(SUP[c] for c in m.group(2))
         return rf"${mant} \times 10^{{{exp}}}$"
     t = re.sub(r"([0-9][0-9.,]*)\s*×\s*10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)", sci, t)
     t = re.sub(r"(?<![$0-9])10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)",
                lambda m: "$10^{%s}$" % "".join(SUP[c] for c in m.group(1)), t)
-    # 2. σύμβολο με εκθέτη/δείκτη:  k², τ², ε², p₀, c₁, r₂, α²
+    # 2. a symbol with a superscript or subscript:  k^2, tau^2, p_0, c_1
     t = re.sub(r"([A-Za-zτεδσαλχπρ])([⁰¹²³⁴⁵⁶⁷⁸⁹]+)",
                lambda m: "$%s^{%s}$" % (GREEK.get(m.group(1), m.group(1)),
                                         "".join(SUP[c] for c in m.group(2))), t)
     t = re.sub(r"([A-Za-zτεδσαλχπρ])([₀₁₂₃₄₅₆₇₈₉]+)",
                lambda m: "$%s_{%s}$" % (GREEK.get(m.group(1), m.group(1)),
                                         "".join(SUB[c] for c in m.group(2))), t)
-    # 3. δείκτες με γράμμα: σ_T, O_A, S_B, α_A, W_τ, ε_excl, z_thr, Q_sym …
+    # 3. letter subscripts: sigma_T, O_A, S_B, alpha_A, W_tau, eps_excl ...
     def _sub(m):
         base = GREEK.get(m.group(1), m.group(1))
         idx = m.group(3)
         idx = GREEK[idx] if idx in GREEK else r"\mathrm{%s}" % idx
         return "$%s_{%s}$" % (base, idx)
     t = re.sub(r"\b([A-Zσεδαz])_(\{)?([A-Za-zτ]+)(\})?", _sub, t)
-    # 4. √ με απλό όρισμα
+    # 4. a square root with a simple argument
     t = re.sub(r"√\(([^)]+)\)", lambda m: "$\\sqrt{%s}$" % m.group(1), t)
     t = re.sub(r"√([A-Za-zτ0-9]+)",
                lambda m: "$\\sqrt{%s}$" % GREEK.get(m.group(1), m.group(1)), t)
-    # 5. μεμονωμένα ελληνικά γράμματα
+    # 5. isolated Greek letters
     for g, tex in GREEK.items():
         t = t.replace(g, f"${tex}$")
-    # 6α. πρόσημο κολλημένο σε αριθμό: το «$-$1» θα έσπαγε τον pandoc
-    #     (κλείσιμο math ακολουθούμενο από ψηφίο δεν μετράει ως math)
+    # 6a. a sign glued to a number: "$-$1" would break pandoc
+    #     (a closing math delimiter followed by a digit does not count as maths)
     t = re.sub(r"−([0-9][0-9,\.]*)", lambda m: "$-%s$" % m.group(1), t)
-    # 6. τελεστές
+    # 6. operators
     for a, b in (("≤", r"$\le$"), ("≥", r"$\ge$"), ("≈", r"$\approx$"),
                  ("≠", r"$\ne$"), ("≪", r"$\ll$"), ("≫", r"$\gg$"), ("≡", r"$\equiv$"), ("∝", r"$\propto$"),
                  ("∈", r"$\in$"), ("±", r"$\pm$"), ("×", r"$\times$"),
                  ("·", r"$\cdot$"), ("−", "$-$"), ("→", r"$\rightarrow$"),
                  ("§", r"\S"), ("—", "---"), ("–", "--")):
         t = t.replace(a, b)
-    # 7. καθάρισμα: $..$$..$ -> ένα math span
+    # 7. tidy up: $..$$..$ -> a single math span
     t = re.sub(r"\$\s*\$", " ", t)
-    # 8. τελεστής ακολουθούμενος ΑΜΕΣΩΣ από ψηφίο: ο pandoc δεν κλείνει math
-    #    πριν από ψηφίο, οπότε ο αριθμός απορροφάται μέσα στο span
+    # 8. an operator IMMEDIATELY followed by a digit: pandoc does not close
+    #    the maths before a digit, so the number is absorbed into the span
     for op in (r"\pm", "-", r"\le", r"\ge", r"\approx", r"\ne",
                r"\times", r"\sim", r"\propto"):
         t = re.sub(re.escape("$" + op + "$") + r"([0-9][0-9,\.]*)",
@@ -351,21 +356,21 @@ def figure_block(png, caption, label):
 
 def preprocess(md):
     out = md
-    frozen = []          # ό,τι είναι ήδη τελικό LaTeX δεν ξαναγγίζεται
+    frozen = []          # whatever is already final LaTeX is never touched again
 
     def freeze(block):
         frozen.append(block)
         return "\n@@FROZEN%d@@\n" % (len(frozen) - 1)
 
-    # --- fenced code block -> verbatim (πριν από οτιδήποτε άλλο) ---
+    # --- fenced code block -> verbatim (before anything else) ---
     def fence(m):
         return freeze("\\begin{verbatim}\n%s\\end{verbatim}"
                       % m.group(1))
     out = re.sub(r"```[a-z]*\n(.*?)```\n", fence, out, flags=re.S)
 
-    # --- κουτιωμένα αποτελέσματα και εξισώσεις ---
+    # --- boxed results and equations ---
     for src, tex, lab in EQUATIONS + BOXED:
-        assert src in out, f"δεν βρέθηκε η εξίσωση: {src[:40]}"
+        assert src in out, f"equation not found: {src[:40]}"
         out = out.replace(src, freeze(
             "\\begin{equation}\n%s\n\\label{eq:%s}\n\\end{equation}"
             % (tex, lab)))
@@ -375,7 +380,7 @@ def preprocess(md):
         else:
             out = out.replace(src, tex)
 
-    # --- σχήματα: εικόνα + η αμέσως επόμενη παράγραφος-λεζάντα ---
+    # --- figures: the image plus the caption paragraph right after it ---
     fig_re = re.compile(
         r"!\[Figure (\d)\]\(([^)]+)\)\s*\n\s*\n\*\*Figure \d\.\*\* (.+?)\n\n",
         re.S)
@@ -389,7 +394,7 @@ def preprocess(md):
         return figure_block(m.group(2), cap, m.group(1))
     out = fig_re.sub(fig_sub, out)
 
-    # --- υπόλοιπο κείμενο ---
+    # --- the remaining text ---
     lines = out.split("\n")
     res, in_raw = [], False
     for ln in lines:
@@ -432,9 +437,9 @@ PREAMBLE = r"""
 def main():
     md = open(SRC, encoding="utf-8").read()
 
-    # τίτλος / συγγραφέας / abstract βγαίνουν από το κείμενο
+    # title / author / abstract are taken out of the text
     title = re.search(r"^# (.+)$", md, re.M).group(1)
-    # η γραμμή έκδοσης είναι προαιρετική (αφαιρέθηκε από τη v11 και μετά)
+    # the version line is optional (removed from v11 onwards)
     m_ver = re.search(r"^\*(Version .+?)\*", md, re.M | re.S)
     ver = " ".join(m_ver.group(1).split()) if m_ver else ""
     abstract = re.search(r"## Abstract\n(.+?)\n---", md, re.S).group(1).strip()
@@ -444,7 +449,7 @@ def main():
     abstract = code_spans(abstract)
     body = preprocess(body)
 
-    # ενότητες: το «## 1. Introduction» -> \section (αυτόματη αρίθμηση)
+    # sections: "## 1. Introduction" -> \section (numbered automatically)
     body = re.sub(r"^## (\d)\. (.+)$", r"\\section{\2}", body, flags=re.M)
     body = re.sub(r"^### (\d)\.(\d) (.+)$", r"\\subsection{\3}", body, flags=re.M)
     body = re.sub(r"^## Appendix A .*?$",
@@ -459,7 +464,7 @@ def main():
         body = body.replace(f"## {h}", f"\\section*{{{h}}}")
     body = body.replace("\n---\n", "\n")
 
-    # βιβλιογραφία -> thebibliography
+    # bibliography -> thebibliography
     refs = re.search(r"\\section\*\{References\}\n(.+)$", body, re.S)
     items = re.findall(r"^\[(\d+)\] (.+?)(?=\n\[\d+\]|\Z)", refs.group(1),
                        re.S | re.M)
@@ -467,7 +472,7 @@ def main():
         t = " ".join(t.split())
         t = re.sub(r"\*\*([^*]+)\*\*", r"\\textbf{\1}", t)
         t = re.sub(r"\*([^*]+)\*", r"\\textit{\1}", t)
-        t = re.sub(r'"([^"]+)"', r"``\1''", t)      # τυπογραφικά εισαγωγικά
+        t = re.sub(r'"([^"]+)"', r"``\1''", t)      # typographic quotes
         return t
     bib = "\\begin{thebibliography}{9}\n" + "\n".join(
         "\\bibitem{r%s} %s" % (i, emph(t)) for i, t in items
@@ -478,10 +483,10 @@ def main():
     open(pre, "w", encoding="utf-8").write(body)
 
     left = sorted({c for c in body if ord(c) > 127})
-    print("unicode που απέμεινε στο σώμα:", left if left else "ΚΑΝΕΝΑ")
+    print("unicode left in the body:", left if left else "NONE")
     bad = re.findall(r"\$[^$\n]{0,40}\$[0-9]", body)
     if bad:
-        print("ΠΡΟΣΟΧΗ, math ακολουθούμενο από ψηφίο:", bad[:5])
+        print("WARNING, maths followed by a digit:", bad[:5])
 
     meta = os.path.join(BUILD, "meta.yaml")
     open(meta, "w", encoding="utf-8").write(
@@ -501,7 +506,7 @@ def main():
            "-V", "numbersections=true", "-V", "colorlinks=true", "-V", "linkcolor=black",
            "-V", "urlcolor=[rgb]{0.1,0.25,0.5}", "-H", hdr, "-o", tex]
     subprocess.run(cmd, check=True)
-    print("γράφτηκε το .tex")
+    print("wrote the .tex")
 
     for i in range(3):
         r = subprocess.run(["pdflatex", "-interaction=nonstopmode",
@@ -510,14 +515,14 @@ def main():
                            errors="replace", cwd=ROOT)
         if r.returncode != 0:
             print(r.stdout[-4000:])
-            sys.exit("pdflatex απέτυχε στο πέρασμα %d" % (i + 1))
+            sys.exit("pdflatex failed on pass %d" % (i + 1))
     out = os.path.join(ROOT, "paper",
                        "georgitzikis_2026_cross_trial_bell_bound.pdf")
     shutil.copy(os.path.join(BUILD, "paper_en.pdf"), out)
     log = open(os.path.join(BUILD, "paper_en.log"), errors="ignore").read()
     m = re.search(r"Output written on .*?\((\d+) pages", log, re.S)
     pages = m.group(1) if m else "?"
-    print(f"ΕΤΟΙΜΟ: {out}  —  {pages} σελίδες")
+    print(f"DONE: {out}  -  {pages} pages")
 
 
 if __name__ == "__main__":

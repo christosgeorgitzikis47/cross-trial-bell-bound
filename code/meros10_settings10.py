@@ -1,21 +1,22 @@
 """
-ΜΕΡΟΣ 10 — Ο ΕΛΕΓΧΟΣ ΦΑΝΤΑΣΜΑΤΟΣ ΣΕ ΟΛΟΥΣ ΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ
+PART 10 - THE PHANTOM CHECK ON ALL TEN PULSES
 
-Το Μέρος 8 έτρεξε μόνο στον 28297. Αφού το κύριο αποτέλεσμα είναι πλέον το
-κοινό όριο των δέκα, μια συσχετισμένη γεννήτρια σε ΟΠΟΙΟΝΔΗΠΟΤΕ παλμό θα
-μόλυνε το κοινό όριο. Εδώ τρέχει ο ίδιος έλεγχος και στους δέκα.
+Part 8 was run on round 28297 only. Since the headline result is now the joint
+bound of the ten, a correlated generator in ANY pulse would contaminate it.
+The same check is run here on all ten.
 
-ΔΥΟ ΣΥΓΚΡΙΣΕΙΣ, ΚΑΙ ΟΙ ΔΥΟ ΧΡΕΙΑΖΟΝΤΑΙ
-  (α) ανά παλμό:  ε_phantom,p(τ) = Σ W ρ_p / Q   έναντι του κοινού ορίου
-  (β) σωστά σταθμισμένο: το φάντασμα μπαίνει στο κοινό όριο με τα ΙΔΙΑ βάρη
-      αντίστροφης διασποράς με τα δεδομένα:
+TWO COMPARISONS, BOTH NEEDED
+  (a) per pulse:  eps_phantom,p(tau) = sum W rho_p / Q, against the joint bound
+  (b) properly weighted: the phantom enters the joint bound with the SAME
+      inverse-variance weights as the data:
 
-        ε_phantom,joint = Σ_p (ε_phantom,p / σ_p²) / Σ_p (1/σ_p²)
+        eps_phantom,joint = sum_p (eps_phantom,p / sigma_p^2)
+                            / sum_p (1/sigma_p^2)
 
-      Αυτό είναι το φυσικά σχετικό μέγεθος: πόσο μετατοπίζει το φάντασμα την
-      κοινή εκτίμηση. Τα σ_p έρχονται από το Μέρος 9.
+      This is the physically relevant quantity: how far the phantom shifts the
+      joint estimate. The sigma_p come from Part 9.
 
-Αν κάποιος παλμός δείξει |ρ| πάνω από το κατώφλι, το γράφουμε ΠΡΩΤΟ.
+If any pulse shows |rho| above the threshold, we write it FIRST.
 """
 import json, math, os
 import numpy as np
@@ -43,11 +44,11 @@ def main():
     Qcache = {kn: (Wcache[kn] ** 2).sum(axis=1) for kn in KERNELS}
 
     print("=" * 78)
-    print("ΜΕΡΟΣ 10 — ΣΥΣΧΕΤΙΣΗ ΡΥΘΜΙΣΕΩΝ ΣΕ ΟΛΟΥΣ ΤΟΥΣ ΔΕΚΑ ΠΑΛΜΟΥΣ")
+    print("PART 10 - SETTING CORRELATION ON ALL TEN PULSES")
     print("=" * 78)
-    print(f"  |k| ≤ {K:,}   κατώφλι {z_thr:.3f}σ\n")
-    print(f"  {'γύρος':>7} {'max |ρ|':>11} {'σε lag':>9} {'σ':>7} "
-          f"{'>κατώφλι':>9}   {'max|ρ_AA|':>10} {'max|ρ_BB|':>10}")
+    print(f"  |k| <= {K:,}   threshold {z_thr:.3f} sigma\n")
+    print(f"  {'round':>7} {'max |rho|':>11} {'at lag':>9} {'sigma':>7} "
+          f"{'>thresh':>9}   {'max|r_AA|':>10} {'max|r_BB|':>10}")
 
     rows = []
     rho_by_round = {}
@@ -65,7 +66,7 @@ def main():
         j = int(np.argmax(np.abs(r_ab)))
         nab = int((np.abs(r_ab) > z_thr * se).sum())
 
-        # αμοιβαία πληροφορία των ρυθμίσεων, ίδιο κατώφλι
+        # mutual information of the settings, same threshold
         a1 = (SA == 1).astype(np.int8); b1 = (SB == 1).astype(np.int8)
         _, n11, A1, B1, nk, _ = scan(a1, b1, K)
         MI, _ = mi_and_delta(n11, A1, B1, nk)
@@ -87,15 +88,15 @@ def main():
         del SA, SB, sa, sb, r_aa, r_bb, a1, b1
 
     n_bad = sum(r["n_above"] + r["n_above_mi"] for r in rows)
-    print(f"\n  ΣΥΝΟΛΟ πάνω από το κατώφλι: {n_bad}  "
-          f"(συσχέτιση {sum(r['n_above'] for r in rows)}, "
-          f"αμοιβαία πληροφορία {sum(r['n_above_mi'] for r in rows)})")
+    print(f"\n  TOTAL above the threshold: {n_bad}  "
+          f"(correlation {sum(r['n_above'] for r in rows)}, "
+          f"mutual information {sum(r['n_above_mi'] for r in rows)})")
     if n_bad:
-        print("\n  *** ΣΤΑΜΑΤΑ: βρέθηκε συσχέτιση ρυθμίσεων ***")
+        print("\n  *** STOP: setting correlation found ***")
 
-    # ---------- φάντασμα ανά παλμό και σταθμισμένο ----------
+    # ---------- phantom per pulse and properly weighted ----------
     print("\n" + "=" * 78)
-    print("ΦΑΝΤΑΣΜΑ ΕΝΑΝΤΙ ΤΟΥ ΚΟΙΝΟΥ ΟΡΙΟΥ")
+    print("THE PHANTOM AGAINST THE JOINT BOUND")
     print("=" * 78)
     out = {"z_thr": z_thr, "rounds": rows, "taus": taus.tolist()}
     worst_single = 0.0; worst_joint = 0.0; where = None
@@ -104,11 +105,11 @@ def main():
         detail[pair] = {}
         for kn in KERNELS:
             W = Wcache[kn]; Q = Qcache[kn]
-            # ε_phantom ανά παλμό: (n_pulse × n_tau)
+            # eps_phantom per pulse: (n_pulse x n_tau)
             eph = np.stack([np.abs(W @ rho_by_round[r]) / Q for r in ROUNDS])
             sig = np.array([m9["per_pulse"][pair][kn][i]["sigma"]
                             for i in range(len(ROUNDS))])
-            # τα per_pulse του Μέρους 9 είναι στη σειρά των ROUNDS
+            # the per_pulse entries of Part 9 follow the ROUNDS order
             w = 1.0 / sig ** 2
             eph_joint = (eph * w).sum(axis=0) / w.sum(axis=0)
             excl_joint = np.array(m9["joint"][pair][kn]["eps_excl"])
@@ -122,17 +123,18 @@ def main():
                 eps_excl_joint=excl_joint.tolist(),
                 max_ratio_single_pulse=float(r_single),
                 max_ratio_joint=float(r_joint))
-    print(f"  χειρότερος λόγος, ΜΕΜΟΝΩΜΕΝΟΣ παλμός / κοινό όριο: "
-          f"{worst_single:.4f}   ({1/worst_single:.0f}× κάτω)")
-    print(f"  χειρότερος λόγος, ΣΤΑΘΜΙΣΜΕΝΟ φάντασμα / κοινό όριο: "
-          f"{worst_joint:.4f}   ({1/worst_joint:.0f}× κάτω)   [{where[0]}, {where[1]}]")
+    print(f"  worst ratio, SINGLE pulse / joint bound: "
+          f"{worst_single:.4f}   ({1/worst_single:.0f}x below)")
+    print(f"  worst ratio, WEIGHTED phantom / joint bound: "
+          f"{worst_joint:.4f}   ({1/worst_joint:.0f}x below)   "
+          f"[{where[0]}, {where[1]}]")
     out["worst_ratio_single_pulse"] = worst_single
     out["worst_ratio_joint"] = worst_joint
     out["detail"] = detail
     out["clean"] = bool(n_bad == 0)
     json.dump(out, open(os.path.join(HERE, "meros10_settings10.json"), "w"),
               indent=2)
-    print("\nΑποθηκεύτηκε: meros10_settings10.json")
+    print("\nSaved: meros10_settings10.json")
 
 
 if __name__ == "__main__":

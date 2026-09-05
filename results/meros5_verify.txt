@@ -1,59 +1,59 @@
 ==============================================================================
-ΕΠΑΛΗΘΕΥΣΗ ΤΩΝ ΑΣΥΜΜΕΤΡΩΝ ΦΙΛΤΡΩΝ ΜΕ ΕΝΕΣΗ  (ζεύγος OA vs SB)
+VERIFYING THE ASYMMETRIC FILTERS BY INJECTION  (pair OA vs SB)
 ==============================================================================
-  κατώφλι z = 4.848   10 επαναλήψεις ανά σημείο
+  threshold z = 4.848   10 repetitions per point
 
 ------------------------------------------------------------------------------
-ΠΥΡΗΝΑΣ: future — μόνο μέλλον (γκαουσιανός)  k > 0
+KERNEL: future - future only (Gaussian)  k > 0
 ------------------------------------------------------------------------------
-  τ = 30   ε_excl = 1.0932e-02   z_obs = -0.21   half = 150   σφάλμα F = 3.55e-15   sd(F) = 5.113
-    ε = 1.0932e-02 (1×)  clip 0.0000%   z = +5.14 ± 0.29  (πρόβλεψη +5.06, +0.3σ)   ανιχνεύθηκε 5/10
-    ε = 2.1865e-02 (2×)  clip 0.0000%   z = +10.35 ± 0.48  (πρόβλεψη +10.12, +0.5σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «past» -> z = -1.56
+  tau = 30   eps_excl = 1.0932e-02   z_obs = -0.21   half = 150   F error = 3.55e-15   sd(F) = 5.113
+    eps = 1.0932e-02 (1x)  clip 0.0000%   z = +5.14 +/- 0.29  (predicted +5.06, +0.3 sigma)   detected 5/10
+    eps = 2.1865e-02 (2x)  clip 0.0000%   z = +10.35 +/- 0.48  (predicted +10.12, +0.5 sigma)   detected 10/10
+      cross-check: the same signal through the 'past' filter -> z = -1.56
 
-  τ = 300   ε_excl = 3.5132e-03   z_obs = +0.16   half = 1500   σφάλμα F = 8.88e-15   sd(F) = 16.356
-    ε = 3.5132e-03 (1×)  clip 0.0000%   z = +5.42 ± 0.34  (πρόβλεψη +5.01, +1.2σ)   ανιχνεύθηκε 5/10
-    ε = 7.0263e-03 (2×)  clip 0.0000%   z = +10.90 ± 0.36  (πρόβλεψη +10.02, +2.4σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «past» -> z = -0.69
-
-------------------------------------------------------------------------------
-ΠΥΡΗΝΑΣ: past — μόνο παρελθόν (γκαουσιανός)  k < 0
-------------------------------------------------------------------------------
-  τ = 30   ε_excl = 1.1821e-02   z_obs = -0.68   half = 150   σφάλμα F = 2.89e-15   sd(F) = 5.113
-    ε = 1.1821e-02 (1×)  clip 0.0000%   z = +5.70 ± 0.29  (πρόβλεψη +5.53, +0.6σ)   ανιχνεύθηκε 8/10
-    ε = 2.3643e-02 (2×)  clip 0.0000%   z = +10.79 ± 0.31  (πρόβλεψη +11.06, -0.9σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «future» -> z = -0.37
-
-  τ = 300   ε_excl = 3.6075e-03   z_obs = -0.54   half = 1500   σφάλμα F = 7.11e-15   sd(F) = 16.356
-    ε = 3.6075e-03 (1×)  clip 0.0000%   z = +5.48 ± 0.26  (πρόβλεψη +5.38, +0.4σ)   ανιχνεύθηκε 7/10
-    ε = 7.2151e-03 (2×)  clip 0.0000%   z = +11.14 ± 0.29  (πρόβλεψη +10.77, +1.3σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «future» -> z = +1.32
+  tau = 300   eps_excl = 3.5132e-03   z_obs = +0.16   half = 1500   F error = 8.88e-15   sd(F) = 16.356
+    eps = 3.5132e-03 (1x)  clip 0.0000%   z = +5.42 +/- 0.34  (predicted +5.01, +1.2 sigma)   detected 5/10
+    eps = 7.0263e-03 (2x)  clip 0.0000%   z = +10.90 +/- 0.36  (predicted +10.02, +2.4 sigma)   detected 10/10
+      cross-check: the same signal through the 'past' filter -> z = -0.69
 
 ------------------------------------------------------------------------------
-ΠΥΡΗΝΑΣ: exp_future — μόνο μέλλον (εκθετικός)  exp(-k/τ), k > 0
+KERNEL: past - past only (Gaussian)  k < 0
 ------------------------------------------------------------------------------
-  τ = 30   ε_excl = 1.4574e-02   z_obs = -0.18   half = 420   σφάλμα F = 7.11e-15   sd(F) = 3.813
-    ε = 1.4574e-02 (1×)  clip 0.0000%   z = +4.81 ± 0.42  (πρόβλεψη +5.03, -0.5σ)   ανιχνεύθηκε 6/10
-    ε = 2.9147e-02 (2×)  clip 0.0000%   z = +10.02 ± 0.41  (πρόβλεψη +10.06, -0.1σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «exp_past (κάτοπτρο)» -> z = -0.16
+  tau = 30   eps_excl = 1.1821e-02   z_obs = -0.68   half = 150   F error = 2.89e-15   sd(F) = 5.113
+    eps = 1.1821e-02 (1x)  clip 0.0000%   z = +5.70 +/- 0.29  (predicted +5.53, +0.6 sigma)   detected 8/10
+    eps = 2.3643e-02 (2x)  clip 0.0000%   z = +10.79 +/- 0.31  (predicted +11.06, -0.9 sigma)   detected 10/10
+      cross-check: the same signal through the 'future' filter -> z = -0.37
 
-  τ = 300   ε_excl = 4.5415e-03   z_obs = -0.04   half = 4200   σφάλμα F = 3.55e-15   sd(F) = 12.285
-    ε = 4.5415e-03 (1×)  clip 0.0000%   z = +5.53 ± 0.34  (πρόβλεψη +4.89, +1.9σ)   ανιχνεύθηκε 8/10
-    ε = 9.0830e-03 (2×)  clip 0.0000%   z = +10.47 ± 0.38  (πρόβλεψη +9.77, +1.8σ)   ανιχνεύθηκε 10/10
-      cross-check: το ίδιο σήμα μέσα από το φίλτρο «exp_past (κάτοπτρο)» -> z = -0.84
+  tau = 300   eps_excl = 3.6075e-03   z_obs = -0.54   half = 1500   F error = 7.11e-15   sd(F) = 16.356
+    eps = 3.6075e-03 (1x)  clip 0.0000%   z = +5.48 +/- 0.26  (predicted +5.38, +0.4 sigma)   detected 7/10
+    eps = 7.2151e-03 (2x)  clip 0.0000%   z = +11.14 +/- 0.29  (predicted +10.77, +1.3 sigma)   detected 10/10
+      cross-check: the same signal through the 'future' filter -> z = +1.32
+
+------------------------------------------------------------------------------
+KERNEL: exp_future - future only (exponential)  exp(-k/tau), k > 0
+------------------------------------------------------------------------------
+  tau = 30   eps_excl = 1.4574e-02   z_obs = -0.18   half = 420   F error = 7.11e-15   sd(F) = 3.813
+    eps = 1.4574e-02 (1x)  clip 0.0000%   z = +4.81 +/- 0.42  (predicted +5.03, -0.5 sigma)   detected 6/10
+    eps = 2.9147e-02 (2x)  clip 0.0000%   z = +10.02 +/- 0.41  (predicted +10.06, -0.1 sigma)   detected 10/10
+      cross-check: the same signal through the 'exp_past (mirrored)' filter -> z = -0.16
+
+  tau = 300   eps_excl = 4.5415e-03   z_obs = -0.04   half = 4200   F error = 3.55e-15   sd(F) = 12.285
+    eps = 4.5415e-03 (1x)  clip 0.0000%   z = +5.53 +/- 0.34  (predicted +4.89, +1.9 sigma)   detected 8/10
+    eps = 9.0830e-03 (2x)  clip 0.0000%   z = +10.47 +/- 0.38  (predicted +9.77, +1.8 sigma)   detected 10/10
+      cross-check: the same signal through the 'exp_past (mirrored)' filter -> z = -0.84
 
 ==============================================================================
-ΕΤΥΜΗΓΟΡΙΑ
+VERDICT
 ==============================================================================
-  συμφωνία z με την πρόβλεψη: μέγιστη απόκλιση 2.4σ  -> ΝΑΙ
-  2·ε_excl ανιχνεύεται ΠΑΝΤΑ: ΝΑΙ
-  αντίθετο φίλτρο ΔΕΝ ανάβει: ΝΑΙ (max |z| = 1.56)
-    (ισχύς στο ίδιο το ε_excl, future τ=30: 5/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, future τ=300: 5/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, past τ=30: 8/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, past τ=300: 7/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, exp_future τ=30: 6/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-    (ισχύς στο ίδιο το ε_excl, exp_future τ=300: 8/10 — αναμένεται ~50%, ΔΕΝ είναι κριτήριο)
-  ΤΑ ΑΣΥΜΜΕΤΡΑ ΦΙΛΤΡΑ ΕΠΑΛΗΘΕΥΟΝΤΑΙ: ΝΑΙ
+  z agrees with the prediction: largest deviation 2.4 sigma  -> YES
+  2*eps_excl is ALWAYS detected: YES
+  the opposite filter does NOT fire: YES (max |z| = 1.56)
+    (power at the bound itself, future tau=30: 5/10 -- ~50% expected, NOT a criterion)
+    (power at the bound itself, future tau=300: 5/10 -- ~50% expected, NOT a criterion)
+    (power at the bound itself, past tau=30: 8/10 -- ~50% expected, NOT a criterion)
+    (power at the bound itself, past tau=300: 7/10 -- ~50% expected, NOT a criterion)
+    (power at the bound itself, exp_future tau=30: 6/10 -- ~50% expected, NOT a criterion)
+    (power at the bound itself, exp_future tau=300: 8/10 -- ~50% expected, NOT a criterion)
+  THE ASYMMETRIC FILTERS ARE VERIFIED: YES
 
-Αποθηκεύτηκε: meros5_verify.json
+Saved: meros5_verify.json

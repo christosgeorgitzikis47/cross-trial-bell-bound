@@ -278,7 +278,7 @@
         9.423086560824704,
         9.651197990726969
       ],
-      "cross_kernel": "exp_past (\u03ba\u03ac\u03c4\u03bf\u03c0\u03c4\u03c1\u03bf)",
+      "cross_kernel": "exp_past (mirrored)",
       "cross_z": -0.16177263311245538
     },
     {
@@ -334,7 +334,7 @@
         8.809506669834654,
         10.376985432763956
       ],
-      "cross_kernel": "exp_past (\u03ba\u03ac\u03c4\u03bf\u03c0\u03c4\u03c1\u03bf)",
+      "cross_kernel": "exp_past (mirrored)",
       "cross_z": -0.8401025518281128
     }
   ],
