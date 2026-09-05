@@ -371,10 +371,11 @@ the two settings give click rates r₁ = 4.96662 × 10⁻³ and r₂ = 8.89072 �
 hence δ(0) = 1.96206 × 10⁻³ ± 2.14 × 10⁻⁵ and α = 1.9621 × 10⁻³ ± 1.1%. The
 same construction on Bob's wing gives r₁ = 5.04249 × 10⁻³,
 r₂ = 8.69908 × 10⁻³ and α_B = 1.8283 × 10⁻³, with marginal click probabilities
-p₀ = 6.92833 × 10⁻³ for Alice and 6.87087 × 10⁻³ for Bob. Both are needed: the
-map is computed per channel, and every quantity quoted for O_B vs S_A — the
-dashed curves of Figure 3, the joint bounds of Table 7, and the worst point of
-the map — uses α_B, not α_A.
+p₀ = 6.92833 × 10⁻³ for Alice and 6.87087 × 10⁻³ for Bob. Both are needed,
+because the map is computed per channel. The tables of §6.3 and §6.4 report
+O_A vs S_B and so use α_A; α_B enters the dashed curves of both panels of
+Figure 3, the worst point of the single-pulse map (1.62 × 10⁻¹, exponential
+future at τ = 1), and the linearity check of §2.
 
 The second-order approximation reproduces the exactly computed mutual
 information to 1.35% (4.036 × 10⁻⁴ against 4.091 × 10⁻⁴, the latter from the
@@ -482,7 +483,7 @@ in §6.2.
 | Check | Expected | Observed |
 |---|---|---|
 | Eberhard J at k = 0 | violation | +11.7 to +18.8 (J/σ_J), all ten pulses |
-| Same-pair I at k = 0 | large | 4.091 × 10⁻⁴ bits, G = 8,508 → **92.2σ (√G)** |
+| Same-pair I at k = 0 | large | 4.091 × 10⁻⁴ bits, G = 8,508 → **92.2σ (√G)** for O_A vs S_A; 3.576 × 10⁻⁴, G = 7,437 → 86.2σ for O_B vs S_B |
 | Cross-pair I at k = 0 | zero (no-signalling) | 2.14 × 10⁻⁸ bits (0.67σ) and 2.09 × 10⁻¹¹ bits (0.02σ) |
 | Shift sign | injected k = +3 recovered at k = +3 | +134.2 (J/σ_J) at k = +3, on synthetic data |
 | Detector deadtime | visible at \|k\| = 1, absent beyond | **2.7σ (√G) at k = −1 in O_B vs S_B — observed but not significant** |
@@ -1336,7 +1337,7 @@ now mapped.
 | `code/meros17_periodogram.py` | §6.8: Lomb–Scargle periodogram of δ̂(k), its threshold, null and positive control |
 | `code/meros18_covariance.py` | §6.4: covariance of the T_p across pulses, per filter, and its permutation null |
 | `code/check_refs.py` | verifies every internal cross-reference resolves |
-| `code/figures_en.py` | Figures 1–3 |
+| `code/figures_en.py` | Figures 1–4 |
 
 : Which script produces which number.
 
