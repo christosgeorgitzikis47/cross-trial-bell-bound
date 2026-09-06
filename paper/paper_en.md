@@ -1354,7 +1354,7 @@ mkdir -p ../dedomena_curby && mv curby_round_*.bin ../dedomena_curby/
 python3 load_curby.py ../dedomena_curby/curby_round_28297.bin --out curby_28297.npz
 python3 full_scan.py ; python3 meros1_alpha.py
 python3 j_curve.py curby_28297.npz --png j_curve_28297.png
-python3 meros2_injection.py ; python3 meros3_map.py
+python3 meros2_injection.py ; python3 meros3_map.py --shuffles 400
 python3 meros3_verify.py ; python3 meros4_outcome_outcome.py
 python3 meros5_asym.py ; python3 meros5_verify.py
 python3 meros6_p0.py ; python3 meros6_kernelQ.py

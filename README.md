@@ -93,7 +93,8 @@ python3 lag_test.py curby_28297.npz  # sampled scan with an empirical null
 python3 lag_dense.py curby_28297.npz # dense scan near k = 0, deadtime check
 python3 meros1_alpha.py              # calibrate alpha, the epsilon = 1 convention
 python3 meros2_injection.py          # injection test of the analytic relation
-python3 meros3_map.py                # matched filter, symmetric exclusion map
+python3 meros3_map.py --shuffles 400 # matched filter, symmetric exclusion map;
+                                     # the default is 200 and gives a noisier sigma_T
 python3 meros3_verify.py             # inject at the bound, half it, twice it
 python3 meros4_outcome_outcome.py    # outcome-outcome scan and k = 0 control
 python3 meros5_asym.py               # the four kernels
