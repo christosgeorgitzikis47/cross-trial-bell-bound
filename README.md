@@ -75,15 +75,20 @@ NumPy and SciPy are required; Matplotlib only for the figure scripts.
 pip install -r requirements.txt
 cd code
 
-# 1. download one raw round (rate-limited, hard cap of 5 files per run)
-python3 katevasma.py --rounds 28297
+# 1. download the ten raw rounds (rate-limited, hard cap of 5 files per run,
+#    so it takes two invocations; about 90 MB in total)
+python3 katevasma.py --rounds 28297 28296 28295 28294 28293
+python3 katevasma.py --rounds 26000 23000 22000 15000 1000
+mkdir -p ../dedomena_curby && mv curby_round_*.bin ../dedomena_curby/
 
-# 2. unpack it into SA / SB / OA / OB arrays
-python3 load_curby.py curby_round_28297.bin --out curby_28297.npz
+# 2. unpack round 28297 into SA / SB / OA / OB arrays
+python3 load_curby.py ../dedomena_curby/curby_round_28297.bin --out curby_28297.npz
 
 # 3. single-pulse analysis (each reads curby_28297.npz from this directory)
 python3 full_scan.py                 # +/-10,000 lag scan, settings vs outcomes
-python3 j_curve.py curby_28297.npz   # Eberhard J(k) and the shift-sign self-test
+python3 j_curve.py curby_28297.npz --png j_curve_28297.png
+                                     # Eberhard J(k), the shift-sign self-test;
+                                     # the --png name is what figures_en.py reads
 python3 lag_test.py curby_28297.npz  # sampled scan with an empirical null
 python3 lag_dense.py curby_28297.npz # dense scan near k = 0, deadtime check
 python3 meros1_alpha.py              # calibrate alpha, the epsilon = 1 convention
@@ -101,7 +106,7 @@ python3 meros6_systematic.py         # origin of the 3-7% systematic
 python3 meros6_alpha10.py            # alpha for each of the ten pulses
 python3 meros11_optimality.py        # Gaussianity of delta-hat, kernel mismatch
 
-# 5. ten-pulse extensions (need the other nine rounds in dedomena_curby/)
+# 5. ten-pulse extensions (these read the raw rounds from dedomena_curby/)
 python3 meros7_power.py              # the remaining two injection levels
 python3 meros8_settings.py           # setting correlations, the phantom signal
 python3 meros9_joint.py              # inverse-variance joint bound

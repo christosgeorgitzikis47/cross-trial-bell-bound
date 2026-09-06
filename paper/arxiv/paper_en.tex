@@ -2122,9 +2122,12 @@ resolves \\
 
 \begin{verbatim}
 cd code
-python3 katevasma.py --rounds 28297
-python3 load_curby.py curby_round_28297.bin --out curby_28297.npz
+python3 katevasma.py --rounds 28297 28296 28295 28294 28293
+python3 katevasma.py --rounds 26000 23000 22000 15000 1000
+mkdir -p ../dedomena_curby && mv curby_round_*.bin ../dedomena_curby/
+python3 load_curby.py ../dedomena_curby/curby_round_28297.bin --out curby_28297.npz
 python3 full_scan.py ; python3 meros1_alpha.py
+python3 j_curve.py curby_28297.npz --png j_curve_28297.png
 python3 meros2_injection.py ; python3 meros3_map.py
 python3 meros3_verify.py ; python3 meros4_outcome_outcome.py
 python3 meros5_asym.py ; python3 meros5_verify.py
@@ -2139,12 +2142,16 @@ python3 meros17_periodogram.py ; python3 meros18_covariance.py
 python3 figures_en.py
 \end{verbatim}
 
-Random seeds are fixed in the scripts: 4711 (exclusion map shuffles),
-808 and 909 (injection verification), 1707 (power curve), 2026
-(systematic diagnostics), 3141 (mismatch), 5150 (joint bound), 0 and
-\textbar k\textbar+1 (per-lag nulls). Results were produced with Python
-3.14.6, NumPy 2.5.1, SciPy 1.18.0 and Matplotlib 3.11.1; the minimum
-supported versions are given in \texttt{requirements.txt}.
+The download is split in two because \texttt{katevasma.py} refuses more
+than five files per run; the ten-pulse scripts read the raw rounds from
+\texttt{dedomena\_curby/}, the single-pulse ones the unpacked
+\texttt{curby\_28297.npz} beside themselves. Random seeds are fixed in
+the scripts: 4711 (exclusion map shuffles), 808 and 909 (injection
+verification), 1707 (power curve), 2026 (systematic diagnostics), 3141
+(mismatch), 5150 (joint bound), 0 and \textbar k\textbar+1 (per-lag
+nulls). Results were produced with Python 3.14.6, NumPy 2.5.1, SciPy
+1.18.0 and Matplotlib 3.11.1; the minimum supported versions are given
+in \texttt{requirements.txt}.
 
 \section{Derivations}
 
